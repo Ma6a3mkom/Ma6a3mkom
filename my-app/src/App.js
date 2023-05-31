@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import NavListMenu from "./components/NavListMenu"
-import Footer from "./components/Footer"
-import Home from "./pages/Home"
-import About from "./pages/About"
+import NavListMenu from "./components/user/NavListMenu"
+import Footer from "./components/user/Footer"
+import Home from "./pages/user/Home"
+import About from "./pages/user/About"
 function App() {
 
   const [hideRouter1, setHideRouter1] = useState(false);

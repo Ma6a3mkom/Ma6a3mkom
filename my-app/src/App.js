@@ -4,10 +4,17 @@ import NavListMenu from "./components/user/NavListMenu"
 import Footer from "./components/user/Footer"
 import Home from "./pages/user/Home"
 import About from "./pages/user/About"
+
+
+
 function App() {
 
-  const [hideRouter1, setHideRouter1] = useState(false);
-  const AppRouter1 = () => {
+  const [hideRouterUser, setHideRouterUser] = useState(false);
+  const [hideRouterAdmin, setHideRouterAdmin] = useState(true);
+  const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
+
+  
+  const AppRouterUser = () => {
     return (
       
       <Router>
@@ -22,15 +29,56 @@ function App() {
      
     );
   };
+
+  const AppRouterAdmin = () => {
+    return (
+      
+      <Router>
+        <Routes>
+             <Route index element={<Home />} />
+             <Route path="About" element={<About />} />
+
+        </Routes>
+        <Footer/>
+      </Router>
+     
+    );
+  };
+
+  const AppRouterRestaurants = () => {
+    return (
+      
+      <Router>
+       <NavListMenu />
+        <Routes>
+             <Route index element={<Home />} />
+             <Route path="About" element={<About />} />
+
+        </Routes>
+      </Router>
+     
+    );
+  };
+
   return (
  <>
  
-    {hideRouter1 ? null : (
+    {hideRouterUser ? null : (
       <>
-        <AppRouter1 />
+        <AppRouterUser />
       </>
     )}
- 
+   {hideRouterAdmin ? null : (
+      <>
+        <AppRouterAdmin />
+      </>
+    )}
+
+{hideRouterRestaurants ? null : (
+      <>
+        <AppRouterRestaurants />
+      </>
+    )}
  </>
   );
 }

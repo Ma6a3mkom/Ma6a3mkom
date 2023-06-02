@@ -5,6 +5,7 @@ import { mdiCheckCircle } from '@mdi/js';
 import { mdiDelete } from "@mdi/js";
 import { mdiFileEdit } from "@mdi/js";
 import { useState } from 'react';
+
  import Pagination from "@mui/material/Pagination";
 
 const ApproveTable = () => {
@@ -57,6 +58,7 @@ LOCATION:"irbid"
        }
        
        const [currentPageRestaurants, setCurrentPageRestaurants] = useState(1);
+
        let totalItemsRestaurants;
        
        let totalPagesRestaurants;
@@ -78,6 +80,8 @@ LOCATION:"irbid"
        const handlePageChangeRestaurants = (event, pageNumber) => {
          setCurrentPageRestaurants(pageNumber);
        };
+
+       
   return (
     
 <>

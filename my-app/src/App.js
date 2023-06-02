@@ -13,6 +13,7 @@ import ContactUs from './pages/user/ContactUs';
 import ProfilePage from './pages/user/ProfilePage'
 import ServicePage from './pages/user/ServicePage';
 import Details from './pages/user/Details';
+import EditProfile from './pages/user/EditProfile';
 //----------------------------------------------------------------//
 
 //------------------------ Restaurants----------------------------//
@@ -38,9 +39,9 @@ import Chat from './pages/admin/Chat';
 
 function App() {
 
-  const [hideRouterUser, setHideRouterUser] = useState(true);
+  const [hideRouterUser, setHideRouterUser] = useState(false);
   const [hideRouterAdmin, setHideRouterAdmin] = useState(true);
-  const [hideRouterRestaurants, setHideRouterRestaurants] = useState(false);
+  const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
 
 
   //-----------------------------User Router-------------------------------//
@@ -59,6 +60,7 @@ function App() {
              <Route path="ProfilePage" element={<ProfilePage />} />
              <Route path="ServicePage" element={<ServicePage />} />
              <Route path="Details" element={<Details />} />
+             <Route path="EditProfile" element={<EditProfile />} />
         </Routes>
         <Footer/>
       </Router>

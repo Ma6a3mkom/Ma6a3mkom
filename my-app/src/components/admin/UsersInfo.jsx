@@ -1,65 +1,39 @@
-import React from "react";
+
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
 import { mdiFileEdit } from "@mdi/js";
-import { useState } from "react";
 import Pagination from "@mui/material/Pagination";
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+
+import Swal from 'sweetalert2'
+
+import { mdiShieldCrownOutline } from '@mdi/js'
+import { mdiAccountOutline } from '@mdi/js';
 
 const UsersInfo = () => {
-  let x = [
-    {
-      NAME: "ISSA",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "ADMIN",
-    },
-    {
-      NAME: "BASHAR",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-    {
-      NAME: "FARAH",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-    {
-      NAME: "RAZAN",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-    {
-      NAME: "TASNEM",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-    {
-      NAME: "AMANI",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-    {
-      NAME: "MAJDI",
-      EMAIL: "majdi.shomali.1997@gmail.com",
-      PHONE: "0799855850",
-      ROLE: "USER",
-    },
-  ];
+
+  const [persons, setPersons] = useState([]);
+
+  useEffect(() => {
+      axios.get('http://localhost:5000/records')
+      .then((response) => {
+          setPersons(response.data);
+          setFilterDataUsers(response.data)
+      })
+      .catch((error) => console.log(error.message))
+  }, []);
+
+ 
 
   //-----------------------search------------------------//
   const [searchTermUsers, setSearchTermUsers] = useState("");
-  const [FilterDataUsers, setFilterDataUsers] = useState(x);
+  const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
   const filterDataByNameUsers = (searchTermUsers) => {
-    console.log(searchTermUsers);
 
-    const filteredDataUsers = x.filter((item) =>
-      item.NAME.toLowerCase().includes(searchTermUsers.toLowerCase())
+    const filteredDataUsers = persons.filter((item) =>
+      item.username.toLowerCase().includes(searchTermUsers.toLowerCase())
     );
     setFilterDataUsers(filteredDataUsers);
     setCurrentPageUsers(1);
@@ -87,6 +61,101 @@ const UsersInfo = () => {
   const handlePageChangeUsers = (event, pageNumber) => {
     setCurrentPageUsers(pageNumber);
   };
+
+
+  const handleDelete = (id,name) => {
+
+
+
+    Swal.fire({
+      title: ` do you want to remove ${name}?  `,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      cancelButtonText: "Cancel",
+      icon: 'warning'
+  }
+  ).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+
+          Swal.fire(` ${name} has been removed `, '', 'success');
+       
+          axios.delete('http://localhost:5000/records/'+id)
+          .then((response) => {
+              console.log(response.data);
+          })
+          .catch((error) => console.log(error.message))
+      
+          window.location.reload();
+
+
+
+      } else
+          Swal.fire(' Cancelled', '', 'error')
+
+  })
+
+
+}
+
+const handleUpdate = (userid,typeid,name) => {
+
+ let role = typeid == 0 ? "user" : "admin"
+ let role2 = typeid == 1 ? "user" : "admin"
+ let text1 =""
+ let text2 =""
+if (role == "user"){
+
+  text1 = `do you want to switch ${name} to admin `
+  text2 = ` ${name} is now an admin `
+
+}else{
+
+  text1 = `do you want to switch ${name} to user `
+  text2 = ` ${name} is now a user `
+
+}
+  Swal.fire({
+    title: text1,
+    showConfirmButton: true,
+    showCancelButton: true,
+    confirmButtonText: "OK",
+    cancelButtonText: "Cancel",
+    icon: 'warning'
+}
+).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      axios.put('http://localhost:5000/records/' + userid, {
+        id: typeid,
+                  
+    })
+    .then(function (response) {
+    
+    })
+    .catch(function (error) {
+    });
+
+    
+        Swal.fire(text2, '', 'success');
+     
+        window.location.reload();
+    } else
+        Swal.fire(' Cancelled', '', 'error')
+
+})
+
+
+
+
+
+
+
+
+
+
+ }
 
   return (
     <>
@@ -194,7 +263,7 @@ const UsersInfo = () => {
                       </div>
 
                       <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
-                        {e.NAME}
+                        {e.username}
                       </p>
                     </td>
                     <td
@@ -204,7 +273,7 @@ const UsersInfo = () => {
                       <div className="flex items-center gap-2">
                         <div className="rounded-full text-xl">
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.EMAIL}
+                            {e.email}
                           </p>
                         </div>
                       </div>
@@ -214,7 +283,7 @@ const UsersInfo = () => {
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.PHONE}
+                        {e.phone_number}
                       </p>
                     </td>
                     <td
@@ -222,7 +291,7 @@ const UsersInfo = () => {
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.ROLE}
+                        {e.type_id == 0 ? "user" : "admin"}
                       </p>
                     </td>
 
@@ -230,8 +299,10 @@ const UsersInfo = () => {
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
-                      <button>
-                        <Icon color="blue" path={mdiFileEdit} size={1} />
+                      <button onClick={() => handleUpdate(e.userid,e.type_id,e.username)}>
+                        
+                        
+                        {e.type_id == 0 ? <Icon color="blue" path={mdiAccountOutline} size={1} /> : <Icon color="blue" path={mdiShieldCrownOutline} size={1} />}
                       </button>
                     </td>
 
@@ -239,7 +310,7 @@ const UsersInfo = () => {
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
-                      <button>
+                      <button onClick={() => handleDelete(e.userid,e.username)}>
                         <Icon color="red" path={mdiDelete} size={1} />
                       </button>
                     </td>
@@ -264,3 +335,10 @@ const UsersInfo = () => {
 };
 
 export default UsersInfo;
+
+
+
+
+
+
+

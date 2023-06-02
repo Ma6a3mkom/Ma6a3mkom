@@ -1,19 +1,168 @@
-const express = require('express');
+const express = require("express");
+const cors = require("cors");
 const app = express();
-const cors = require('cors');
-const port = 5000;
-const pool = require('./db');
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+const pool = require('./db');
+
+
+// library for working with JSON Web Tokens (JWTs).
+const jwt = require('jsonwebtoken');
+
+const secretKey = 'ZhQrZ951';
+
+// Get All Records
+app.post("/records", async function (req, res) {
+  try {
+    const name = req.body.name;
+    const phone = req.body.phone;
+    const email = req.body.email;
+    const password = req.body.password;
+
+    const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
+    [name,phone, email, password,0]);
+    res.json(all_records.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+// Get All Records
+app.get('/records', async function(req, res) {
+
+    try{
+        const all_records = await pool.query("SELECT * FROM users");
+        res.json(all_records.rows);
+    }
+    catch(err){
+        console.log(err.message);
+    }
+    
+    });
+
+// Get a Specific Record
+app.get("/records/:id", async function (req, res) {
+  try {
+    const { id } = req.params;
+    const record = await pool.query("SELECT * FROM users WHERE userid = $1", [id]);
+    res.json(record.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 
 
 
+app.post('/recordp', async function(req, res){
+    try{
+         const email = req.body.email;
+         const password = req.body.password;
+         const all_records = await pool.query("SELECT * FROM users");
+
+         let persons0 = all_records.rows
+
+          persons0.map((e)=>{
+            if(e.email==email ){
+
+              if(e.password==password){
+                const token = jwt.sign({ email: e.email, password:e.password }, secretKey,{expiresIn:'9weeks'}); // Generate JWT
+                res.json({token});
+
+              }else {
+                res.json( "not passed ==> password");
+
+              }
+
+            }
+               
+           })
+
+        //   res.json({email,password});
+    }
+    catch(err){
+        console.log(err.message);
+    }
+});
+
+app.delete('/records/:userid', async function(req, res) {
+
+  try{
+      const { userid } = req.params;
+      const deleteRecord = await pool.query("DELETE FROM users WHERE userid = $1", [userid]);
+      res.send("Deleted Successfully")
+  }
+  catch (err){
+      console.log(err.message);
+  }
+})
 
 
+// Update a Specific Record
+app.put('/records/:userid', async function(req, res){
+  try{
+      const { userid } = req.params;
+      let id0 = req.body.id;
+      if(id0 == 0){
+        id0=1
+      }else{id0=0}
+      
+      const record = await pool.query("UPDATE users SET type_id = $1 WHERE userid = $2",
+      [id0,userid]);
+      res.send("Updated Successfully");
+  }
+  catch(err){console.log(err.message);}
+});
 
+// Add a new Record
+// app.post("/record", async function (req, res) {
+//   console.log(req.body);
+//   try {
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const newRecord = await pool.query(
+//       "INSERT INTO users (name, email, password ) VALUES($1, $2, $3) RETURNING *",
+//       [name, email, password]
+//     );
 
+//     res.json(newRecord.rows);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
+// Update a Specific Record
+// app.put("/records/:id", async function (req, res) {
+//   try {
+//     const { id } = req.params;
+//     const name = req.body.name;
+//     const email = req.body.email;
+//     const password = req.body.password;
+//     const record = await pool.query(
+//       "UPDATE users SET name = $1, email = $2, password = $3  WHERE id = $4",
+//       [name, email, password, id]
+//     );
+//     res.send("Updated Successfully");
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
+// app.delete("/records/:id", async function (req, res) {
+//   try {
+//     const { id } = req.params;
+//     const deleteRecord = await pool.query("DELETE FROM users WHERE id = $1", [
+//       id,
+//     ]);
+//     res.send("Deleted Successfully");
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// });
 
-app.listen(port, () => {console.log('Server listening on port ' + port);});
-
+// Start the server
+const port = 5000;
+app.listen(port, () => {
+  console.log(`Server is listening on port ${port}`);
+});

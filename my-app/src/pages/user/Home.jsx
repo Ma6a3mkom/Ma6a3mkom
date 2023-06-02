@@ -11,9 +11,9 @@ const Home = () => {
 
         <div className="relative h-4/5 w-full">
           <img
-            src="https://hrarchz.com/wp-content/uploads/2019/12/Black-Dinning-Room-HRarchZ-4.jpg"
+            src="https://www.top-magazin-frankfurt.de/wp-content/uploads/2021/12/Das-%E2%80%9EFranziska-im-Henninger-Turm.jpg"
             alt="image 2"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover opacity-60"
           />
           <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
             <div className="w-1/4 text-center ">
@@ -43,10 +43,9 @@ const Home = () => {
         </div>
         <div className="relative h-4/5 w-full">
           <img
-            src="https://hrarchz.com/wp-content/uploads/2019/12/Black-Dinning-Room-HRarchZ-4.jpg"
-
+            src="https://www.travellens.co/content/images/size/w2000/format/webp/2022/12/Best-Restaurants-in-Edison-NJ.jpg"
             alt="image 2"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover opacity-60"
           />
           <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
             <div className="w-1/4 text-center ">
@@ -74,24 +73,22 @@ const Home = () => {
             </div>
           </div>
         </div>
+        {/*  */}
         <div className="relative h-4/5 w-full">
           <img
-            src="https://hrarchz.com/wp-content/uploads/2019/12/Black-Dinning-Room-HRarchZ-4.jpg"
+            src="https://images.unsplash.com/photo-1669698274953-9001989b86db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8&w=1000&q=80"
 
-            alt="image 3"
-            className="h-4/5 w-full object-cover"
+            alt="image 2"
+            className="h-full w-full object-cover opacity-60"
           />
-          <div className="absolute inset-0 grid h-full w-full items-end bg-black/25">
-            <div className="w-3/4 pl-12 pb-12 md:w-2/4 md:pl-20 md:pb-20 lg:pl-32 lg:pb-32">
+          <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
+            <div className="w-1/4 text-center ">
               <Typography
                 variant="h1"
                 color="orange"
                 className="mb-4 text-3xl md:text-4xl lg:text-5xl"
               >
                 Flavors that Mesmerize!
-
-
-
               </Typography>
               <Typography
                 variant="lead"
@@ -99,11 +96,8 @@ const Home = () => {
                 className="mb-12 opacity-80"
               >
                 Life is too short for average meals. Seize the moment, book a table, and savor every delicious second.
-
-
               </Typography>
-              <div className="flex gap-2">
-
+              <div className="flex justify-center ">
                 <Link to="/SignUp">
                   <Button size="lg" color="orange">
                     Join Us Now!
@@ -148,7 +142,9 @@ const Home = () => {
 
       <section>
         <br />
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">
+        <br />
+
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white dark:text-white text-center">
           Which food you prefer?
         </h2>
 
@@ -166,7 +162,7 @@ const Home = () => {
                     Asian Food
                   </h2>
 
-                  <Link to="/ServicePage">
+                  <Link to="/">
                     <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
                       View More
                     </button>
@@ -189,7 +185,7 @@ const Home = () => {
                     Arabian Food
                   </h2>
 
-                  <Link to="/ServicePage">
+                  <Link to="/">
                     <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
                       View More
                     </button>
@@ -212,7 +208,74 @@ const Home = () => {
                     Sea Food
                   </h2>
 
-                  <Link to="/ServicePage">
+                  <Link to="/">
+                    <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
+                      View More
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+            <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
+              <img
+                className="w-full h-64 object-cover object-center"
+                src="https://static1.squarespace.com/static/5e484ab628c78d6f7e602d73/5e484d29dd42c458f31f0b22/5f52972ad03efd52606d4ad9/1680649812918/What-to-eat-in-Italy.png?format=1500w"
+                alt="vegetables" />
+              <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
+                    Italian Food
+                  </h2>
+
+                  <Link to="/">
+                    <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
+                      View More
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+            <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
+              <img
+                className="w-full h-64 object-cover object-center"
+                src="https://blog.amigofoods.com/wp-content/uploads/2020/12/tacos-authentic-mexican-food.jpg"
+                alt="vegetables" />
+              <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
+                    Mexican Food
+                  </h2>
+
+                  <Link to="/">
+                    <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
+                      View More
+                    </button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full sm:w-1/2 md:w-1/3 p-4">
+            <div className="relative bg-gray-400 rounded-lg shadow-lg overflow-hidden">
+              <img
+                className="w-full h-64 object-cover object-center"
+                src="https://blog.myfitnesspal.com/wp-content/uploads/2017/12/Essential-Guide-to-Healthy-Eating-2-1200x900.png"
+                alt="vegetables" />
+              <div className="absolute inset-0 bg-gray-900 opacity-50"></div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
+                    Healthy Food
+                  </h2>
+
+                  <Link to="/">
                     <button className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg">
                       View More
                     </button>
@@ -225,12 +288,13 @@ const Home = () => {
         </div>
 
 
+
       </section>
       <br />
 
       <section>
         <br />
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white dark:text-white text-center">
           What People Says
         </h2>
         <br />

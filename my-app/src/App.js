@@ -33,6 +33,7 @@ import MainDashboard from './pages/admin/MainDashboard';
 import ListUser from './pages/admin/ListUser'
 import ListRestaurant from './pages/admin/ListRestaurant';
 import Chat from './pages/admin/Chat';
+import EditAboutContact from './pages/admin/EditAboutContact';
 //---------------------------------------------------------------//
 
 
@@ -81,6 +82,7 @@ function App() {
         <Route path="ListUser" element={<ListUser />} />
         <Route path="ListRestaurant" element={<ListRestaurant />} />
         <Route path="Chat" element={<Chat />} />
+        <Route path="EditAboutContact" element={<EditAboutContact />} />
         </Routes>
         </div>
       </Router>

@@ -2,6 +2,7 @@ import "./sidebar.css"
 import Icon from '@mdi/react';
 import { mdiSilverwareForkKnife } from '@mdi/js';
 import { mdiAccountMultipleOutline } from '@mdi/js';
+import { mdiInformationOutline } from '@mdi/js';
 import {
     Card,
     Typography,
@@ -56,6 +57,15 @@ import { Link } from "react-router-dom";
 
             </ListItemPrefix>
              Restaurants List
+          </ListItem>
+          </Link>
+
+          <Link to='/EditAboutContact'>
+          <ListItem>
+            <ListItemPrefix>
+            <Icon path={mdiInformationOutline} size={1} />
+            </ListItemPrefix>
+             Edit About
           </ListItem>
           </Link>
 

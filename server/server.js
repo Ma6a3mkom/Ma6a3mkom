@@ -109,7 +109,7 @@ app.post('/recordp', async function(req, res){
         console.log(err.message);
     }
 });
-app.put('/records/:userid', async function(req, res) {
+app.put('/recordss/:userid', async function(req, res) {
   try {
       const { userid } = req.params;
       const deleteRecord = await pool.query("UPDATE users SET flags = 0 WHERE userid = $1", [userid]);
@@ -154,6 +154,7 @@ app.put('/records/:userid', async function(req, res){
   }
   catch(err){console.log(err.message);}
 });
+
 
 
 app.post("/restaurants", async function (req, res) {

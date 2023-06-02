@@ -81,7 +81,7 @@ const UsersInfo = () => {
 
           Swal.fire(` ${name} has been removed `, '', 'success');
        
-          axios.put('http://localhost:5000/records/'+id)
+          axios.put('http://localhost:5000/recordss/'+id)
           .then((response) => {
               console.log(response.data);
           })

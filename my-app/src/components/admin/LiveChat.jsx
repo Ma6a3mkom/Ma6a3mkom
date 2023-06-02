@@ -133,7 +133,7 @@ const LiveChat = () => {
 
 
            {
-           reporters.map((e)=>{
+           reporters?.map((e)=>{
            let  firstLetter=e.name.charAt(0)
              
            

@@ -19,8 +19,8 @@ app.post("/records", async function (req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
-    const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id) VALUES($1, $2, $3 , $4 , $5) RETURNING *",
-    [name,phone, email, password,0]);
+    const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5 $6) RETURNING *",
+    [name,phone, email, password,0,1]);
     res.json(all_records.rows);
   } catch (err) {
     console.log(err.message);
@@ -31,8 +31,7 @@ app.post("/records", async function (req, res) {
 app.get('/restaurants', async function(req, res) {
 
   try{
-      const all_records = await pool.query("SELECT * FROM restaurant");
-      res.json(all_records.rows);
+      const all_records = await pool.query("SELECT *  FROM restaurant JOIN users ON users.userid = restaurant.user_id WHERE users.flags = 1 ;");res.json(all_records.rows);
   }
   catch(err){
       console.log(err.message);
@@ -58,7 +57,7 @@ app.get('/reporters', async function(req, res) {
 app.get('/records', async function(req, res) {
 
     try{
-        const all_records = await pool.query("SELECT * FROM users");
+        const all_records = await pool.query("SELECT * FROM users where flags=1 and type_id=0 or type_id=1 ");
         res.json(all_records.rows);
     }
     catch(err){
@@ -110,29 +109,35 @@ app.post('/recordp', async function(req, res){
         console.log(err.message);
     }
 });
-
-app.delete('/records/:userid', async function(req, res) {
-
-  try{
+app.put('/records/:userid', async function(req, res) {
+  try {
       const { userid } = req.params;
-      const deleteRecord = await pool.query("DELETE FROM users WHERE userid = $1", [userid]);
-      res.send("Deleted Successfully")
-  }
-  catch (err){
+      const deleteRecord = await pool.query("UPDATE users SET flags = 0 WHERE userid = $1", [userid]);
+      res.send("Deleted Successfully");
+  } catch (err) {
       console.log(err.message);
   }
-})
+});
 
-app.delete('/restaurants/:restaurant_id', async function(req, res) {
+app.put('/restaurants/:userid', async function(req, res) {
 
-  try{
-      const { restaurant_id } = req.params;
-      const deleteRecord = await pool.query("DELETE FROM restaurant WHERE restaurant_id = $1", [restaurant_id]);
-      res.send("Deleted Successfully")
-  }
-  catch (err){
-      console.log(err.message);
-  }
+  // try{
+  //   console.log("sasasas")
+  //     const {userid} = req.params;
+  //   const deleteRecord = await pool.query("UPDATE users SET flags = false WHERE userid = $1", [userid]);
+  //     res.send("Deleted Successfully")
+  // }
+  // catch (err){
+  //     console.log(err.message);
+  // }
+
+  try {
+    const { userid } = req.params;
+    const deleteRecord = await pool.query("UPDATE users SET flags = 0 WHERE userid = $1", [userid]);
+    res.send("Deleted Successfully");
+} catch (err) {
+    console.log(err.message);
+}
 })
 // Update a Specific Record
 app.put('/records/:userid', async function(req, res){
@@ -149,6 +154,26 @@ app.put('/records/:userid', async function(req, res){
   }
   catch(err){console.log(err.message);}
 });
+
+
+app.post("/restaurants", async function (req, res) {
+  try {
+    const name = '';
+    const phone = '';
+    const email = req.body.email;
+    const password = '';
+    const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5,$6) RETURNING *",
+    [name,phone, email, password,2,1]);
+    res.json(all_records.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+
+
+
 
 // Add a new Record
 // app.post("/record", async function (req, res) {

@@ -12,6 +12,8 @@ import Swal from 'sweetalert2'
 const ApproveTable = () => {
   const [restaurants, setRestaurants] = useState([]);
   const [FilterDataRestaurants, setFilterDataRestaurants] = useState([]);
+  const [email, setEmail] = useState("");
+
 
   useEffect(() => {
     axios.get('http://localhost:5000/restaurants')
@@ -99,15 +101,10 @@ const ApproveTable = () => {
     
               Swal.fire(` ${name} has been removed `, '', 'success');
            
-              axios.delete('http://localhost:5000/restaurants/'+id)
+              axios.put('http://localhost:5000/restaurants/'+userid)
               .then((response) => {
                   console.log(response.data);
 
-                  axios.delete('http://localhost:5000/records/'+userid)
-                  .then((response) => {
-                      console.log(response.data);
-                  })
-                  .catch((error) => console.log(error.message))
               
 
 
@@ -129,7 +126,17 @@ const ApproveTable = () => {
     
     }
 
+function addrestaurants(){
+  axios.post('http://localhost:5000/restaurants', {
+    email: email,
 
+})
+.then(function (response) {
+
+})
+.catch(function (error) {
+});
+}
 
 
 
@@ -152,11 +159,15 @@ const ApproveTable = () => {
     <input
       type="email"
       id="search"
+      name='email'
       className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
       placeholder="Email"
       required=""
+      value={email}
+      onChange={(e) => {setEmail(e.target.value);}}
     />
     <button
+    onClick={addrestaurants}
       type="submit"
       className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >

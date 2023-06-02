@@ -1,37 +1,85 @@
-import React, { useState } from 'react'
 import classnames from 'classnames';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Avatar from '@mui/material/Avatar';
+
 const LiveChat = () => {
-  let x =[
-   {NAME:"ISSA"  ,FIRST:"I",COLOR:"GREEN",EMAIL:"majdi.shomali.1997@gmail.com",MESSAGE:"HELLO THIS IS ISSA"  },
-   {NAME:"BAHSAR",FIRST:"B",COLOR:"RED"  ,EMAIL:"",MESSAGE:"HELLO THIS IS BAHSAR"},
-   {NAME:"FARAH" ,FIRST:"F",COLOR:"RED"  ,EMAIL:"",MESSAGE:"HELLO THIS IS FARAH" },
-   {NAME:"TASNEM",FIRST:"T",COLOR:"BLUE" ,EMAIL:"",MESSAGE:"HELLO THIS IS TASNEM"},
-   {NAME:"RAZAN" ,FIRST:"R",COLOR:"GREEN",EMAIL:"",MESSAGE:"HELLO THIS IS RAZAN" },
-   {NAME:"AMANI" ,FIRST:"A",COLOR:"RED"  ,EMAIL:"",MESSAGE:"HELLO THIS IS AMANI" },
-   {NAME:"MAJDI" ,FIRST:"M",COLOR:"BLUE" ,EMAIL:"",MESSAGE:"HELLO THIS IS MAJDI" },
+  const [reporters, setReporters] = useState([]);
+  const [currentUser,setCurrentUser] = useState({})
+  const [avColor,setAvColor] = useState({})
 
-  ]
-  const dynamicClassName0 = classnames('flex items-center justify-center h-8 w-8  rounded-full', {
-    'bg-[#4e6fb3ab]': x[0].COLOR=="BLUE",
-    'bg-[#da5757ab]': x[0].COLOR=="RED",
-    'bg-[#65bb5dab]': x[0].COLOR=="GREEN",
-  });
+   useEffect(() => {
+    axios.get('http://localhost:5000/reporters')
+    .then((response) => {
+      setReporters(response.data);
+      setCurrentUser(response.data[0])
+      setAvColor(
 
-   const [currentUser,setCurrentUser] = useState(x[0])
-   const [currentclass,setCurrentclass] = useState(dynamicClassName0)
+        {
+          backgroundColor: Checkcolor(response.data[0]), 
+          color: '#fff', 
+        }
+
+
+      )
+    })
+    .catch((error) => console.log(error.message))
+}, []);
+
+
+  
+
+
+// [
+//   {
+//       "contact_id": 1,
+//       "name": "school system",
+//       "phone": "0799855850",
+//       "email": "majdi.shomali.1997@gmail.com",
+//       "message": "hello this is majdi",
+//       "user_id": 29
+//   }
+// ]
+
+
+
 
  function HandleUser(e){
 
-  const dynamicClassName = classnames('flex items-center justify-center h-8 w-8  rounded-full', {
-    'bg-[#4e6fb3ab]': e.COLOR=="BLUE",
-    'bg-[#da5757ab]': e.COLOR=="RED",
-    'bg-[#65bb5dab]': e.COLOR=="GREEN",
-  });
-  setCurrentclass(dynamicClassName)
+
   setCurrentUser(e)
+  setAvColor(
+   {
 
-
+    backgroundColor: Checkcolor(e), // Set the desired color
+    color: '#fff', // Set the text color for contrast
+    
+   } )
+   
  }
+
+ function Checkcolor(e){
+
+  let color0=""
+  switch (e.name.charAt(0).toLowerCase()) {
+    case 'a':
+      color0="#4e6fb3ab"
+      break;
+    case 'b':
+      color0="#da5757ab"      
+                break;
+    case 'c':
+      color0="#4e6fb3ab"       
+               break;
+    default:
+      color0="#65bb5dab"      
+                break;
+  }
+ return color0
+}
+
+
+
   return (
     <>
   {/* component */}
@@ -78,28 +126,33 @@ const LiveChat = () => {
           <div className="flex flex-row items-center justify-between text-xs">
             <span className="font-bold">Active Conversations</span>
             <span className="flex items-center justify-center bg-gray-300 h-4 w-4 rounded-full">
-              {x.length}
+              {reporters.length}
             </span>
           </div>
           <div className="flex flex-col space-y-1 mt-4 -mx-2 h-auto overflow-y-auto">
 
 
            {
-           x.map((e)=>{
+           reporters.map((e)=>{
+           let  firstLetter=e.name.charAt(0)
+             
+           
 
-            const dynamicClassName = classnames('flex items-center justify-center h-8 w-8  rounded-full', {
-              'bg-[#4e6fb3ab]': e.COLOR=="BLUE",
-              'bg-[#da5757ab]': e.COLOR=="RED",
-              'bg-[#65bb5dab]': e.COLOR=="GREEN",
-            });
+            const avatarStyle = {
+              backgroundColor: Checkcolor(e), // Set the desired color
+              color: '#fff', // Set the text color for contrast
+            };
+          
+            
+       
+       
 
            return(
 
             <button onClick={()=>HandleUser(e)} className="flex flex-row items-center hover:bg-gray-100 rounded-xl p-2">
-            <div className={dynamicClassName}>
-              {e.FIRST}
-            </div>
-            <div className="ml-2 text-sm font-semibold">{e.NAME}</div>
+         
+            <Avatar style={avatarStyle}>{firstLetter}</Avatar>
+            <div className="ml-2 text-sm font-semibold">{e.name}</div>
           </button>
 
 
@@ -124,11 +177,11 @@ const LiveChat = () => {
               <div className="grid grid-cols-12 gap-y-2">
                 <div className="col-start-1 col-end-8 p-3 rounded-lg">
                   <div className="flex flex-row items-center">
-                    <div className={currentclass}>
-                      {currentUser.FIRST}
-                    </div>
+                  <Avatar style={avColor} >{currentUser.name?.charAt(0)}</Avatar>
+
+
                     <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                      <div>{currentUser.MESSAGE}</div>
+                      <div>{currentUser.message}</div>
                     </div>
                   </div>
                 </div>

@@ -39,8 +39,8 @@ import Chat from './pages/admin/Chat';
 
 function App() {
 
-  const [hideRouterUser, setHideRouterUser] = useState(false);
-  const [hideRouterAdmin, setHideRouterAdmin] = useState(true);
+  const [hideRouterUser, setHideRouterUser] = useState(true);
+  const [hideRouterAdmin, setHideRouterAdmin] = useState(false);
   const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
 
 

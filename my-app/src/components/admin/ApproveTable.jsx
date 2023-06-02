@@ -1,55 +1,53 @@
-import React from 'react'
 import Icon from '@mdi/react';
 import { mdiClockOutline } from '@mdi/js';
 import { mdiCheckCircle } from '@mdi/js';
 import { mdiDelete } from "@mdi/js";
 import { mdiFileEdit } from "@mdi/js";
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
+import Swal from 'sweetalert2'
 
  import Pagination from "@mui/material/Pagination";
 
 const ApproveTable = () => {
+  const [restaurants, setRestaurants] = useState([]);
+  const [FilterDataRestaurants, setFilterDataRestaurants] = useState([]);
 
- let x =[
-{NAME:"KFC",	
-EMAIL:"majdi.shomali.1997@gmail.com",
-DATE:"30.Jan.2021",
-LOCATION:"Zarqa"
-},
-{NAME:"MAC",	
-EMAIL:"majdi.shomali.444@gmail.com",
-DATE:"14.Jan.2022",
-LOCATION:"amman"
-},
-{NAME:"abc3",	
-EMAIL:"majdi.shomali.000@gmail.com",
-DATE:"2.Jan.2023",
-LOCATION:"irbid"
-},
-{NAME:"NAR",	
-EMAIL:"majdi.shomali.000@gmail.com",
-DATE:"2.Jan.2023",
-LOCATION:"irbid"
-},
-{NAME:"MAZAG",	
-EMAIL:"majdi.shomali.000@gmail.com",
-DATE:"2.Jan.2023",
-LOCATION:"irbid"
-}
+  useEffect(() => {
+    axios.get('http://localhost:5000/restaurants')
+    .then((response) => {
+         setRestaurants(response.data);
+         setFilterDataRestaurants(response.data)
+    })
+    .catch((error) => console.log(error.message))
+}, []);
 
- ]
+// [
+//   {
+//       "restaurant_id ": 1,
+//       "user_id": 33,
+//       "restaurant_name": "aaa",
+//       "address": "aaaaa",
+//       "contact_number": "aaaaa",
+//       "type_food": "aaaa",
+//       "des": "aaaaaaaaa",
+//       "img": "aaaaaaaaa",
+//       "food_image": "aaaaaaaaaa"
+//   }
+// ]
+
+
 
 
 
        //-----------------------search------------------------//
        const [searchTermRestaurants, setSearchTermRestaurants] = useState('');
-       const [FilterDataRestaurants, setFilterDataRestaurants] = useState(x);
        
        
        const filterDataByNameRestaurants = (searchTermRestaurants) => {
          console.log(searchTermRestaurants)
          
-         const filteredDataRestaurants = x.filter(item =>
+         const filteredDataRestaurants = restaurants.filter(item =>
        
            item.NAME.toLowerCase().includes(searchTermRestaurants.toLowerCase())
          );
@@ -82,6 +80,60 @@ LOCATION:"irbid"
        };
 
        
+
+       const handleDelete = (id,name,userid) => {
+
+
+
+        Swal.fire({
+          title: ` do you want to remove ${name}?  `,
+          showConfirmButton: true,
+          showCancelButton: true,
+          confirmButtonText: "OK",
+          cancelButtonText: "Cancel",
+          icon: 'warning'
+      }
+      ).then((result) => {
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+    
+              Swal.fire(` ${name} has been removed `, '', 'success');
+           
+              axios.delete('http://localhost:5000/restaurants/'+id)
+              .then((response) => {
+                  console.log(response.data);
+
+                  axios.delete('http://localhost:5000/records/'+userid)
+                  .then((response) => {
+                      console.log(response.data);
+                  })
+                  .catch((error) => console.log(error.message))
+              
+
+
+              })
+              .catch((error) => console.log(error.message))
+          
+ 
+
+
+              window.location.reload();
+    
+    
+    
+          } else
+              Swal.fire(' Cancelled', '', 'error')
+    
+      })
+    
+    
+    }
+
+
+
+
+
+
   return (
     
 <>
@@ -214,7 +266,19 @@ LOCATION:"irbid"
       
 
 {
-
+// [
+//   {
+//       "restaurant_id ": 1,
+//       "user_id": 33,
+//       "restaurant_name": "aaa",
+//       "address": "aaaaa",
+//       "contact_number": "aaaaa",
+//       "type_food": "aaaa",
+//       "des": "aaaaaaaaa",
+//       "img": "aaaaaaaaa",
+//       "food_image": "aaaaaaaaaa"
+//   }
+// ]
 slicedArrayRestaurants.map((e)=>{
 
 return(
@@ -223,14 +287,14 @@ return(
 <tr role="row">
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
             <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.NAME}
+              {e.restaurant_name}
             </p>
           </td>
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
             <div className="flex items-center gap-2">
               <div className="rounded-full text-xl">
                 {/* <Icon color= {e.STATUSt=="APPROVED" ? 'green' : 'blue'} path={e.STATUS} size={1} /> */}
-                {e.EMAIL}
+                {e.type_food}
               
               </div>
               {/* <p className="text-sm font-bold text-navy-700  dark:text-white">
@@ -240,12 +304,12 @@ return(
           </td>
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
             <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.DATE}
+              {e.contact_number}
             </p>
           </td>
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
           <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.LOCATION}
+              {e.address}
             </p>
           </td>
 
@@ -257,7 +321,7 @@ return(
 
 
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
-                     <button>
+                     <button onClick={() => handleDelete(e.restaurant_id,e.restaurant_name,e.user_id)}>
                       <Icon color="red" path={mdiDelete} size={1} />
                     </button>
           </td>

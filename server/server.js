@@ -27,6 +27,32 @@ app.post("/records", async function (req, res) {
   }
 });
 
+// Get All restaurants
+app.get('/restaurants', async function(req, res) {
+
+  try{
+      const all_records = await pool.query("SELECT * FROM restaurant");
+      res.json(all_records.rows);
+  }
+  catch(err){
+      console.log(err.message);
+  }
+  
+  });
+
+// Get All reporters
+app.get('/reporters', async function(req, res) {
+
+  try{
+      const all_records = await pool.query("SELECT * FROM contacts");
+      res.json(all_records.rows);
+  }
+  catch(err){
+      console.log(err.message);
+  }
+  
+  });
+
 
 // Get All Records
 app.get('/records', async function(req, res) {
@@ -97,7 +123,17 @@ app.delete('/records/:userid', async function(req, res) {
   }
 })
 
+app.delete('/restaurants/:restaurant_id', async function(req, res) {
 
+  try{
+      const { restaurant_id } = req.params;
+      const deleteRecord = await pool.query("DELETE FROM restaurant WHERE restaurant_id = $1", [restaurant_id]);
+      res.send("Deleted Successfully")
+  }
+  catch (err){
+      console.log(err.message);
+  }
+})
 // Update a Specific Record
 app.put('/records/:userid', async function(req, res){
   try{

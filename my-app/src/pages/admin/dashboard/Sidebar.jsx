@@ -3,6 +3,10 @@ import Icon from '@mdi/react';
 import { mdiSilverwareForkKnife } from '@mdi/js';
 import { mdiAccountMultipleOutline } from '@mdi/js';
 import { mdiInformationOutline } from '@mdi/js';
+import { UserContext } from '../../../UserContext';
+import React,{useState,useEffect,useContext} from "react";
+
+
 import {
     Card,
     Typography,
@@ -21,8 +25,43 @@ import {
     PowerIcon,
   } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-   
+import Swal from 'sweetalert2'
+
   export default function Sidebar() {
+    const { SignStatus,updateSignStatus } = useContext(UserContext)
+
+function handleLogOut(){
+
+
+  Swal.fire({
+    title: ` logout?  `,
+    showConfirmButton: true,
+    showCancelButton: true,
+    confirmButtonText: "OK",
+    cancelButtonText: "Cancel",
+    icon: 'warning'
+}
+).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+
+        Swal.fire(`  done `, '', 'success');
+     
+        updateSignStatus("signUp")
+        localStorage.setItem("SignStatus","signUp")
+        localStorage.removeItem("auth");
+        localStorage.removeItem("roles");
+        window.location.href = 'http://localhost:3000/';
+      
+
+    } else
+        Swal.fire(' Cancelled', '', 'error')
+
+})
+
+}
+
+
     return (
       <Card className=" min-h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 Sidebar ">
         <div className="mb-2 p-4">
@@ -99,13 +138,14 @@ import { Link } from "react-router-dom";
             Settings
           </ListItem>
             </Link> */}
-
+           <button onClick={handleLogOut}>
           <ListItem>
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
             </ListItemPrefix>
             Log Out
           </ListItem>
+          </button>
         </List>
       </Card>
     );

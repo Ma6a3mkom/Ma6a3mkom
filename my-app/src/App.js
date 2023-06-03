@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import "./App.css"
 //-----------------------------user-------------------------------//
@@ -12,6 +11,7 @@ import About from "./pages/user/About"
 import ContactUs from './pages/user/ContactUs';
 import ProfilePage from './pages/user/ProfilePage'
 import ServicePage from './pages/user/ServicePage';
+import ServicePageAll from './pages/user/ServicePageAll';
 import Details from './pages/user/Details';
 import EditProfile from './pages/user/EditProfile';
 //----------------------------------------------------------------//
@@ -36,17 +36,44 @@ import Chat from './pages/admin/Chat';
 import EditAboutContact from './pages/admin/EditAboutContact';
 //---------------------------------------------------------------//
 
-
+import React, { useEffect, useState ,useContext } from 'react'
+import axios from 'axios'
+import { UserContext } from './UserContext';
 
 function App() {
 
-  const [hideRouterUser, setHideRouterUser] = useState(true);
-  const [hideRouterAdmin, setHideRouterAdmin] = useState(false);
-  const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
+const [role000 ,setRole000] =useState()
+
+const { routs,updateRouts } = useContext(UserContext)
+const { SignStatus,updateSignStatus } = useContext(UserContext)
+
+const [hideRouterUser, setHideRouterUser] = useState(false );
+const [hideRouterAdmin, setHideRouterAdmin] = useState( true);
+const [hideRouterRestaurants, setHideRouterRestaurants] = useState(true);
+
+
+
+useEffect(() => {
+
+  if(localStorage.roles != null){
+    let roles = JSON.parse(localStorage.roles)
+    let status = localStorage.SignStatus
+    setHideRouterUser(roles[0])
+    setHideRouterAdmin(roles[1])
+    setHideRouterRestaurants(roles[2])
+    updateRouts(roles)
+   }
+
+
+}, []);
+
+
 
 
   //-----------------------------User Router-------------------------------//
   const AppRouterUser = () => {
+    const  [currentTable , setCurrentTable] = useState({})
+
     return (
       
       <Router>
@@ -59,9 +86,10 @@ function App() {
              <Route path="SignUp" element={<SignUp />} />
              <Route path="PaymentPage" element={<PaymentPage />} />
              <Route path="ProfilePage" element={<ProfilePage />} />
-             <Route path="ServicePage" element={<ServicePage />} />
-             <Route path="Details" element={<Details />} />
+             <Route path="ServicePageAll" element={<ServicePageAll setCurrentTable={setCurrentTable} />} />
+             <Route path="Details" element={<Details currentTable={currentTable} />} />
              <Route path="EditProfile" element={<EditProfile />} />
+             <Route path="/restaurants/:type_food" element={<ServicePage />} />
         </Routes>
         <Footer/>
       </Router>

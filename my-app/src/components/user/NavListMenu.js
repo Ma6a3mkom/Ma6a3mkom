@@ -1,5 +1,8 @@
-import React from "react";
+import React,{useState,useEffect,useContext} from "react";
 import { Link } from "react-router-dom";
+import { UserContext } from '../../UserContext';
+import Swal from 'sweetalert2'
+
 import {
   Navbar,
   Collapse,
@@ -179,7 +182,58 @@ function NavList() {
  
 export default function Example() {
   const [openNav, setOpenNav] = React.useState(false);
- 
+  const { SignStatus,updateSignStatus } = useContext(UserContext)
+
+  useEffect(() => {
+    if(localStorage.SignStatus != null){
+      updateSignStatus(localStorage.SignStatus)
+     }
+  }, []);
+
+
+
+  
+  function handleSign(){
+
+  if(SignStatus=="signUp"){
+    window.location.href = 'http://localhost:3000/SignUp';
+  }else{
+
+    Swal.fire({
+      title: ` logout?  `,
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: "#ea4d24",
+      cancelButtonText: "Cancel",
+      cancelButtonColor: "#ea4d24",
+      icon: 'warning'
+  }
+  ).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+  
+          Swal.fire(`  done `, '', 'success');
+       
+          updateSignStatus("signUp")
+          localStorage.setItem("SignStatus","signUp")
+      
+          localStorage.removeItem("auth");
+          localStorage.removeItem("roles");
+          window.location.href = 'http://localhost:3000/';
+      
+  
+      } else
+          Swal.fire(' Cancelled', '', 'error')
+  
+  })
+
+
+  }
+
+
+  }
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -204,11 +258,12 @@ export default function Example() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          <Link to="/SignUp">
-          <Button size="sm" className="bg-amber-600 hover:shadow-lg-amber-600">
-            Sign Up
+          {/* <Link to="/SignUp">
+          
+          </Link> */}
+          <Button onClick={()=>handleSign()} size="sm" className="bg-amber-600 hover:shadow-lg-amber-600">
+            {SignStatus}
           </Button>
-          </Link>
         </div>
         <IconButton
           variant="text"

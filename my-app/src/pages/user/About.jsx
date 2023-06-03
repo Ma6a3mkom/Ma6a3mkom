@@ -7,8 +7,33 @@ import majdi from "../../images/majdi.png";
 import tasneem from "../../images/tasneem.jpg";
 import farah from "../../images/farah.jpg";
 import issa from "../../images/issa.jpg";
+import axios from "axios";
+import { useState , useEffect } from "react";
 
-function About() {
+function About() 
+{
+
+
+  const [aboutUsData, setAboutUsData] = useState({});
+
+  useEffect(() => {
+    const getAboutData = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/aboutus');
+        setAboutUsData(response.data);
+      } 
+      catch (error) 
+      {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    getAboutData();
+  }, []);
+
+
+
+
   return (
     <>
       {/* Hero section in about us */}
@@ -167,6 +192,8 @@ function About() {
         </div>
       </div>
       {/* End features */}
+
+
 
       {/* ====== About Section Start */}
       <section
@@ -780,28 +807,12 @@ function About() {
                   Why Choose Us
                 </span>
                 <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">
-                  Make your customers happy by giving services
+                {aboutUsData.about_title}
                 </h2>
                 <p className="text-body-color mb-8 text-base">
-                  At <b>Ma6a3mkom </b>, we are passionate about connecting food
-                  enthusiasts with their favorite dining experiences. Our
-                  platform aims to make the process of reserving a table at top
-                  restaurants seamless and convenient. We understand the
-                  importance of savoring memorable moments with loved ones, and
-                  our mission is to enhance the dining experience by providing a
-                  user-friendly and efficient reservation service.
+                {aboutUsData.about_us}
                 </p>
-                <p className="text-body-color mb-12 text-base">
-                  Our mission is to empower food lovers by offering a
-                  hassle-free and reliable platform for restaurant reservations.
-                  We strive to bring together diners and restaurants, creating a
-                  win-win situation for both parties. With a focus on customer
-                  satisfaction, we are dedicated to providing exceptional
-                  service, innovative features, and a wide range of culinary
-                  options. Our goal is to make every dining occasion special,
-                  ensuring that our users can easily discover, book, and enjoy
-                  exceptional dining experiences at their preferred restaurants.
-                </p>
+               
               </div>
             </div>
           </div>

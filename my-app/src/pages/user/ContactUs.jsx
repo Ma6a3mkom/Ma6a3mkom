@@ -3,7 +3,8 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
-function ContactUs() {
+function ContactUs() 
+{
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,7 +22,7 @@ function ContactUs() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/contacts",
+        "http://localhost:5000/contacts",
         contactMessage
       );
 
@@ -190,7 +191,7 @@ function ContactUs() {
                         placeholder="Your Name"
                         className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none shadow-md transition duration-300"
                         value={name}
-                        onChange={(event) => setName(event.target.value)}
+                        onChange={(event) => setName(event.target.value)} required
                       />
                     </div>
                     <div className="mb-6">
@@ -199,7 +200,7 @@ function ContactUs() {
                         placeholder="Your Email"
                         className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none shadow-md transition duration-300"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        onChange={(event) => setEmail(event.target.value)} required
                       />
                     </div>
                     <div className="mb-6">
@@ -208,7 +209,7 @@ function ContactUs() {
                         placeholder="Your Phone"
                         className="text-body-color border-[f0f0f0] focus:border-primary w-full rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none shadow-md transition duration-300"
                         value={phone}
-                        onChange={(event) => setPhone(event.target.value)}
+                        onChange={(event) => setPhone(event.target.value)} required
                       />
                     </div>
                     <div className="mb-6">
@@ -217,7 +218,7 @@ function ContactUs() {
                         placeholder="Your Message"
                         className="text-body-color border-[f0f0f0] focus:border-primary w-full resize-none rounded border py-3 px-[14px] text-base outline-none focus-visible:shadow-none shadow-md transition duration-300"
                         value={message}
-                        onChange={(event) => setMessage(event.target.value)}
+                        onChange={(event) => setMessage(event.target.value)} required
                       />
                     </div>
                     <div>

@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState ,useContext} from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import SignGoogle from './SignInWithGoogle'
 // import Facebook from './SigInWithFacebook';
 import login from "../../images/login.jpg";
 import axios from "axios";
+import { UserContext } from '../../UserContext';
 
 function SignIn() {
   const [persons, setPersons] = useState([]);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { routs,updateRouts } = useContext(UserContext)
+  const { SignStatus,updateSignStatus } = useContext(UserContext)
 
+
+  const { curruntUser,updateSetCurruntUser } = useContext(UserContext)
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -22,9 +27,26 @@ function SignIn() {
 
       .then(function (response) {
         if (response.data != "not passed") {
-          console.log(response.data);
+          console.log(response.data[1]);
+         let x =[]
+            if (response.data[1]==0){
+            x= [false ,true,true]
+          }else if(response.data[1]==1){
+             x= [true ,false,true]
+          }else if(response.data[1]==2){
+             x= [true ,true,false]
+          }
+          console.log(response.data[2])
+          updateRouts(x)
+          updateSetCurruntUser(response.data[2])
+          localStorage.setItem("curruntUser",JSON.stringify(response.data[2]))
           console.log("passed");
-          localStorage.setItem("auth",JSON.stringify(response.data))
+          
+          updateSignStatus("SignOut")
+          localStorage.setItem("SignStatus","SignOut")
+
+          localStorage.setItem("auth",JSON.stringify(response.data[0]))
+          localStorage.setItem("roles",JSON.stringify(x))
           window.location.href = 'http://localhost:3000/';
         } else {
           console.log("not passed");
@@ -32,8 +54,9 @@ function SignIn() {
       })
       .catch(function (error) {});
 
+
     const data = { email, password };
-    console.log(data);
+    
 
     // setEmail("")
     // setPassword("")

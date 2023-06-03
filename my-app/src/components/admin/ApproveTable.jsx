@@ -104,20 +104,9 @@ const ApproveTable = () => {
               axios.put('http://localhost:5000/restaurants/'+userid)
               .then((response) => {
                   console.log(response.data);
-
-              
-
-
               })
               .catch((error) => console.log(error.message))
-          
- 
-
-
               window.location.reload();
-    
-    
-    
           } else
               Swal.fire(' Cancelled', '', 'error')
     

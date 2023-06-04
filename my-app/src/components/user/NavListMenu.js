@@ -4,6 +4,7 @@ import { UserContext } from '../../UserContext';
 import Swal from 'sweetalert2'
 
 import {
+  Avatar,
   Navbar,
   Collapse,
   Typography,
@@ -18,6 +19,9 @@ import {
   Chip,
 } from "@material-tailwind/react";
 import {
+  InboxArrowDownIcon,
+  LifebuoyIcon,
+  PowerIcon,
   ChevronDownIcon,
   UserCircleIcon,
   CubeTransparentIcon,
@@ -240,6 +244,120 @@ export default function Example() {
       () => window.innerWidth >= 960 && setOpenNav(false)
     );
   }, []);
+
+
+
+
+  const profileMenuItems = [
+    // {
+    //   label: "My Profile",
+    //   icon: UserCircleIcon,
+    // },
+    // {
+    //   label: "Edit Profile",
+    //   icon: Cog6ToothIcon,
+    // },
+    // {
+    //   label: "Inbox",
+    //   icon: InboxArrowDownIcon,
+    // },
+    {
+      label: "Profile",
+      icon: LifebuoyIcon,
+    },
+    {
+      label: "Sign Out",
+      icon: PowerIcon,
+    },
+  ];
+
+
+
+  function ProfileMenu() {
+    const { SignStatus,updateSignStatus } = useContext(UserContext)
+
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+    
+      const  closeMenu = (label) =>{ 
+        setIsMenuOpen(false)
+    
+    if(label == "Sign Out"){
+         updateSignStatus("signUp")
+        localStorage.setItem("SignStatus","signUp")
+        localStorage.removeItem("auth");
+        localStorage.removeItem("roles");
+        window.location.href = 'http://localhost:3000/';
+
+      console.log(label)
+    }else if(label == "Profile"){
+      window.location.href = 'http://localhost:3000/ProfilePage';
+  
+    }
+    
+    };
+   
+    return (
+      <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+        <MenuHandler>
+          <Button
+            variant="text"
+            color="blue-gray"
+            className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          >
+            <Avatar
+              variant="circular"
+              size="sm"
+              alt="candice wu"
+              className="border border-blue-500 p-0.5"
+              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
+            />
+            <ChevronDownIcon
+              strokeWidth={2.5}
+              className={`h-3 w-3 transition-transform ${
+                isMenuOpen ? "rotate-180" : ""
+              }`}
+            />
+          </Button>
+        </MenuHandler>
+        <MenuList className="p-1">
+          {profileMenuItems.map(({ label, icon }, key) => {
+            const isLastItem = key === profileMenuItems.length - 1;
+            return (
+            
+              <MenuItem
+                key={label}
+                onClick={()=>{closeMenu(label)}}
+                className={`flex items-center gap-2 rounded ${
+                  isLastItem
+                    ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                    : ""
+                }`}
+              >
+                {React.createElement(icon, {
+                  className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                  strokeWidth: 2,
+                })}
+                <Typography
+                  as="span"
+                  variant="small"
+                  className="font-normal"
+                  color={isLastItem ? "red" : "inherit"}
+                >
+                  {label}
+                </Typography>
+              </MenuItem>
+            );
+          })}
+        </MenuList>
+      </Menu>
+    );
+  }
+
+
+
+
+
+
  
   return (
     <Navbar className="w-screen sticky top-0 z-20" style={{backgroundColor: "black" , border: "none", borderRadius:"0"}}>
@@ -258,12 +376,19 @@ export default function Example() {
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-          {/* <Link to="/SignUp">
-          
-          </Link> */}
+       
+
+          { SignStatus == "signUp" ?
           <Button onClick={()=>handleSign()} size="sm" className="bg-amber-600 hover:shadow-lg-amber-600">
-            {SignStatus}
-          </Button>
+            SignUp
+          </Button> : 
+           <ProfileMenu />
+          
+
+
+         
+          }
+          
         </div>
         <IconButton
           variant="text"

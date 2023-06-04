@@ -8,10 +8,49 @@ import axios from  'axios';
 
 const RestaurantProfile = () => {
 
+  // //////////////////////////////////////////
+  let [base64code, setbase64code] = useState("");
+  const onChange = e => {
+    const files = e.target.files;
+    const file = files[0];
+    getBase64(file);
+    console.log(base64code);
+  };
+  const onLoad = fileString => {
 
+    setbase64code(fileString);
+  };
+  const getBase64 = file => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad(reader.result);
+    };
+  };
 
+// //////////////////////////////////////////////
 
+  // //////////////////////////////////////////
+  const [ foodImg, setFoodImg] = useState("");
+  const onChange2 = e => {
+    const files = e.target.files;
+    const file = files[0];
+    getBase64_2(file);
+    console.log(foodImg);
+  };
+  const onLoad2 = fileString => {
 
+    setFoodImg(fileString);
+  };
+  const getBase64_2 = file => {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      onLoad2(reader.result);
+    };
+  };
+
+// //////////////////////////////////////////////
   
   const [choise, setChoise] = useState(localStorage.getItem('choise') ? localStorage.getItem('choise')  : "profile");
   const [status, setStatus] = useState(localStorage.getItem('status') ? localStorage.getItem('status') : "pending");
@@ -63,14 +102,12 @@ const RestaurantProfile = () => {
   const [ contact, setContact] = useState("");
   const [ foodType, setFoodType] = useState("");
   const [ des, setDes] = useState("");
-  const [ img, setImg] = useState("");
-  const [ foodImg, setFoodImg] = useState("");
 
   // Handle Submit Form "Edit Restaurant's Information"
   const handleSubmit = (event) => {
       event.preventDefault();
 
-      const updateRes = {restaurant_name: restaurantName, address: address,contact_number: contact,type_food: foodType, des: des, img: img, food_image: foodImg};
+      const updateRes = {restaurant_name: restaurantName, address: address,contact_number: contact,type_food: foodType, des: des, img: base64code, food_image: foodImg};
       console.log(updateRes);
 
       axios.put('http://localhost:5000/restaurant/'+ restaurant_id, updateRes)
@@ -309,7 +346,7 @@ const RestaurantProfile = () => {
                         setContact(restaurant[0].contact_number);
                       setFoodType(restaurant[0].type_food);
                     setDes(restaurant[0].des);
-                  setImg(restaurant[0].img);
+                  setbase64code(restaurant[0].img);
                 setFoodImg(restaurant[0].food_image);}}
                           className="bg-white hover:bg-white text-amber-700 font-bold py-2 px-4 rounded-full"
                           >
@@ -406,9 +443,10 @@ const RestaurantProfile = () => {
                             </label>
                             <input
                               className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-amber-500 hover:shadow "
-                              type="text"
-                              value={img}
-                              onChange={(e) => setImg(e.target.value) }
+                              type="file"
+                              onChange={ (e) => onChange(e) }
+                              accept="image/*"
+
                             />
                           </div>
                           <div>
@@ -417,9 +455,9 @@ const RestaurantProfile = () => {
                             </label>
                             <input
                               className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-amber-500 hover:shadow "
-                              type="text"
-                              value={foodImg}
-                              onChange={(e) => setFoodImg(e.target.value) }
+                              type="file"
+                              onChange={(e) => {onChange2(e)}}
+                                accept="image/*"
                             />
                           </div>
                           <div className="flex justify-end">

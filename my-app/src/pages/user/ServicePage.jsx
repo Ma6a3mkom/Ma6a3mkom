@@ -2,7 +2,7 @@ import React,{useState,useEffect,useContext} from "react";
 import "./ServicePage.css";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-import { Link ,useParams } from 'react-router-dom';
+import { Link ,useParams,useNavigate } from 'react-router-dom';
 
 const ServicePage = ({setCurrentTable}) => {
 
@@ -228,6 +228,24 @@ let totalItemsUsers;
     const handlePageChangeUsers = (event, pageNumber) => {
       setCurrentPageUsers(pageNumber);
     };
+    const [selectedresId, setSelectedresId] = useState('');
+    const navigate = useNavigate();
+
+    function handleRes(restaurant){
+      let restaurant_id = restaurant.restaurant_id
+      
+      setSelectedresId(restaurant_id);
+       navigate(`/Details/${restaurant_id}`);
+    
+
+      // axios
+      //   .get(`http://localhost:5000/razan/${restaurant}`)
+      //   .then((response) => {
+
+      //   }).catch((error) => console.log(error.message));
+
+
+    }
 
 
   return (
@@ -361,8 +379,8 @@ let totalItemsUsers;
                 <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
                   {restaurant.des}
                 </p>
-                <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  <Link to="Login">Details</Link>
+                <button onClick={()=>{handleRes(restaurant)}} className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+                   Details
                 </button>
               </div>
             </center>

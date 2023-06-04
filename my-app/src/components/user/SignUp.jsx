@@ -58,16 +58,22 @@ function SignUp() {
 
      })
        .then(function (response) {
+          if(response.data != "taken"){
+        window.location.href = 'http://localhost:3000/SignIn';
+          }else{
+            console.log(response.data)
+            setError("this email is already taken")
+          }
          
        })
        .catch(function (error) {
        });
 
-      //  setName("")
-      //  setEmail("")
-      //  setPhone("") 
-      //  setPassword("") 
-      //  setPasswordConfirm("") 
+       setName("")
+       setEmail("")
+       setPhone("") 
+       setPassword("") 
+       setPasswordConfirm("") 
     }   
   
     

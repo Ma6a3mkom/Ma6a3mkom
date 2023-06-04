@@ -4,18 +4,35 @@ import Swal from 'sweetalert2';
 
 
 const EditProfile = () => {
+
+  // const [person, setPerson] = useState([]);
+
+  // useEffect(() => {
+  //     axios.get('http://localhost:5000/recordpId')
+  //     .then((response) => {
+  //         setPerson(response.data);
+  //         console.log(response.data)
+  //     })
+  //     .catch((error) => console.log(error.message))
+  // }, []);
+
   const [user, setUser] = useState({})
   const [id, setId] = useState({})
 
   useEffect(() => {
+      axios.get('http://localhost:5000/recordpId')
+      .then((response) => {
+  
+        setUser(response.data[0])
+        setId(response.data[0].userid)
+      })
+      .catch((error) => console.log(error.message))
 
-
-    if(localStorage.curruntUser != null ){
-      let x= JSON.parse(localStorage.curruntUser)
-      setUser(x)
-      setId(x.userid)
-     
-    }
+    // if(localStorage.curruntUser != null ){
+    //   let x= JSON.parse(localStorage.curruntUser)
+    //   setUser(x)
+    //   setId(x.userid)
+    // }
 
 
     // axios.get(`http://localhost:5000/user/${id}`)
@@ -36,8 +53,23 @@ const EditProfile = () => {
 
   )
 
+
+//   {
+//     "userid": 63,
+//     "username": "school system",
+//     "type_id": 0,
+//     "password": "aaa",
+//     "email": "razan55@gmail.com",
+//     "contact_us": null,
+//     "review": null,
+//     "phone_number": "0799855850",
+//     "flags": 1
+// }
+
+
   console.log(id)
-  const [username, setUsername] = useState(user[0]?.username)
+  console.log(user)
+  const [username, setUsername] = useState(user.username)
   const [email, setEmail] = useState("")
   const [PhoneNumber, setPhoneNumber] = useState("")
   const [Password, setPassword] = useState("")

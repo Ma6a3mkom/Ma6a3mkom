@@ -1,16 +1,50 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
 import payment from "../../images/payment.jpg";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 function PaymentPage() {
+
+  // app.post('/recordpId', async function(req, res){
+
+  //   try{
+  //        const email = useremail;
+  //        const password = userpassword;
+  //        const currentRecord = await pool.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+  //        let person0 = currentRecord.rows
+  //        res.json(person0);
+  //   }
+  //   catch(err){
+  //       console.log(err.message);
+  //   }
+  // });
+
+
+  const [person, setPerson] = useState([]);
+
+  useEffect(() => {
+      axios.get('http://localhost:5000/recordpId')
+      .then((response) => {
+          setPerson(response.data);
+          console.log(response.data)
+      })
+      .catch((error) => console.log(error.message))
+  }, []);
+  
+
+
   const [username, setUserName] = useState("");
   const [cardnumber, setCardNumber] = useState("");
   const [datecard, setDateCard] = useState("");
   const [cvc, setCvc] = useState("");
 
   const handlePayment = () => {
+
+    if(localStorage.auth != null && localStorage.auth != "" ){
+
+    
+    
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
 
@@ -30,6 +64,11 @@ function PaymentPage() {
       return;
     }
     submitPayment();
+
+
+  }else {
+    window.location.href = 'http://localhost:3000/SignUp';
+  }
   };
 
   const submitPayment = () => {
@@ -38,7 +77,10 @@ function PaymentPage() {
       cardnumber,
       datecard,
       cvc,
+      userid: person[0].userid
+
     };
+    console.log(person[0].userid)
 
     axios
       .post("http://localhost:5000/payment", paymentData)

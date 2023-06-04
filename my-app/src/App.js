@@ -87,7 +87,7 @@ useEffect(() => {
              <Route path="PaymentPage" element={<PaymentPage />} />
              <Route path="ProfilePage" element={<ProfilePage />} />
              <Route path="ServicePageAll" element={<ServicePageAll setCurrentTable={setCurrentTable} />} />
-             <Route path="Details" element={<Details currentTable={currentTable} />} />
+             <Route path="/Details/:restaurant_id" element={<Details currentTable={currentTable} />} />
              <Route path="EditProfile" element={<EditProfile />} />
              <Route path="/restaurants/:type_food" element={<ServicePage />} />
         </Routes>

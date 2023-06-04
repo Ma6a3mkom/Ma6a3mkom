@@ -1,10 +1,27 @@
-import { Link } from 'react-router-dom'
+import { Link ,useParams} from 'react-router-dom'
 import React, { useState,useContext, useEffect } from 'react'
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
 
 function Details1(currentTable) {
+  const [person, setPerson] = useState([]);
+
+  const [restaurantId, setRestaurantId] = useState();
+  const { restaurant_id } = useParams();
+
+console.log(restaurant_id)
+  useEffect(() => {
+      axios.get('http://localhost:5000/recordpId')
+      .then((response) => {
+          setPerson(response.data);
+          console.log(response.data)
+      })
+      .catch((error) => console.log(error.message))
+
+
+  }, []);
+ 
 
   let cards = [
 
@@ -20,9 +37,11 @@ function Details1(currentTable) {
   const [time, setTime] = useState('')
   const [date, setDate] = useState('')
 
-      
+  const { SignStatus,updateSignStatus } = useContext(UserContext)
+
 
   const handleSubmit =  (e) => {
+    
     e.preventDefault();
 
 axios.post('http://localhost:5000/orders', {
@@ -30,8 +49,14 @@ axios.post('http://localhost:5000/orders', {
   tableNumber: tableNumber,
   time: time,
   date: date,
+  userid: person[0].userid,
+  restaurant_id:restaurant_id
+
+ 
 })
 .then(function (response) {
+  console.log(response)
+  window.location.href="http://localhost:3000/PaymentPage"
 
 })
 .catch(function (error) {
@@ -215,11 +240,27 @@ axios.post('http://localhost:5000/orders', {
                   />
                 </div>
                 <br />
-                <button type="submit" className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  {/* <Link to="Login"> </Link> */}
-                         Send Message
-                         
-                </button>
+
+                { SignStatus =="signUp" ?
+               <Link to="/SignUp">
+               <button  type="submit" className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+                 
+                    SignUp
+                        
+               </button>
+               </Link>
+                  :         
+                  <button  type="submit" className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+                     
+                           Pay Now
+                           
+                  </button>
+                 
+                }
+
+
+                
+
               </div>
               </form>
               <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-orange-900 rounded-2xl">

@@ -1,8 +1,11 @@
 import React from "react";
 import Icon from '@mdi/react';
+import { useContext } from "react";
 import { mdiSilverwareForkKnife } from '@mdi/js';
 import { mdiAccountMultipleOutline } from '@mdi/js';
 import { mdiInbox } from '@mdi/js';
+import { UserContext } from '../../../UserContext';
+
 import {
   Navbar,
   MobileNav,
@@ -40,12 +43,12 @@ const profileMenuItems = [
   //   label: "Edit Profile",
   //   icon: Cog6ToothIcon,
   // },
+  // {
+  //   label: "Inbox",
+  //   icon: InboxArrowDownIcon,
+  // },
   {
-    label: "Inbox",
-    icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
+    label: "Profile",
     icon: LifebuoyIcon,
   },
   {
@@ -56,7 +59,25 @@ const profileMenuItems = [
  
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-  const closeMenu = () => setIsMenuOpen(false);
+  const { SignStatus,updateSignStatus } = useContext(UserContext)
+
+  const  closeMenu = (label) =>{ 
+    setIsMenuOpen(false)
+
+if(label == "Sign Out"){
+     updateSignStatus("signUp")
+    localStorage.setItem("SignStatus","signUp")
+    localStorage.removeItem("auth");
+    localStorage.removeItem("roles");
+    window.location.href = 'http://localhost:3000/';
+
+  console.log(label)
+}else if(label == "Profile"){
+  window.location.href = 'http://localhost:3000/ProfilePage';
+
+}
+
+};
  
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
@@ -87,7 +108,7 @@ function ProfileMenu() {
           return (
             <MenuItem
               key={label}
-              onClick={closeMenu}
+              onClick={()=>{closeMenu(label)}}
               className={`flex items-center gap-2 rounded ${
                 isLastItem
                   ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"

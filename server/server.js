@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(express.json({limit:"50mb"}));
 const pool = require('./db');
 const bcrypt = require("bcrypt");
 
@@ -19,9 +19,15 @@ app.post("/records", async function (req, res) {
     const phone = req.body.phone;
     const email = req.body.email;
     const password = req.body.password;
+    const checkEmail = await pool.query("SELECT email FROM users where email = $1  " ,[email]);
+   
+ if(checkEmail.rows.length ==0){
     const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5, $6) RETURNING *",
     [name,phone, email, password,0,1]);
     res.json(all_records.rows);
+  }else{
+    res.json("taken");
+  }
   } catch (err) {
     console.log(err.message);
   }
@@ -69,12 +75,16 @@ app.put('/records/:userid', async function(req, res){
   }
   catch(err){console.log(err.message);}
 });
-
+let useremail = '';
+let userpassword = '';
 
 app.post('/recordp', async function(req, res){
     try{
          const email = req.body.email;
+         useremail=email
          const password = req.body.password;
+         userpassword=password;
+
          const all_records = await pool.query("SELECT * FROM users");
 
          let persons0 = all_records.rows
@@ -96,6 +106,27 @@ app.post('/recordp', async function(req, res){
         console.log(err.message);
     }
 });
+
+
+
+app.get('/recordpId', async function(req, res){
+
+  try{
+       const email = useremail;
+       const password = userpassword;
+       const currentRecord = await pool.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+       let person0 = currentRecord.rows
+       res.json(person0);
+  }
+  catch(err){
+      console.log(err.message);
+  }
+});
+
+
+
+
+
 
 app.put('/recordss/:userid', async function(req, res) {
   try {
@@ -206,8 +237,11 @@ app.post("/orders", async function (req, res) {
     const table_number = req.body.tableNumber;
     const order_time = req.body.time;
     const order_date = req.body.date;
+    const userid = req.body.userid
+    const restaurant_id = req.body.restaurant_id
+    console.log(userid)
     const all_records = await pool.query("INSERT INTO orders (table_number,order_time, order_date ,user_id ,restaurant_id ,status ,guest_number ) VALUES($1, $2, $3 , $4,$5,$6,$7 ) RETURNING *",
-    [table_number,order_time, order_date,43,7,"aa",2]);
+    [table_number,order_time, order_date,userid,restaurant_id,"aa",2]);
     res.json(all_records.rows);
   } catch (err) {
     console.log(err.message);
@@ -224,7 +258,7 @@ app.post("/contacts", async function (req, res) {
     const phone = req.body.phone;
     const message = req.body.message;
     const all_records = await pool.query("INSERT INTO contacts (name,email, phone, message ,user_id) VALUES($1, $2, $3 , $4 ,$5) RETURNING *",
-    [name,email, phone, message ,37]);
+    [name,email, phone, message ,60]);
     res.json(all_records.rows);
   } catch (err) {
     console.log(err.message);
@@ -353,7 +387,7 @@ app.put("/restaurant/:id", async function (req, res) {
 app.post("/table", async function (req, res) {
   try {
    
-   const { table_number, available_time_start, guest_number, available_time_end, img, restaurant_id} = req.body;
+   const { table_number, available_time_start, guest_number, available_time_end, img, table_status, restaurant_id} = req.body;
 
   const check_table_number = await pool.query(
       "SELECT * FROM res_table WHERE table_number = $1",
@@ -362,8 +396,8 @@ app.post("/table", async function (req, res) {
  console.log(check_table_number.rows.length)
   if(check_table_number.rows.length === 0) { 
                   const newRecord = await pool.query(
-                      "INSERT INTO res_table (table_number, available_time_start, guest_number, available_time_end, img, restaurant_id) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-                      [table_number, available_time_start, guest_number, available_time_end, img, restaurant_id]
+                      "INSERT INTO res_table (table_number, available_time_start, guest_number, available_time_end, img, table_status, restaurant_id) VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+                      [table_number, available_time_start, guest_number, available_time_end, img, table_status, restaurant_id]
                   );
                   res.json(newRecord.rows);
               }
@@ -421,10 +455,10 @@ app.post("/payment", async function (req, res) {
     const hashedCardNumber = bcrypt.hashSync(cardnumber, 10);
     const datecard = req.body.datecard;
     const cvc = req.body.cvc;
-    
+    const userid =req.body.userid
     const newPayment = await pool.query(
       "INSERT INTO payment (username, cardnumber, datecard, cvc, userid) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [username, hashedCardNumber, datecard, cvc, 43]
+      [username, hashedCardNumber, datecard, cvc, userid]
     );
 
     res.json(newPayment.rows);

@@ -5,35 +5,40 @@ import axios from  'axios';
 import Swal from 'sweetalert2'
 
 const RestaurantHome = () => {
+ // //////////////////////////////////////////
+ const [img, setImg] = useState("");
+ const onChange = e => {
+   const files = e.target.files;
+   const file = files[0];
+   getBase64(file);
+   console.log(img);
+ };
+ const onLoad = fileString => {
 
-  const [persons, setPersons] = useState([]);
+   setImg(fileString);
+ };
+ const getBase64 = file => {
+   let reader = new FileReader();
+   reader.readAsDataURL(file);
+   reader.onload = () => {
+     onLoad(reader.result);
+   };
+ };
 
-  // useEffect(() => {
-  //     axios.get('http://localhost:5000/records')
-  //     .then((response) => {
-  //         setPersons(response.data);
-  //         setFilterDataUsers(response.data)
-  //     })
-  //     .catch((error) => console.log(error.message))
-  // }, []);
-
-
-
-
-
+// //////////////////////////////////////////////
 
   const [table_number, setTable_number] = useState("");
   const [available_time_start, setAvailable_time_start] = useState("");
   const [guest_number, setGuest_number] = useState("");
   const [available_time_end, setAvailable_time_end] = useState("");
-  const [img, setImg] = useState("");
+
   const [error, setError] = useState("");
   const restaurant_id  = 5;
 
   const handleSubmit = (event) => {
     event.preventDefault();
     let done = true;
-    const table = {table_number, available_time_start, guest_number, available_time_end, img, restaurant_id};
+    const table = {table_number, available_time_start, guest_number, available_time_end, img, table_status: "available", restaurant_id};
 
     if(table_number === "")
     {
@@ -337,12 +342,13 @@ const RestaurantHome = () => {
               </label>
               <input
                 className="shadow mb-4 appearance-none border rounded w-full py-2 px-3 text-black leading-tight focus:outline-none focus:shadow-outline"
-                type="text"
+                type="file"
                 placeholder="Table Image"
                 name="guest_num"
-                value={img}
-                onChange={(e) => {setImg(e.target.value)
+                onChange={(e) => {onChange(e)
                   setError("")}}
+                  accept="image/*"
+
               />
               
               

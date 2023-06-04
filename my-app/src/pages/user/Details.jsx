@@ -7,7 +7,8 @@ import { UserContext } from '../../UserContext';
 function Details1(currentTable) {
   const [person, setPerson] = useState([]);
 
-  const [restaurantId, setRestaurantId] = useState();
+  const [restaurantInfo, setRestaurantInfo] = useState({});
+  const [restauranttable, setrestauranttable] = useState([]);
   const { restaurant_id } = useParams();
 
 console.log(restaurant_id)
@@ -15,14 +16,32 @@ console.log(restaurant_id)
       axios.get('http://localhost:5000/recordpId')
       .then((response) => {
           setPerson(response.data);
-          console.log(response.data)
       })
       .catch((error) => console.log(error.message))
 
 
+
+      
+      axios.get(`http://localhost:5000/recordtable/${restaurant_id}`)
+      .then((response) => {
+        setrestauranttable(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error.message))
+
+
+
+
+
+      axios.get('http://localhost:5000/recordrId/'+restaurant_id)
+      .then((response) => {
+           setRestaurantInfo(response.data[0]);
+      })
+      .catch((error) => console.log(error.message))
+
   }, []);
  
-
+// console.log(restaurantInfo)
   let cards = [
 
     { Name: "  Qaysar Pizza ", path: "https://d2nuhorlnps36p.cloudfront.net/hotels/93783/93783_039_Restaurant.jpg", describtion: " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.", price: "12.1044$ " },
@@ -74,29 +93,22 @@ axios.post('http://localhost:5000/orders', {
           className="absolute inset-0 object-cover w-full h-full"
           alt=""
         />
-        <div className="relative bg-gray-900 bg-opacity-75">
-          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-            <div className="flex flex-col items-center justify-between xl:flex-row">
-              <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none">
-                  Restaurant table reservation services   <br className="hidden md:block" />
-                </h2>
-                <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
-                  Diversity between different restaurants and differ in the advantages and services they offer.
-                </p>
-                <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  <Link to="Login"> </Link>
-                     Details 
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+   
       </div>
   
 
 
-
+      {/* {
+    "restaurant_id": 6,
+    "user_id": 64,
+    "restaurant_name": "bashar999@gmail.com",
+    "address": null,
+    "contact_number": "",
+    "type_food": "arabian",
+    "des": null,
+    "img": null,
+    "food_image": null
+} */}
 
 
 
@@ -105,13 +117,13 @@ axios.post('http://localhost:5000/orders', {
         <div className="relative z-20 flex flex-col sm:w-2/3 lg:w-2/5">
           <span className="w-20 h-2 mb-12 bg-gray-800 dark:bg-white"></span>
           <div className="text-3xl font-black text-gray-800 uppercase dark:text-white">
-           {currentTable.currentTable.Name}
+           {restaurantInfo.restaurant_name}
           </div>
           <div className="text-3xl font-black text-gray-800 uppercase dark:text-white">
-            {currentTable.currentTable.price} - Amman 
+            {restaurantInfo.address}  
           </div>
           <h1 className="flex flex-col text-6xl font-black leading-none text-gray-800 uppercase font-bebas-neue sm:text-8xl dark:text-white">
-            <span className="text-5xl sm:text-7xl"> Service
+            <span className="text-5xl sm:text-7xl"> {restaurantInfo.des}
             </span>
           </h1>
           <br />
@@ -138,23 +150,29 @@ axios.post('http://localhost:5000/orders', {
 
       <center><h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         Restaurant's menu to book </h5></center>
+
+     
       <div className='flex flex-wrap gap-10 justify-center my-16'>
-        {
-          cards.map((e) => {
-            return (
+        
+      {restauranttable?.map((e)=>{
+
+console.log(e);
+return(
+
+      
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
-                  <img className="rounded-t-lg" src={e.path} alt="" />
+                  <img className="rounded-t-lg" src={e?.img} alt="" />
                 </a>
                 <center>
                   <div className="p-5">
                     <a href="#">
                       <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {e.Name}<br /> {e.price} - Amman
+                        {e?.restaurant_name}<br /> location: {e?.table_number}
                       </h5>
                     </a>
                     <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      {e.describtion}
+                      {e?.des}
                     </p>
                     <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
                       <Link to="Login">Details</Link>
@@ -162,9 +180,8 @@ axios.post('http://localhost:5000/orders', {
                   </div>
                 </center>
               </div>
-            )
-          })
-        }
+           
+      )})}
       </div>
 
 

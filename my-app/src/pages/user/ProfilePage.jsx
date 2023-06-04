@@ -3,11 +3,10 @@ import React, { useState, useEffect ,useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-import { UserContext } from '../../UserContext';
 
 const ProfilePage = () => {
 
-    const [id, setId] = useState(localStorage.curruntUser != null ? JSON.parse(localStorage.curruntUser).userid :{} )
+    const [id, setId] = useState()
     const [orders, setOrders] = useState([])
     const order_pending = false;
     const [prevOrders, setPrevOrders] = useState([])
@@ -15,24 +14,23 @@ const ProfilePage = () => {
 
     // const { curruntUser,updateSetCurruntUser } = useContext(UserContext)
 
-    console.log(id)
+ 
     useEffect(() => {
+  
+        axios.get('http://localhost:5000/getId')
+        .then(function (response) {
+      
+            setId(response.data[0].userid)
+            console.log(response.data[0].userid)
 
-    //       let x
-    //   if(localStorage.curruntUser != null ){
-    //    x= JSON.parse(localStorage.curruntUser)
-    //     setUser(x)
-    //   }
 
-        axios.get(`http://localhost:5000/user/${id}`)
+            axios.get(`http://localhost:5000/user/${response.data[0].userid}`)
             .then(function (response) {
                 console.log(response.data);
                 setUser(response.data);
 
                 if (user.length !== 0) {
                     order_pending = true;
-
-
                 }
 
             })
@@ -41,7 +39,8 @@ const ProfilePage = () => {
             });
 
 
-        axios.get('http://localhost:5000/userOrders/0')
+
+            axios.get(`http://localhost:5000/userOrders/${response.data[0].userid}`)
             .then(function (response) {
                 console.log(response.data);
 
@@ -53,7 +52,7 @@ const ProfilePage = () => {
                 console.log(error);
             });
 
-            axios.get('http://localhost:5000/oldOrders/0')
+            axios.get(`http://localhost:5000/oldOrders/${response.data[0].userid}`)
             .then(function (response) {
                 console.log(response.data);
 
@@ -64,6 +63,20 @@ const ProfilePage = () => {
             .catch(function (error) {
                 console.log(error);
             });
+
+
+
+
+
+
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
+
+
+
 
     }, []
 

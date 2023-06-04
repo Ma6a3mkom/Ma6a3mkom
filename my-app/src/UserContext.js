@@ -3,6 +3,12 @@ import { Children, createContext, useState } from "react";
 
 export const UserContext = createContext();
 const UserProvider = ( {children} ) => {
+
+
+
+
+
+
   
   const [routs, setRouts] = useState([false,true,true]);
   const [SignStatus, setSignStatus] = useState("signUp");

@@ -2,10 +2,13 @@
 // import Carousel from "react-bootstrap/Carousel";
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import { Link,useNavigate } from "react-router-dom";
-import { useState } from "react";
+ import axios from "axios";
+import { useState ,useEffect } from "react";
 const Home = () => {
+  
 
 
+ 
   const [selectedFoodType, setSelectedFoodType] = useState('');
   const navigate = useNavigate();
 

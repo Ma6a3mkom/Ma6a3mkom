@@ -12,6 +12,8 @@ const jwt = require('jsonwebtoken');
 const secretKey = 'ZhQrZ951';
 
 
+
+
 // Get All Records
 app.post("/records", async function (req, res) {
   try {
@@ -78,6 +80,11 @@ app.put('/records/:userid', async function(req, res){
 let useremail = '';
 let userpassword = '';
 
+let generatedUserId
+
+
+
+
 app.post('/recordp', async function(req, res){
     try{
          const email = req.body.email;
@@ -92,6 +99,7 @@ app.post('/recordp', async function(req, res){
             if(e.email==email ){
               if(e.password==password){
                 const token = jwt.sign({ email: e.email, password:e.password }, secretKey,{expiresIn:'9weeks'}); // Generate JWT
+                generatedUserId=e.userid
                 res.json([token,e.type_id,e]);
                 role000=e.type_id;
               }else {
@@ -124,6 +132,33 @@ app.get('/recordpId', async function(req, res){
 });
 
 
+app.get('/recordrId/:id', async function(req, res){
+
+  try{
+      const id =req.params.id;
+       const currentRecord = await pool.query("SELECT * FROM restaurant WHERE restaurant_id = '" + id + "'");
+       let res0 = currentRecord.rows
+       res.json(res0);
+  }
+  catch(err){
+  }
+});
+
+
+
+app.get('/recordtable/:id', async function(req, res){
+
+  try{
+      const id =req.params.id;
+       const currentRecord = await pool.query("SELECT * FROM res_table WHERE restaurant_id = '" + id + "'");
+       let res0 = currentRecord.rows
+       res.json(res0);
+       console.log(res0);
+  }
+  catch(err){
+      console.log(err.message);
+  }
+});
 
 
 
@@ -241,7 +276,7 @@ app.post("/orders", async function (req, res) {
     const restaurant_id = req.body.restaurant_id
     console.log(userid)
     const all_records = await pool.query("INSERT INTO orders (table_number,order_time, order_date ,user_id ,restaurant_id ,status ,guest_number ) VALUES($1, $2, $3 , $4,$5,$6,$7 ) RETURNING *",
-    [table_number,order_time, order_date,userid,restaurant_id,"aa",2]);
+    [table_number,order_time, order_date,userid,restaurant_id,"pending",2]);
     res.json(all_records.rows);
   } catch (err) {
     console.log(err.message);
@@ -553,6 +588,29 @@ app.delete('/deleteOrders/:id', async (req, res) => {
       console.log(err.message);
   }
 })
+
+
+
+
+//  user id 
+
+
+app.get('/getId', async function(req, res) {
+
+  try{
+    const email = useremail;
+    const password = userpassword;
+    const currentRecord = await pool.query("SELECT * FROM users WHERE email = '" + email + "' AND password = '" + password + "'");
+    let person0 = currentRecord.rows
+      res.json(person0);
+  
+  }
+  catch(err){
+      console.log(err.message);
+  }
+  
+  });
+
 
 
 

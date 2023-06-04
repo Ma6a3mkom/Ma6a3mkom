@@ -108,6 +108,15 @@ function handleLogOut(){
           </ListItem>
           </Link>
 
+          <Link to='/EditAboutContact'>
+          <ListItem>
+            <ListItemPrefix>
+            <Icon path={mdiInformationOutline} size={1} />
+            </ListItemPrefix>
+             Edit About
+          </ListItem>
+          </Link>
+
          <Link to='/Chat'>
           <ListItem>
             <ListItemPrefix>

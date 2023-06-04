@@ -65,6 +65,17 @@ useEffect(() => {
    }
 
 
+
+  
+
+  
+  
+
+  
+  
+
+
+
 }, []);
 
 
@@ -85,7 +96,7 @@ useEffect(() => {
              <Route path="SignIn" element={<SignIn />} />
              <Route path="SignUp" element={<SignUp />} />
              <Route path="PaymentPage" element={<PaymentPage />} />
-             <Route path="ProfilePage" element={<ProfilePage />} />
+             <Route path="ProfilePage"  element={<ProfilePage  />} />
              <Route path="ServicePageAll" element={<ServicePageAll setCurrentTable={setCurrentTable} />} />
              <Route path="/Details/:restaurant_id" element={<Details currentTable={currentTable} />} />
              <Route path="EditProfile" element={<EditProfile />} />

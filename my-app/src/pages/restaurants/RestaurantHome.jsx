@@ -5,6 +5,22 @@ import axios from  'axios';
 import Swal from 'sweetalert2'
 
 const RestaurantHome = () => {
+
+
+  const [restaurant, setRestaurant] = useState([]);
+
+  useEffect(() => {
+      axios.get('http://localhost:5000/generatedRes')
+      .then((response) => {
+        setRestaurant(response.data);
+          
+      })
+      .catch((error) => console.log(error.message))
+  }, []);
+
+
+
+
  // //////////////////////////////////////////
  const [img, setImg] = useState("");
  const onChange = e => {
@@ -33,7 +49,7 @@ const RestaurantHome = () => {
   const [available_time_end, setAvailable_time_end] = useState("");
 
   const [error, setError] = useState("");
-  const restaurant_id  = 5;
+  const restaurant_id  = restaurant[0]?.restaurant_id;
 
   const handleSubmit = (event) => {
     event.preventDefault();

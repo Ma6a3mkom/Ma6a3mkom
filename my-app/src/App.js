@@ -34,6 +34,7 @@ import ListUser from './pages/admin/ListUser'
 import ListRestaurant from './pages/admin/ListRestaurant';
 import Chat from './pages/admin/Chat';
 import EditAboutContact from './pages/admin/EditAboutContact';
+import AcceptTables from './pages/admin/AcceptTables';
 //---------------------------------------------------------------//
 
 import React, { useEffect, useState ,useContext } from 'react'
@@ -122,6 +123,7 @@ useEffect(() => {
         <Route path="ListRestaurant" element={<ListRestaurant />} />
         <Route path="Chat" element={<Chat />} />
         <Route path="EditAboutContact" element={<EditAboutContact />} />
+        <Route path="AcceptTables" element={<AcceptTables />} />
         </Routes>
         </div>
       </Router>

@@ -1,4 +1,3 @@
-
 import Icon from "@mdi/react";
 import { mdiDelete } from "@mdi/js";
 import { mdiFileEdit } from "@mdi/js";
@@ -11,147 +10,148 @@ import Swal from 'sweetalert2'
 import { mdiShieldCrownOutline } from '@mdi/js'
 import { mdiAccountOutline } from '@mdi/js';
 
-const UsersInfo = () => {
+const Tables = () => {
 
-  const [persons, setPersons] = useState([]);
+    const [pendingTables, setPendingTables] = useState([]);
+    const [names, setNames] = useState([]);
 
-  useEffect(() => {
-      axios.get('http://localhost:5000/records')
-      .then((response) => {
-          setPersons(response.data);
-          setFilterDataUsers(response.data)
-      })
-      .catch((error) => console.log(error.message))
-  }, []);
+    useEffect(() => {
+        axios.get('http://localhost:5000/pendingTables')
+        .then((response) => {
+            setPendingTables(response.data.tables);
+            setFilterDataUsers(response.data.tables)
+            setNames(response.data.names)
+        })
+        .catch((error) => console.log(error.message))
+
+    }, []);
+
+
+     console.log(pendingTables)
+     console.log(names)
+
+//-----------------------search------------------------//
+const [searchTermUsers, setSearchTermUsers] = useState("");
+const [FilterDataUsers, setFilterDataUsers] = useState([]);
+
+const filterDataByNameUsers = (searchTermUsers) => {
+
+  const filteredDataUsers = pendingTables.filter((item) =>
+    item.username.toLowerCase().includes(searchTermUsers.toLowerCase())
+  );
+  setFilterDataUsers(filteredDataUsers);
+  setCurrentPageUsers(1);
+};
+
+const [currentPageUsers, setCurrentPageUsers] = useState(1);
+let totalItemsUsers;
+
+let totalPagesUsers;
+
+let slicedArrayUsers;
+
+const itemsPerPage = 3;
+
+totalItemsUsers = FilterDataUsers.length;
+
+totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
+
+const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
+
+const endIndexUsers = startIndexUsers + itemsPerPage;
+
+slicedArrayUsers = FilterDataUsers.slice(startIndexUsers, endIndexUsers);
+
+const handlePageChangeUsers = (event, pageNumber) => {
+  setCurrentPageUsers(pageNumber);
+};
+
+const handleDelete = (id,name) => {
+
+//     Swal.fire({
+//       title: ` do you want to remove ${name}?  `,
+//       showConfirmButton: true,
+//       showCancelButton: true,
+//       confirmButtonText: "OK",
+//       cancelButtonText: "Cancel",
+//       icon: 'warning'
+//   }
+//   ).then((result) => {
+//       /* Read more about isConfirmed, isDenied below */
+//       if (result.isConfirmed) {
+
+//           Swal.fire(` ${name} has been removed `, '', 'success');
+       
+//           axios.put('http://localhost:5000/recordss/'+id)
+//           .then((response) => {
+//               console.log(response.data);
+//           })
+//           .catch((error) => console.log(error.message))
+      
+//           window.location.reload();
+
+
+
+//       } else
+//           Swal.fire(' Cancelled', '', 'error')
+
+//   })
+
+
+}
+
+const handleUpdate = (table_id) => {
 
  
+   
+     Swal.fire({
+       title: `accept  table?`,
+       showConfirmButton: true,
+       showCancelButton: true,
+       confirmButtonText: "OK",
+       cancelButtonText: "Cancel",
+       icon: 'warning'
+   }
+   ).then((result) => {
+       /* Read more about isConfirmed, isDenied below */
+       if (result.isConfirmed) {
+         axios.put('http://localhost:5000/pendingTables/' + table_id, {
+            table_id: table_id,
 
-  //-----------------------search------------------------//
-  const [searchTermUsers, setSearchTermUsers] = useState("");
-  const [FilterDataUsers, setFilterDataUsers] = useState([]);
-
-  const filterDataByNameUsers = (searchTermUsers) => {
-
-    const filteredDataUsers = persons.filter((item) =>
-      item.username.toLowerCase().includes(searchTermUsers.toLowerCase())
-    );
-    setFilterDataUsers(filteredDataUsers);
-    setCurrentPageUsers(1);
-  };
-
-  const [currentPageUsers, setCurrentPageUsers] = useState(1);
-  let totalItemsUsers;
-
-  let totalPagesUsers;
-
-  let slicedArrayUsers;
-
-  const itemsPerPage = 3;
-
-  totalItemsUsers = FilterDataUsers.length;
-
-  totalPagesUsers = Math.ceil(totalItemsUsers / itemsPerPage);
-
-  const startIndexUsers = (currentPageUsers - 1) * itemsPerPage;
-
-  const endIndexUsers = startIndexUsers + itemsPerPage;
-
-  slicedArrayUsers = FilterDataUsers.slice(startIndexUsers, endIndexUsers);
-
-  const handlePageChangeUsers = (event, pageNumber) => {
-    setCurrentPageUsers(pageNumber);
-  };
-
-
-  const handleDelete = (id,name) => {
-
-
-
-    Swal.fire({
-      title: ` do you want to remove ${name}?  `,
-      showConfirmButton: true,
-      showCancelButton: true,
-      confirmButtonText: "OK",
-      cancelButtonText: "Cancel",
-      icon: 'warning'
-  }
-  ).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-
-          Swal.fire(` ${name} has been removed `, '', 'success');
+          
+                     
+       })
+       .then(function (response) {
        
-          axios.put('http://localhost:5000/recordss/'+id)
-          .then((response) => {
-              console.log(response.data);
-          })
-          .catch((error) => console.log(error.message))
-      
-          window.location.reload();
+       })
+       .catch(function (error) {
+       });
+   
+       
+           Swal.fire("the table has been accepted", '', 'success');
+        
+           window.location.reload();
+       } else
+           Swal.fire(' Cancelled', '', 'error')
+   
+   })
+   
+   
+    }
 
 
 
-      } else
-          Swal.fire(' Cancelled', '', 'error')
-
-  })
 
 
-}
-
-const handleUpdate = (userid,typeid,name) => {
-
- let role = typeid == 0 ? "user" : "admin"
- let role2 = typeid == 1 ? "user" : "admin"
- let text1 =""
- let text2 =""
-if (role == "user"){
-
-  text1 = `do you want to switch ${name} to admin `
-  text2 = ` ${name} is now an admin `
-
-}else{
-
-  text1 = `do you want to switch ${name} to user `
-  text2 = ` ${name} is now a user `
-
-}
-  Swal.fire({
-    title: text1,
-    showConfirmButton: true,
-    showCancelButton: true,
-    confirmButtonText: "OK",
-    cancelButtonText: "Cancel",
-    icon: 'warning'
-}
-).then((result) => {
-    /* Read more about isConfirmed, isDenied below */
-    if (result.isConfirmed) {
-      axios.put('http://localhost:5000/records/' + userid, {
-        id: typeid,
-                  
-    })
-    .then(function (response) {
-    
-    })
-    .catch(function (error) {
-    });
-
-    
-        Swal.fire(text2, '', 'success');
-     
-        window.location.reload();
-    } else
-        Swal.fire(' Cancelled', '', 'error')
-
-})
 
 
- }
 
   return (
+   
     <>
-      <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl ">
+    
+    
+    <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl ">
         <div className="relative flex items-center justify-between pt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
             Users Table
@@ -238,7 +238,7 @@ if (role == "user"){
               </tr>
             </thead>
 
-            {slicedArrayUsers.map((e) => {
+            {slicedArrayUsers.map((e,i) => {
               return (
                 <tbody role="rowgroup">
                   <tr role="row">
@@ -255,7 +255,7 @@ if (role == "user"){
                       </div>
 
                       <p className="text-sm font-bold text-navy-700 dark:text-white ml-3">
-                        {e.username}
+                        {names[i].restaurant_name}
                       </p>
                     </td>
                     <td
@@ -265,7 +265,7 @@ if (role == "user"){
                       <div className="flex items-center gap-2">
                         <div className="rounded-full text-xl">
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.email}
+                            {e.restaurant_id}
                           </p>
                         </div>
                       </div>
@@ -275,7 +275,7 @@ if (role == "user"){
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.phone_number}
+                        {e.table_id}
                       </p>
                     </td>
                     <td
@@ -283,7 +283,7 @@ if (role == "user"){
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.type_id == 0 ? "user" : "admin"}
+                        {e.flags == 0 ? "pending" : "avilable"}
                       </p>
                     </td>
 
@@ -291,7 +291,7 @@ if (role == "user"){
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
-                      <button onClick={() => handleUpdate(e.userid,e.type_id,e.username)}>
+                      <button onClick={() => handleUpdate(e.table_id)}>
                         
                         
                         {e.type_id == 0 ? <Icon color="blue" path={mdiAccountOutline} size={1} /> : <Icon color="blue" path={mdiShieldCrownOutline} size={1} />}
@@ -323,14 +323,9 @@ if (role == "user"){
         }
       </div>
     </>
-  );
-};
+    
+   
+  )
+}
 
-export default UsersInfo;
-
-
-
-
-
-
-
+export default Tables

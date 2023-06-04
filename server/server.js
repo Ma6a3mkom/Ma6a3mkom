@@ -80,7 +80,7 @@ app.put('/records/:userid', async function(req, res){
 let useremail = '';
 let userpassword = '';
 
-let generatedUserId
+let generatedRes
 
 
 
@@ -93,7 +93,9 @@ app.post('/recordp', async function(req, res){
          userpassword=password;
 
          const all_records = await pool.query("SELECT * FROM users");
-
+         const res_id = await pool.query(`SELECT *  FROM restaurant JOIN users ON restaurant.user_id = users.userid WHERE users.email = $1`,[useremail]);
+        
+         generatedRes=res_id.rows
          let persons0 = all_records.rows
           persons0.map((e)=>{
             if(e.email==email ){
@@ -114,6 +116,22 @@ app.post('/recordp', async function(req, res){
         console.log(err.message);
     }
 });
+
+// ------------------restaurant ----------------------
+
+app.get('/generatedRes', async function(req, res){
+
+  try{
+    
+       res.json(generatedRes);
+  }
+  catch(err){
+      console.log(err.message);
+  }
+});
+
+
+
 
 
 
@@ -150,7 +168,7 @@ app.get('/recordtable/:id', async function(req, res){
 
   try{
       const id =req.params.id;
-       const currentRecord = await pool.query("SELECT * FROM res_table WHERE restaurant_id = '" + id + "'");
+       const currentRecord = await pool.query("SELECT * FROM res_table WHERE restaurant_id = '" + id + "' AND flags = '" + 1 + "' ");
        let res0 = currentRecord.rows
        res.json(res0);
        console.log(res0);
@@ -178,7 +196,8 @@ app.put('/recordss/:userid', async function(req, res) {
 // Get All restaurants
 app.get('/restaurants', async function(req, res) {
   try{
-      const all_records = await pool.query("SELECT *  FROM restaurant JOIN users ON users.userid = restaurant.user_id WHERE users.flags = 1 ;");res.json(all_records.rows);
+      const all_records = await pool.query("SELECT *  FROM restaurant JOIN users ON users.userid = restaurant.user_id WHERE users.flags = 1 ;");
+      res.json(all_records.rows);
   }
   catch(err){
       console.log(err.message);
@@ -191,7 +210,7 @@ app.post("/restaurants", async function (req, res) {
     const name = '';
     const phone = '';
     const email = req.body.email;
-    const password = '';
+    const password = 'aaa';
     const all_records = await pool.query("INSERT INTO users (username,phone_number, email, password,type_id,flags) VALUES($1, $2, $3 , $4 , $5,$6) RETURNING userid",
     [name,phone, email, password,2,1]);
 
@@ -612,9 +631,35 @@ app.get('/getId', async function(req, res) {
   });
 
 
+  app.get('/pendingTables', async function(req, res){
 
+    try{
+        const id =req.params.id;
+         const currentRecord = await pool.query("SELECT * FROM res_table  WHERE flags = 0");
+         const currentRecord0= await pool.query("SELECT restaurant_name  FROM restaurant JOIN res_table ON res_table.restaurant_id = restaurant.restaurant_id WHERE res_table.flags = 0 ;");
+         
+         res.json({
+           tables:currentRecord.rows,
+           names:currentRecord0.rows
 
+         });
+    }
+    catch(err){
+        console.log(err.message);
+    }
+  });
 
+// Update a Specific Record
+app.put('/pendingTables/:table_id', async function(req, res){
+  try{
+      const { table_id } = req.params;
+      const record = await pool.query("UPDATE res_table SET flags = $1 WHERE table_id = $2",
+      [1,table_id]);
+    
+      res.send("Updated Successfully");
+  }
+  catch(err){console.log(err.message);}
+});
 
 
 // Start the server

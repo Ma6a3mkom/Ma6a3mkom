@@ -5,7 +5,7 @@ import { mdiAccountMultipleOutline } from '@mdi/js';
 import { mdiInformationOutline } from '@mdi/js';
 import { UserContext } from '../../../UserContext';
 import React,{useState,useEffect,useContext} from "react";
-
+import { mdiTableFurniture } from '@mdi/js';
 
 import {
     Card,
@@ -108,12 +108,12 @@ function handleLogOut(){
           </ListItem>
           </Link>
 
-          <Link to='/EditAboutContact'>
+          <Link to='/AcceptTables'>
           <ListItem>
             <ListItemPrefix>
-            <Icon path={mdiInformationOutline} size={1} />
+            <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
-             Edit About
+            Pending Tables
           </ListItem>
           </Link>
 

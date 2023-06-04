@@ -8,6 +8,38 @@ import axios from  'axios';
 
 const RestaurantProfile = () => {
 
+
+  const [restaurant0, setRestaurant0] = useState([]);
+
+  useEffect(() => {
+      axios.get('http://localhost:5000/generatedRes')
+      .then((response) => {
+        setRestaurant0(response.data);
+          
+      })
+      .catch((error) => console.log(error.message))
+
+    //  axios.get('http://localhost:5000/recordpId')
+    //   .then((response) => {
+    //       setPerson(response.data);
+    //   })
+    //   .catch((error) => console.log(error.message))
+
+
+
+
+
+
+
+  }, []);
+
+
+
+
+
+
+
+
   // //////////////////////////////////////////
   let [base64code, setbase64code] = useState("");
   const onChange = e => {
@@ -55,7 +87,7 @@ const RestaurantProfile = () => {
   const [choise, setChoise] = useState(localStorage.getItem('choise') ? localStorage.getItem('choise')  : "profile");
   const [status, setStatus] = useState(localStorage.getItem('status') ? localStorage.getItem('status') : "pending");
   const [edit, setEdit] = useState(false);
-  const restaurant_id  = 5;
+  const restaurant_id  = restaurant0[0]?.restaurant_id;
   const [search, setSearch] = useState("");
 
   const email = "amani.shzyoud@gmail.com";

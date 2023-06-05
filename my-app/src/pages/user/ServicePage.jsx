@@ -49,6 +49,7 @@ const ServicePage = ({ setCurrentTable }) => {
     let restaurant_id = restaurant.restaurant_id;
     setSelectedResId(restaurant_id);
     navigate(`/Details/${restaurant_id}`);
+
   }
 
 
@@ -163,7 +164,7 @@ const ServicePage = ({ setCurrentTable }) => {
                 </p>
                 <p className="text-gray-500 mt-2 flex items-center">
                   <FaUtensils className="mr-2" />
-                  Food Type: {restaurant.type_food}
+                  Food Type:<span className="capitalize"> {restaurant.type_food}</span>
                 </p>
                 <div className="mt-5">
                   <button onClick={() => { handleRes(restaurant) }} className="btn buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">

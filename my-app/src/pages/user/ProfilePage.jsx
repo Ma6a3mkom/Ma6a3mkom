@@ -78,7 +78,7 @@ const ProfilePage = () => {
 
 
 
-    }, []
+    }, [prevOrders]
 
     )
 
@@ -128,12 +128,14 @@ const ProfilePage = () => {
                         </div>{" "}
                         <div className="relative">
                             {" "}
-                            <div className="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
+                            <div className="w-48 h-48 bg-amber-500 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500">
                                 <svg
                                     xmlns="https://source.unsplash.com/MP0IUfwrn0A"
                                     className="h-24 w-24"
                                     viewBox="0 0 20 20"
-                                    fill="currentColor"
+                                    fill="white"
+                                    
+                                    
                                 >
                                     {" "}
                                     <path
@@ -266,6 +268,7 @@ const ProfilePage = () => {
                                                     showCancelButton: true,
                                                     confirmButtonColor:'orange',
                                                     confirmButtonText: 'OK',
+                                                    cancelButtonColor: 'orange',
                                                     cancelButtonText: 'Cancel',
                                                   }).then((result) => {
                                                     if (result.isConfirmed) {
@@ -282,7 +285,7 @@ const ProfilePage = () => {
                                                       Swal.fire('Success!', 'Your order was cancelled successfully!', 'success');
 
                                                       setTimeout(function () {
-                                                        window.location.reload();
+                                                        // window.location.reload();
                                                       }, 2000);
                                     
                                                     } else if (result.dismiss === Swal.DismissReason.cancel) {

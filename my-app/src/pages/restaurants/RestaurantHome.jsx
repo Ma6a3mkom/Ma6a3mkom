@@ -8,19 +8,33 @@ const RestaurantHome = () => {
 
 
   const [restaurant, setRestaurant] = useState([]);
+  const [ res, setRes] = useState([])
 
   useEffect(() => {
+
       axios.get('http://localhost:5000/generatedRes')
       .then((response) => {
         setRestaurant(response.data);
+                let x =response.data[0].restaurant_id;
+
+             
+              axios.get(`http://localhost:5000/restaurant/${x}`)
+              .then((response) => {
+                setRes(response.data);
+                console.log(response.data)
+              })
+              .catch((error) => console.log(error.message));
           
+
       })
-      .catch((error) => console.log(error.message))
+      .catch((error) => console.log(error.message));
+
+
+
+
+
+
   }, []);
-
-
-
-
  // //////////////////////////////////////////
  const [img, setImg] = useState("");
  const onChange = e => {
@@ -103,7 +117,6 @@ const RestaurantHome = () => {
               });
           }
   };
-
   return (
     <>
       <svg
@@ -217,7 +230,8 @@ const RestaurantHome = () => {
         </div>
       </div>
 
-      <section className="mt-20 relative overflow-hidden via-transparent to-transparent pb-12 pt-20 sm:pb-16 sm:pt-32 lg:pb-24 xl:pb-32 xl:pt-40">
+ { (res[0]?.restaurant_name != "") && <>
+  <section className="mt-20 relative overflow-hidden via-transparent to-transparent pb-12 pt-20 sm:pb-16 sm:pt-32 lg:pb-24 xl:pb-32 xl:pt-40">
         <div className="relative z-10">
           <div className="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,{#ea4d24},transparent)]">
             <svg
@@ -391,7 +405,9 @@ const RestaurantHome = () => {
           </div>
         </div>
       </div>
-    </>
+ 
+ 
+ </>}  </>
   );
 };
 

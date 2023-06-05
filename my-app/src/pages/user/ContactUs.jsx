@@ -58,7 +58,7 @@ function ContactUs()
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-blue-500">
+                  <Link to="/" className="text-amber-500">
                     Home
                   </Link>
                   <svg
@@ -77,7 +77,7 @@ function ContactUs()
                   </svg>
                 </li>
                 <li className="flex items-center">
-                  <Link to="/" className="text-blue-500">
+                  <Link to="/" className="text-amber-500">
                     Categories
                   </Link>
                   <svg
@@ -103,14 +103,15 @@ function ContactUs()
       </div>
 
       <div
-        className="ms-5 me-5"
-        style={{ marginRight: "60px", marginLeft: "65px" }}
+        className=""
+       
       >
-        <section className="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]">
+        <section className="relative z-10 overflow-hidden bg-white py-20 lg:py-[120px]"
+        >
           <div className="container mx-auto">
-            <div className="-mx-4 flex flex-wrap lg:justify-between">
-              <div className="w-full px-4 lg:w-1/2 xl:w-6/12">
-                <div className="mb-12 max-w-[570px] lg:mb-0">
+            <div className="mx-4 flex flex-wrap lg:justify-between">
+              <div className="w-full  lg:w-1/2 xl:w-6/12">
+                <div className="mb-12 max-w-[570px] lg:mb-0" style={{ marginRight: "60px", marginLeft: "65px" }}>
                   <h2 className="text-dark mb-6 text-[32px] font-bold uppercase sm:text-[40px] lg:text-[36px] xl:text-[40px]">
                     GET IN TOUCH WITH US
                   </h2>
@@ -224,7 +225,7 @@ function ContactUs()
                     <div>
                       <button
                         type="submit"
-                        className="bg-black border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90"
+                        className="bg-amber-500 border-primary w-full rounded border p-3 text-white transition hover:bg-opacity-90"
                       >
                         Send Message
                       </button>
@@ -232,7 +233,7 @@ function ContactUs()
                   </form>
 
                   <div>
-                    <span className="absolute -top-10 -right-9 z-[-1]">
+                    {/* <span className="absolute -top-10 -right-9 z-[-1]">
                       <svg
                         width={100}
                         height={100}
@@ -247,7 +248,7 @@ function ContactUs()
                           fill="#000000"
                         />
                       </svg>
-                    </span>
+                    </span> */}
                     <span className="absolute -right-10 top-[90px] z-[-1]">
                       <svg
                         width={34}

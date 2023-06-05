@@ -22,24 +22,7 @@ const ApproveTable = () => {
          setFilterDataRestaurants(response.data)
     })
     .catch((error) => console.log(error.message))
-}, [restaurants]);
-
-// [
-//   {
-//       "restaurant_id ": 1,
-//       "user_id": 33,
-//       "restaurant_name": "aaa",
-//       "address": "aaaaa",
-//       "contact_number": "aaaaa",
-//       "type_food": "aaaa",
-//       "des": "aaaaaaaaa",
-//       "img": "aaaaaaaaa",
-//       "food_image": "aaaaaaaaaa"
-//   }
-// ]
-
-
-
+}, []);
 
 
        //-----------------------search------------------------//
@@ -115,6 +98,9 @@ const ApproveTable = () => {
     
     }
 
+
+
+
 function addrestaurants(){
   axios.post('http://localhost:5000/restaurants', {
     email: email,
@@ -127,7 +113,10 @@ function addrestaurants(){
 });
 }
 
+// useEffect(() => {
 
+  
+// },[])
 
 
   return (
@@ -156,7 +145,7 @@ function addrestaurants(){
       onChange={(e) => {setEmail(e.target.value);}}
     />
     <button
-    onClick={addrestaurants}
+       onClick={()=>addrestaurants()}
       type="submit"
       className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >

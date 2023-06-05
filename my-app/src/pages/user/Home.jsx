@@ -258,8 +258,8 @@ const Home = () => {
           <div className="relative flex max-w-[24rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
             <div className="p-6">
-              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Name
+              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-amber-700 antialiased">
+                John Amber
               </h4>
               <br />
               <p className="mt-3 block font-sans text-xl font-normal leading-relaxed text-gray-700 antialiased">
@@ -341,8 +341,8 @@ const Home = () => {
           <div className="relative flex max-w-[24rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
             <div className="p-6">
-              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Name
+              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-amber-700 antialiased">
+                Saleem Ahmad
               </h4>
               <br />
               <p className="mt-3 block font-sans text-xl font-normal leading-relaxed text-gray-700 antialiased">
@@ -424,8 +424,8 @@ const Home = () => {
           <div className="relative flex max-w-[24rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
 
             <div className="p-6">
-              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
-                Name
+              <h4 className="block font-sans text-2xl font-semibold leading-snug tracking-normal text-amber-700 antialiased">
+                Jesica Nour
               </h4>
               <br />
               <p className="mt-3 block font-sans text-xl font-normal leading-relaxed text-gray-700 antialiased">

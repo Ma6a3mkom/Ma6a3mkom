@@ -14,6 +14,8 @@ const Tables = () => {
 
     const [pendingTables, setPendingTables] = useState([]);
     const [names, setNames] = useState([]);
+    const [emails, setEmails] = useState([]);
+    const [emailSend, setEmailSend] = useState(false);
 
     useEffect(() => {
         axios.get('http://localhost:5000/pendingTables')
@@ -21,14 +23,12 @@ const Tables = () => {
             setPendingTables(response.data.tables);
             setFilterDataUsers(response.data.tables)
             setNames(response.data.names)
+            setEmails(response.data.emails)
         })
         .catch((error) => console.log(error.message))
 
-    }, [pendingTables]);
+    }, []);
 
-
-     console.log(pendingTables)
-     console.log(names)
 
 //-----------------------search------------------------//
 const [searchTermUsers, setSearchTermUsers] = useState("");
@@ -100,10 +100,18 @@ const handleDelete = (id,name) => {
 
 }
 
-const handleUpdate = (table_id) => {
+const handleUpdate = (table_id,e,i) => {
 
- 
-   
+ let  index =((currentPageUsers - 1) * itemsPerPage + i)
+  
+ axios.get('http://localhost:5000/pendingTables')
+ .then((response) => {
+     setPendingTables(response.data.tables);
+     setFilterDataUsers(response.data.tables)
+     setNames(response.data.names)
+ })
+ .catch((error) => console.log(error.message))
+
      Swal.fire({
        title: `accept  table?`,
        showConfirmButton: true,
@@ -127,6 +135,16 @@ const handleUpdate = (table_id) => {
        .catch(function (error) {
        });
    
+ 
+
+
+
+       sendEmail(index)
+
+
+
+
+
        
            Swal.fire("the table has been accepted", '', 'success');
         
@@ -141,7 +159,19 @@ const handleUpdate = (table_id) => {
 
 
 
+    const sendEmail = (index) => {
 
+
+
+
+      const recipient = emails[index].email;
+      const subject = 'Hello';
+      const body = 'your table has been accepted';
+  
+      const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  
+      window.location.href = mailtoLink;
+    }
 
 
 
@@ -291,11 +321,16 @@ const handleUpdate = (table_id) => {
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
-                      <button onClick={() => handleUpdate(e.table_id)}>
+
+                      <button onClick={() => {
                         
-                        
+                        handleUpdate(e.table_id,e,i)
+                      }}>
+
                         {e.type_id == 0 ? <Icon color="blue" path={mdiAccountOutline} size={1} /> : <Icon color="blue" path={mdiShieldCrownOutline} size={1} />}
+                        
                       </button>
+                      
                     </td>
 
                     <td
@@ -313,7 +348,7 @@ const handleUpdate = (table_id) => {
           </table>
         </div>
       </div>
-      <div className="flex w-full justify-center mt-5">
+      <div className="flex w-full justify-center mt-5 bg-white">
         {
           <Pagination
             count={totalPagesUsers}

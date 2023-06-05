@@ -3,6 +3,7 @@ import React, { useState,useContext, useEffect } from 'react'
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 import axios from 'axios';
 import { UserContext } from '../../UserContext';
+import { HashLink } from 'react-router-hash-link'
 
 function Details1(currentTable) {
   const [person, setPerson] = useState([]);
@@ -98,13 +99,13 @@ axios.post('http://localhost:5000/orders', {
   
 
 
-      <section class="px-3 py-5 bg-neutral-100 lg:py-10">
+      <section class="px-3 py-5 bg-white lg:py-10">
     <div class="grid lg:grid-cols-2 items-center justify-items-center gap-5">
     <div class="ms-10">
-            <h1 class="text-4xl lg:text-6xl text-white font-bold">{restaurantInfo.restaurant_name}</h1>
+            <h1 class="text-4xl lg:text-6xl text-black font-bold">{restaurantInfo.restaurant_name}</h1>
             <div class="w-20 h-2 bg-amber-500 my-4"></div>
-            <p class="text-2xl text-gray-200">{restaurantInfo.address}</p>
-            <p class="text-xl text-gray-200 mb-10">{restaurantInfo.des}</p>
+            <p class="text-2xl text-black">{restaurantInfo.address}</p>
+            <p class="text-xl text-black mb-10">{restaurantInfo.des}</p>
           </div>
         <div class="order-1 lg:order-2">
             <img class="h-80 w-80 object-cover lg:w-[500px] lg:h-[500px] rounded-lg" src={restaurantInfo.img} alt=""/>
@@ -117,18 +118,19 @@ axios.post('http://localhost:5000/orders', {
 
 
 {restauranttable?.length !== 0 ?  <>
-  <center><h5 className="uppercase mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+  <center >
+    <br /><h5 className="uppercase text-4xl font-bold text-white bg-black">
         Available TAbles </h5></center>
 
      
-      <div className='flex flex-wrap gap-10 justify-center my-16'>
+      <div className='flex flex-wrap gap-10 justify-center bg-black'>
         
       {restauranttable?.map((e)=>{
 
             return(
 
       
-              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+              <div className="max-w-sm my-5 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                 <a href="#">
                   <img className="rounded-t-lg" src={e?.img} alt="" />
                 </a>
@@ -138,7 +140,10 @@ axios.post('http://localhost:5000/orders', {
                        TABLE #{e?.table_number}
                       </h5>
                     <button className="bg-amber-600 border-none text-sm text-white rounded-lg px-2 py-2 text-black mr-4">
-                      <Link to="Login">BOOK</Link>
+                      <HashLink smooth={true} to="#book" onClick={() => {
+                        setTableNumber(e?.table_number);
+                        setEmail(person[0]?.email);
+                      }}>BOOK</HashLink>
                     </button>
                   </div>
                 </center>
@@ -149,31 +154,25 @@ axios.post('http://localhost:5000/orders', {
            
       )})}
       </div>
-  </> : <h1 className='uppercase mb-2 text-center text-5xl font-bold tracking-tight text-white dark:text-white'>NO available tables</h1>}
+  </> : <h1 className='bg-black uppercase  text-center text-5xl font-bold tracking-tight text-white' >NO available tables</h1>}
 
-     <>
+     <> <span id='book'></span>
         <>
-          <div className="flex justify-center items-center w-screen h-screen bg-white">
+          <div className="container mx-auto p-10 lg:px-20 bg-black" >
             <div className="container mx-auto my-4 px-4 lg:px-20">
              
-            <form onSubmit={handleSubmit}>
-              <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
+            <form onSubmit={handleSubmit} >
+              <div className="w-full p-8 my-8 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl bg-white">
                 <div className="flex">
                   <div>
                     <Typography
                       variant="h1"
-                      color="orange"
-                      className="mb-4 text-3xl md:text-4xl lg:text-5xl"
+                      color="amber"
+                      className="text-3xl md:text-4xl lg:text-5xl"
                     >
-                      Restaurant Details
+                      Book A Table
                     </Typography>
-                    <Typography
-                      variant="h1"
-                      color="black"
-                      className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-                    >
-                      Send us a message
-                    </Typography>
+                
                   </div>
                 </div>
 
@@ -216,16 +215,16 @@ axios.post('http://localhost:5000/orders', {
 
                 { SignStatus =="signUp" ?
                <Link to="/SignUp">
-               <button  type="submit" className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+               <button  type="submit" className="border-none bg-amber-500 rounded-lg  px-4 py-3 text-white mr-4">
                  
-                    SignUp
+                    Sign Up to book!
                         
                </button>
                </Link>
                   :         
-                  <button  type="submit" className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+                  <button  type="submit" className="border-none  bg-amber-500 rounded-lg  px-4 py-3 text-black mr-4">
                      
-                           Pay Now
+                           Book Now
                            
                   </button>
                  
@@ -236,88 +235,30 @@ axios.post('http://localhost:5000/orders', {
 
               </div>
               </form>
-              <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-orange-900 rounded-2xl">
+              <div className="w-full lg:-mt-96 lg:w-2/6 px-8 py-12 ml-auto bg-amber-700 rounded-2xl">
                 <div className="flex flex-col text-black">
                   <h1 className="font-bold uppercase text-4xl my-4">
                     Booking Details
                   </h1>
-                  <p className="text-gray-400">
+                  <p className="text-white">
                     Restaurant reservation services provide many advantages and benefits such as ease and convenience without having to
                     go to the restaurant in person or wait in line. You can book a table from anywhere and at any time convenient for you
                     via phone or online.
                   </p>
-                  <div className="flex my-4 w-2/3 lg:w-1/2">
-                    <div className="flex flex-col">
-                      <i className="fas fa-map-marker-alt pt-2 pr-2"></i>
-                    </div>
-                    <i className="fas fa-map-marker-alt pt-2 pr-2">
-                      <div className="flex flex-col">
-                        <h2 className="text-2xl">MA6A3MKOM</h2>
-                        <p className="text-gray-400">
-                          Jordan-Amman Reservation Service
-                        </p>
-                      </div>
-                    </i>
-                  </div>
+                <br />
                 </div>
               </div>
             </div>
           </div>
         </>
         <>
-          <div>
-            <Typography
-              variant="h1"
-              color="black"
-              className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-            >
-              <center><h1> Contact us for reservation
-              </h1></center>
-            </Typography>
-          </div>
-          <div className="flex justify-center items-center w-screen h-screen bg-white">
-            {/* COMPONENT CODE */}
-            <div className="container mx-auto my-4 px-4 lg:px-20">
-              <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
-                <div className="flex">
-                  <div>
-                    <Typography
-                      variant="h1"
-                      color="orange"
-                      className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-                    >
-                      Call us to book a service
-                    </Typography>
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 gap-5 md:grid-cols-2 mt-5">
-                  <input
-                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                    type="text"
-                    placeholder="name restaurant*"
-                  />
-                  <input
-                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                    type="text"
-                    placeholder="type of food*"
-                  />
-                </div>
-                <div className="my-4">
-                  <textarea
-                    placeholder="Message*"
-                    className="w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                    defaultValue={""}
-                  />
-                </div>
-                <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  <Link to="Login">     Send Message </Link>
-                </button>
-              </div>
-            </div>
-          </div>
+        
         </>
       </>
-    </>)
+    </>
+    
+    
+    )
 }
 
 export default Details1

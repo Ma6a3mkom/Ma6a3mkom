@@ -52,7 +52,7 @@ function About()
             <nav className="text-white mb-8">
               <ol className="list-none p-0 inline-flex">
                 <li className="flex items-center">
-                  <Link to="/" className="text-blue-500">
+                  <Link to="/" className="text-amber-500">
                     Home
                   </Link>
                   <svg
@@ -71,7 +71,7 @@ function About()
                   </svg>
                 </li>
                 <li className="flex items-center">
-                  <Link to="/" className="text-blue-500">
+                  <Link to="/" className="text-amber-500">
                     Categories
                   </Link>
                   <svg
@@ -99,11 +99,11 @@ function About()
 
       {/* features section */}
 
-      <div className="py-16 bg-gray-50 overflow-hidden m-2">
+      <div className="py-16 bg-black overflow-hidden m-2 ">
         <div className="container m-auto px-6 space-y-8 text-gray-500 md:px-12">
           <div>
             <span className="text-gray-700 text-lg font-semibold"></span>
-            <h2 className="mt-4 text-2xl text-gray-900 text-center font-bold md:text-4xl">
+            <h2 className="mt-4 text-2xl text-white text-center font-bold md:text-4xl">
               Main features
             </h2>
           </div>
@@ -168,8 +168,8 @@ function About()
                 </div>
               </div>
             </div>
-            <div className="relative group bg-gray-100 transition hover:z-[1] hover:shadow-2xl lg:hidden xl:block">
-              <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border group-hover:scale-90">
+            <div className="relative group bg-white transition hover:z-[1] hover:shadow-2xl lg:hidden xl:block">
+              <div className="relative p-8 space-y-8 border-dashed rounded-lg transition duration-300 group-hover:bg-white group-hover:border ">
                 <img
                   src="https://tailus.io/sources/blocks/stacked/preview/images/avatars/metal.png"
                   className="w-10"
@@ -197,13 +197,13 @@ function About()
 
       {/* ====== About Section Start */}
       <section
-        className="overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
-        style={{ marginRight: "55px", marginLeft: "70px" }}
+        className="bg-white overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
+        // style={{ marginRight: "55px", marginLeft: "70px" }}
       >
         <div className="container mx-auto">
           <div className="-mx-4 flex flex-wrap items-center justify-between">
             <div className="w-full px-4 lg:w-6/12">
-              <div className="-mx-3 flex items-center sm:-mx-4">
+              <div className="-mx-3 flex items-center sm:-mx-4"style={{ marginRight: "55px", marginLeft: "70px" }}>
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
@@ -220,7 +220,7 @@ function About()
                     />
                   </div>
                 </div>
-                <div className="w-full px-3 sm:px-4 xl:w-1/2">
+                <div className="w-full px-3 sm:px-4 xl:w-1/2 ">
                   <div className="relative z-10 my-4">
                     <img
                       src="https://cdn.tailgrids.com/2.0/image/marketing/images/about/about-01/image-3.jpg"
@@ -801,12 +801,12 @@ function About()
                 </div>
               </div>
             </div>
-            <div className="w-full px-4 lg:w-1/2 xl:w-5/12">
+            <div className="w-full px-4 lg:w-1/2 xl:w-5/12 texy-black capitalize ">
               <div className="mt-10 lg:mt-0">
-                <span className="text-primary mb-2 block text-lg font-semibold">
+                <span className=" mb-2 block text-lg font-semibold">
                   Why Choose Us
                 </span>
-                <h2 className="text-dark mb-8 text-3xl font-bold sm:text-4xl">
+                <h2 className="text-white mb-8 text-3xl font-bold sm:text-4xl">
                 {aboutUsData.about_title}
                 </h2>
                 <p className="text-body-color mb-8 text-base">
@@ -821,13 +821,13 @@ function About()
       {/* ====== About Section End */}
 
       {/* Start Team members section */}
-      <div className="bg-gray-50 dark:bg-gray-800 py-20">
+      <div className="bg-black py-20">
         <div className="xl:container mx-auto px-6 md:px-12">
           <div className="mb-28">
-            <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 dark:text-white md:text-4xl">
+            <h2 className="mb-4 text-center text-2xl font-bold text-white md:text-4xl">
               Our Team
             </h2>
-            <p className="text-center text-gray-600 dark:text-gray-300 lg:mx-auto lg:w-8/12">
+            <p className="text-center text-white lg:mx-auto lg:w-8/12">
               Our amazing team is comprised of passionate individuals who are
               dedicated to revolutionizing the way people make restaurant
               reservations.
@@ -846,7 +846,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-gray-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-white">
                   Bashar Alamoush{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">
@@ -899,7 +899,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-gray-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-white">
                   {" "}
                   Issa Zeidan
                 </h4>
@@ -953,7 +953,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-gray-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-white">
                   Farah Almasri
                 </h4>
                 <span className="block text-sm text-gray-500">
@@ -1012,7 +1012,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-gray-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-white">
                   Majdi Shomali{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1063,7 +1063,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-gray-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-white">
                   Razan Aboushi
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1114,7 +1114,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-gray-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-white">
                   Amani AlZyoud{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1169,7 +1169,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-gray-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-white">
                   Tasneem AL-Jamat
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>

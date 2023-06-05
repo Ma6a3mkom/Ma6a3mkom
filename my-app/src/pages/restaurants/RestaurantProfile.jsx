@@ -15,30 +15,9 @@ const RestaurantProfile = () => {
       axios.get('http://localhost:5000/generatedRes')
       .then((response) => {
         setRestaurant0(response.data);
-          
       })
       .catch((error) => console.log(error.message))
-
-    //  axios.get('http://localhost:5000/recordpId')
-    //   .then((response) => {
-    //       setPerson(response.data);
-    //   })
-    //   .catch((error) => console.log(error.message))
-
-
-
-
-
-
-
   }, []);
-
-
-
-
-
-
-
 
   // //////////////////////////////////////////
   let [base64code, setbase64code] = useState("");
@@ -98,7 +77,7 @@ const RestaurantProfile = () => {
   const { error, isPending, data: restaurant } = useFetch(`http://localhost:5000/restaurant/${restaurant_id}`);
   const { error: order_error, isPending: order_pending, data: restaurant_orders } = useFetch(`http://localhost:5000/orders/${restaurant_id}`);
 
-    
+    console.log(restaurant_orders)
   let formattedTime;
   let formattedDate;
 
@@ -134,12 +113,13 @@ const RestaurantProfile = () => {
   const [ contact, setContact] = useState("");
   const [ foodType, setFoodType] = useState("");
   const [ des, setDes] = useState("");
+  const [ password, setPassword] = useState("");
 
   // Handle Submit Form "Edit Restaurant's Information"
   const handleSubmit = (event) => {
       event.preventDefault();
 
-      const updateRes = {restaurant_name: restaurantName, address: address,contact_number: contact,type_food: foodType, des: des, img: base64code, food_image: foodImg};
+      const updateRes = {restaurant_name: restaurantName, address: address,contact_number: contact,type_food: foodType, des: des, img: base64code, food_image: foodImg ,password:password};
       console.log(updateRes);
 
       axios.put('http://localhost:5000/restaurant/'+ restaurant_id, updateRes)
@@ -427,6 +407,17 @@ const RestaurantProfile = () => {
                           </div>
                           <div>
                             <label className="text-black dark:text-gray-400">
+                              password
+                            </label>
+                            <input
+                              className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-amber-500 hover:shadow "
+                              type="text"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value) }
+                            />
+                          </div>
+                          <div>
+                            <label className="text-black dark:text-gray-400">
                               Address
                             </label>
                             <input
@@ -636,12 +627,7 @@ const RestaurantProfile = () => {
                                     {order.table_number}
                                   </p>
                                 </div>
-                                <div className="mt-4 flex items-center justify-between">
-                                  <p className="text-sm font-medium text-gray-500">
-                                    Status:
-                                    <span className="text-red-600"> {order.status}</span>
-                                  </p>
-                                </div>
+                    
                                 <div class="mt-4 flex items-center justify-between">
                                   <p class="text-sm font-medium text-gray-500">
                                     Order Date:
@@ -741,12 +727,7 @@ const RestaurantProfile = () => {
                                     {order.table_number}
                                   </p>
                                 </div>
-                                <div className="mt-4 flex items-center justify-between">
-                                  <p className="text-sm font-medium text-gray-500">
-                                    Status:
-                                    <span className="text-amber-600"> {order.status}</span>
-                                  </p>
-                                </div>
+
                                 <div class="mt-4 flex items-center justify-between">
                                   <p class="text-sm font-medium text-gray-500">
                                     Order Date:
@@ -841,12 +822,6 @@ const RestaurantProfile = () => {
                                   </h3>
                                   <p className="mt-1 max-w-2xl text-medium text-black">
                                     {order.table_number}
-                                  </p>
-                                </div>
-                                <div className="mt-4 flex items-center justify-between">
-                                  <p className="text-sm font-medium text-gray-500">
-                                    Status:
-                                    <span className="text-green-600"> {order.status}</span>
                                   </p>
                                 </div>
                                 <div class="mt-4 flex items-center justify-between">

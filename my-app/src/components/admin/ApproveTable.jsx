@@ -22,7 +22,7 @@ const ApproveTable = () => {
          setFilterDataRestaurants(response.data)
     })
     .catch((error) => console.log(error.message))
-}, []);
+}, [restaurants]);
 
 // [
 //   {
@@ -106,7 +106,7 @@ const ApproveTable = () => {
                   console.log(response.data);
               })
               .catch((error) => console.log(error.message))
-              window.location.reload();
+              // window.location.reload();
           } else
               Swal.fire(' Cancelled', '', 'error')
     

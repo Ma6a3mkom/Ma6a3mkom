@@ -22,7 +22,7 @@ const UsersInfo = () => {
           setFilterDataUsers(response.data)
       })
       .catch((error) => console.log(error.message))
-  }, []);
+  }, [persons]);
 
  
 
@@ -87,7 +87,7 @@ const UsersInfo = () => {
           })
           .catch((error) => console.log(error.message))
       
-          window.location.reload();
+          // window.location.reload();
 
 
 
@@ -128,11 +128,9 @@ if (role == "user"){
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       axios.put('http://localhost:5000/records/' + userid, {
-        id: typeid,
-                  
+        id: typeid,           
     })
-    .then(function (response) {
-    
+    .then(function (response) {  
     })
     .catch(function (error) {
     });
@@ -140,7 +138,7 @@ if (role == "user"){
     
         Swal.fire(text2, '', 'success');
      
-        window.location.reload();
+        // window.location.reload();
     } else
         Swal.fire(' Cancelled', '', 'error')
 

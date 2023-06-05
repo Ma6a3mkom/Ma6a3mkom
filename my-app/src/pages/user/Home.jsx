@@ -1,9 +1,12 @@
 // import React from 'react'
 // import Carousel from "react-bootstrap/Carousel";
-import { Carousel, Typography, Button } from "@material-tailwind/react";
+import { Button } from "@material-tailwind/react";
 import { Link,useNavigate } from "react-router-dom";
- import axios from "axios";
-import { useState ,useEffect } from "react";
+import { useState } from "react";
+import video from '../../images/video.mp4'
+import { HashLink } from "react-router-hash-link";
+
+
 const Home = () => {
   
 
@@ -22,115 +25,37 @@ const Home = () => {
 
   return (
     <>
-      <Carousel className="rounded-xl">
+     <section className="relative h-screen flex flex-col items-center justify-center text-center text-white ">
+  <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
+    <video
+      className="min-w-full min-h-full absolute object-cover"
+      src={video}
+      type="video/mp4"
+      autoPlay={true}
+      muted={true}
+      loop={true}
+    />
+  </div>
+  <div className="video-content space-y-2 z-10 pb-5" style={{height: "55vh"}}>
+    <h1 className="font-bold text-5xl uppercase text-amber-600">Foodie's Paradise Awaits</h1>
+    <h3 className="font-bold text-2xl capitalize">Reserve your table with ease and indulge in culinary delights <br/> at your favorite restaurants</h3>
+    <div class="rounded-md shadow mt-10">
+        <HashLink smooth={true} to="#food">
+        <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded">
+            Pick Your Favorite Food
+        </button>
+        </HashLink>
+    </div>
 
-
-        <div className="relative h-4/5 w-full">
-          <img
-            src="https://www.top-magazin-frankfurt.de/wp-content/uploads/2021/12/Das-%E2%80%9EFranziska-im-Henninger-Turm.jpg"
-            alt="image 2"
-            className="h-full w-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
-            <div className="w-1/4 text-center ">
-              <Typography
-                variant="h1"
-                color="orange"
-                className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-              >
-                Foodie's Paradise Awaits.
-              </Typography>
-              <Typography
-                variant="lead"
-                color="white"
-                className="mb-12 opacity-80"
-              >
-                Reserve your table with ease and indulge in culinary delights at your favorite restaurants.
-              </Typography>
-              <div className="flex justify-center ">
-                <Link to="/SignUp">
-                  <Button size="lg" color="orange">
-                    Join Us Now!
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="relative h-4/5 w-full">
-          <img
-            src="https://www.travellens.co/content/images/size/w2000/format/webp/2022/12/Best-Restaurants-in-Edison-NJ.jpg"
-            alt="image 2"
-            className="h-full w-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
-            <div className="w-1/4 text-center ">
-              <Typography
-                variant="h1"
-                color="orange"
-                className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-              >
-                Culinary Magic Unleashed
-              </Typography>
-              <Typography
-                variant="lead"
-                color="white"
-                className="mb-12 opacity-80"
-              >
-                Celebrate life's moments with extraordinary food. Book a table, gather your loved ones, and create memories around a delightful feast.
-              </Typography>
-              <div className="flex justify-center ">
-                <Link to="/SignUp">
-                  <Button size="lg" color="orange">
-                    Join Us Now!
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/*  */}
-        <div className="relative h-4/5 w-full">
-          <img
-            src="https://images.unsplash.com/photo-1669698274953-9001989b86db?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE3fHx8ZW58MHx8fHx8&w=1000&q=80"
-
-            alt="image 2"
-            className="h-full w-full object-cover opacity-60"
-          />
-          <div className="absolute inset-0 grid h-full w-full place-items-center bg-black/25">
-            <div className="w-1/4 text-center ">
-              <Typography
-                variant="h1"
-                color="orange"
-                className="mb-4 text-3xl md:text-4xl lg:text-5xl"
-              >
-                Flavors that Mesmerize!
-              </Typography>
-              <Typography
-                variant="lead"
-                color="white"
-                className="mb-12 opacity-80"
-              >
-                Life is too short for average meals. Seize the moment, book a table, and savor every delicious second.
-              </Typography>
-              <div className="flex justify-center ">
-                <Link to="/SignUp">
-                  <Button size="lg" color="orange">
-                    Join Us Now!
-                  </Button>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Carousel>
+  </div>
+</section>
 
 
       <section className="bg-white dark:bg-gray-900">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-            <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-              Effortless reservations at favorite restaurants.
+            <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
+              Effortless reservations at favorite restaurants
             </h2>
             <br />
 
@@ -155,9 +80,9 @@ const Home = () => {
 
 
       <div>
-        <section style={{ marginTop: "120px" }}>
+        <section style={{ marginTop: "120px" }} id="food">
           <br />
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white text-center">
+          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white  text-center capitalize">
             Which food do you prefer?
           </h2>
           <div className="flex flex-wrap my-10 mx-20">
@@ -308,11 +233,11 @@ const Home = () => {
         </section>
 <div className="flex justify-center">
 
-<Link to="ServicePageAll">
-<Button className="border border-solid border-[#ea4d24] border-2 text-[#ea4d24] hover:bg-[#ea4d24] hover:text-[#ffffff]" variant="text">
+<HashLink smooth={true} to="ServicePageAll#">
+<Button className="border border-solid border-amber-600 border-2 text-amber-600 hover:bg-amber-600 hover:text-[#ffffff]" variant="text">
   Show All Restaurants
   </Button>
-  </Link>
+  </HashLink>
 
 </div>
       </div>
@@ -320,7 +245,7 @@ const Home = () => {
       
       <br />
 
-      <section>
+      <section className="mb-10">
         <br />
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white dark:text-white text-center">
           What People Says

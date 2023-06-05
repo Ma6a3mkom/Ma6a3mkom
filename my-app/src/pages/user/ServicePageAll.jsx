@@ -1,171 +1,47 @@
 import React,{useState,useEffect,useContext} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate  } from "react-router-dom";
 import "./ServicePage.css";
 import { UserContext } from '../../UserContext';
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
-
+import { FaUtensils, FaMapMarkerAlt } from 'react-icons/fa'
+import { FaBook } from 'react-icons/fa';
 
 const ServicePageAll = ({setCurrentTable}) => {
-  let cards = [
-    {
-      Name: "  Qaysar Pizza ",
-      Address: "Amman",
-      path: "https://d2nuhorlnps36p.cloudfront.net/hotels/93783/93783_039_Restaurant.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Food: "Arabian",
-    },
-    {
-      Name: "  Pizza Nina ",
-      path: "https://one-sourceconstruction.com/site/wp-content/uploads/c9.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Amman",
-      Food: "Arabian",
-    },
-    {
-      Name: "  The Judge",
-      path: "https://eventective-media.azureedge.net/2524260_lg.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Zarqa",
-      Food: "Arabian",
-    },
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
-    {
-      Name: "  Brisket",
-      path: "https://dimg04.c-ctrip.com/images/220j180000014l7vqC793_R_1136_750_R5_D.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Zarqa",
-      Food: "Arabian",
-    },
-    {
-      Name: "  Mcdonalds  ",
-      path: "https://img.freepik.com/premium-photo/luxury-table-setting-dining-restaurant-pastel-colors-close-up-wedding-party-table-set-banquet_324489-5752.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Aqaba",
-      Food: "Arabian",
-    },
-    {
-      Name: "  Free Fire ",
-      path: "https://th.bing.com/th/id/OIP.1dAJAMgUB2yCt5jyO0s9TAHaE8?pid=ImgDet&w=1030&h=687&rs=1",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Aqaba",
-      Food: "Arabian",
-    },
+  useEffect(() => {
+    axios
+      .get("http://localhost:5000/restaurantsAll")
+      .then((response) => {
+        console.log(response.data);
+        setRestaurants(response.data);
+        setFilterDataUsers(response.data)
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
+  }, []);
 
-    {
-      Name: "  Chicker's",
-      path: "https://images.trvl-media.com/hotels/1000000/30000/23000/22994/8b25298d_z.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Petra",
-      Food: "Arabian",
-    },
-    {
-      Name: "  Rodeo Grill",
-      path: "https://ludalct.ycl.hky.mybluehost.me/wp-content/uploads/2019/11/2A1A4412-copy-min.jpg",
-      description:
-        " Enjoy an amazing dining experience at our restaurant. Book your table now and enjoy the most delicious dishes.",
-      Address: "Petra",
-      Food: "Arabian",
-    },
-    {
-      Name: "Italiano Pizzeria",
-      Address: "Amman",
-      path: "https://www.seriouseats.com/recipes/images/2016/12/20161216-pizza-francese-margherita-food-lab-57-1500x1125.jpg",
-      description:
-        "Authentic Italian pizza made with the finest ingredients. Come and savor the taste of Italy at our pizzeria in Amman.",
-      Food: "Italian",
-    },
-    {
-      Name: "Pasta La Vista",
-      Address: "Amman",
-      path: "https://www.thespruceeats.com/thmb/DJpZTys_B3Pq9at4OG08Hk5hVqQ=/960x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/homemade-pasta-spaghetti-2500-56a20f2f5f9b58b7d0c6349b.jpg",
-      description:
-        "Indulge in the rich flavors of authentic Italian pasta. Our restaurant in Amman offers a wide variety of pasta dishes to satisfy your cravings.",
-      Food: "Italian",
-    },
-    {
-      Name: "Mamma Mia Ristorante",
-      Address: "Zarqa",
-      path: "https://www.mariannasitalian.com/wp-content/uploads/2017/12/italian-restaurant-in-central-oregon.jpg",
-      description:
-        "Experience the taste of Italy at Mamma Mia Ristorante. From classic Italian dishes to modern creations, our menu has something for everyone.",
-      Food: "Italian",
-    },
-    {
-      Name: "Taste of Napoli",
-      Address: "Zarqa",
-      path: "https://www.lifedaily.com/wp-content/uploads/2016/08/italian-food-11.jpg",
-      description:
-        "Get a true taste of Napoli right here in Zarqa. Our restaurant serves traditional Neapolitan cuisine with a touch of modern flair.",
-      Food: "Italian",
-    },
-    {
-      Name: "La Trattoria",
-      Address: "Aqaba",
-      path: "https://www.italoamerica.com/wp-content/uploads/2018/03/eat-italian-food.jpg",
-      description:
-        "Step into La Trattoria and be transported to the heart of Italy. Enjoy the cozy ambiance and authentic Italian dishes prepared with love.",
-      Food: "Italian",
-    },
-    {
-      Name: "Bella Cucina",
-      Address: "Aqaba",
-      path: "https://www.littlethings.com/app/uploads/2017/07/1-italian-food-williams-1.jpg",
-      description:
-        "Discover the art of Italian cooking at Bella Cucina. Our skilled chefs create mouthwatering dishes using the freshest ingredients.",
-      Food: "Italian",
-    },
-    {
-      Name: "Ciao Bella",
-      Address: "Petra",
-      path: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/delish-lasagna-horizontal-1543876774.png",
-      description:
-        "Experience the warm hospitality of Italy at Ciao Bella. Indulge in classic Italian flavors and enjoy a delightful dining experience.",
-      Food: "Italian",
-    },
-    {
-      Name: "Gusto Italiano",
-      Address: "Petra",
-      path: "https://www.recipetineats.com/wp-content/uploads/2020/08/Chicken-Piccata_2-SQ.jpg",
-      description:
-        "Savor the flavors of Italy at Gusto Italiano. From pasta to pizza, our menu showcases the best of Italian cuisine in Petra.",
-      Food: "Italian",
-    },
-    {
-      Name: "Pasta Palace",
-      Address: "Amman",
-      path: "https://www.budgetbytes.com/wp-content/uploads/2013/02/Mushroom-Marina-Pasta-close.jpg",
-      description:
-        "Welcome to Pasta Palace, where pasta dreams come true. Treat yourself to a wide variety of pasta dishes prepared with love and passion.",
-      Food: "Mexican",
-    },
-    {
-      Name: "Pasta Palace",
-      Address: "Amman",
-      path: "https://www.budgetbytes.com/wp-content/uploads/2013/02/Mushroom-Marina-Pasta-close.jpg",
-      description:
-        "Welcome to Pasta Palace, where pasta dreams come true. Treat yourself to a wide variety of pasta dishes prepared with love and passion.",
-      Food: "Mexican",
-    },
-  ];
 
-  function handleTable(element){
+  const [selectedResId, setSelectedResId] = useState("");
+  const navigate = useNavigate();
+  function handleRes(element){
     setCurrentTable(element)
-   
+    let restaurant_id = element.restaurant_id;
+    setSelectedResId(restaurant_id);
+    navigate(`/Details/${restaurant_id}`);
   }
 
   const [yourSelectedStateValueType, setOptionType] = useState("Arabian");
   const [yourSelectedStateValueAddres, setOptionAddres] = useState("Arabian");
   //-----------------------search------------------------//
   const [searchTermUsers, setSearchTermUsers] = useState("");
-  const [FilterDataUsers, setFilterDataUsers] = useState([...cards]);
+
 
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
 
@@ -173,8 +49,8 @@ const ServicePageAll = ({setCurrentTable}) => {
 
   const filterDataByNameUsers = (searchTermUsers) => {
 
-    const filteredDataUsers = cards.filter((item) =>
-      item.Name.toLowerCase().includes(searchTermUsers.toLowerCase())
+    const filteredDataUsers = restaurants?.filter((item) =>
+      item.restaurant_name.toLowerCase().includes(searchTermUsers.toLowerCase())
     );
     setFilterDataUsers(filteredDataUsers);
     setCurrentPageUsers(1);
@@ -183,8 +59,9 @@ const ServicePageAll = ({setCurrentTable}) => {
 
 function handleFind(){
 
-  const filteredDataUsers = cards.filter((item) =>
-      item.Food.toLowerCase().includes(yourSelectedStateValueType.toLowerCase())
+  console.log(restaurants[0].type_food.toLowerCase())
+  const filteredDataUsers = restaurants?.filter((item) =>
+      item.type_food?.toLowerCase().includes(yourSelectedStateValueType.toLowerCase())
     );
     setFilterDataUsers(filteredDataUsers);
 
@@ -211,6 +88,7 @@ let totalItemsUsers;
     const handlePageChangeUsers = (event, pageNumber) => {
       setCurrentPageUsers(pageNumber);
     };
+
 
 
   return (
@@ -285,10 +163,14 @@ let totalItemsUsers;
        onChange={e => setOptionType(e.target.value)} 
       >
       
-        <option value="">All Type</option>
-        <option value="Arabian">Arabian</option>
-        <option value="Italian">Italian</option>
-        <option value="Mexican">Mexican</option>
+   
+      <option value="">All Type</option>
+                <option value="Arabian">arabian</option>
+                <option value="Italian">italian</option>
+                <option value="Mexican">asian</option>
+                <option value="Mexican">mexican</option>
+                <option value="Mexican">indian</option>
+                <option value="Mexican">american</option>
       </select>
 
       <select className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
@@ -296,10 +178,19 @@ let totalItemsUsers;
        value={yourSelectedStateValueAddres} 
        onChange={e => setOptionAddres(e.target.value)} 
       >
-      
-        <option value="">All Address</option>
-        <option value="Amman">Amman</option>
-        <option value="Zarqa">Zarqa</option>
+            <option value="">All Addresses</option>
+                <option value="Amman">Amman</option>
+                <option value="Zarqa">Zarqa</option>
+                <option value="Balqa">Balqa</option>
+                <option value="Madaba">Madaba</option>
+                <option value="Karak">Karak</option>
+                <option value="Tafilah">Tafilah</option>
+                <option value="Ma'an">Ma'an</option>
+                <option value="Aqaba">Aqaba</option>
+                <option value="Mafraq">Mafraq</option>
+                <option value="Jerash">Jerash</option>
+                <option value="Ajloun">Ajloun</option>
+                <option value="Irbid">Irbid</option>
       </select>
      
     </div>
@@ -328,58 +219,58 @@ let totalItemsUsers;
           </h5>
         </center>
         <div className="flex flex-wrap gap-10 justify-center my-16">
-          {slicedArrayUsers.map((e) => {
+          {slicedArrayUsers?.map((restaurant, index) => {
             return (
-              <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                  <img className="rounded-t-lg" src={e.path} alt="" />
-                </a>
-                <center>
-                  <div className="p-5">
-                    <a href="#">
-                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {e.Name}
-                        <br /> - {e.Address}
-                      </h5>
-                    </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      {e.description}
-                    </p>
-                    <p>Food: {e.Food}</p>
-                    <button onClick={()=>handleTable(e)} className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                      <Link to="/Details">Details</Link>
+              <>
+              <div
+                key={index}
+                className="flex flex-col shadow-lg rounded-lg overflow-hidden h-[fit-content] w-[fit-content] bg-white p-4 transform transition duration-300 hover:scale-105"
+                style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}
+              >
+                <img
+                  src={restaurant.img}
+                  alt={restaurant.restaurant_name}
+                  className="w-full h-56 object-cover"
+                />
+                <div className="p-4">
+                  <strong>  <h2 className="text-lg font-large font-bold text-gray-800">
+                    {restaurant.restaurant_name}
+                  </h2></strong>
+                  <p className="text-gray-500 mt-4 mb-3 flex items-center">
+                    <FaBook className="mr-2" />
+                    {restaurant.des}
+                  </p>
+
+                  <p className="text-gray-500 mt-4 flex items-center">
+                    <FaMapMarkerAlt className="mr-2" />
+                    {restaurant.address}
+                  </p>
+                  <p className="text-gray-500 mt-2 flex items-center">
+                    <FaUtensils className="mr-2" />
+                    Food Type: {restaurant.type_food}
+                  </p>
+                  <div className="mt-5">
+                    <button onClick={() => { handleRes(restaurant) }} className="btn buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
+                      View Details
                     </button>
                   </div>
-                </center>
+                  <div className="mt-2" />
+                </div>
               </div>
-            );
-          })}
-          {/* {restaurants.map((restaurant) => (
-            <div key={restaurant.restaurant_name}>
-              <img className="rounded-t-lg" src={restaurant.img} alt="img" />
-              <h3 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                {restaurant.restaurant_name}
-              </h3>
-              <p className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                Address: {restaurant.address}
-              </p>
-              <p>{restaurant.des}</p>
-              <p>Contact Number: {restaurant.contact_number}</p>
-              <p>Food: {restaurant.type_food}</p>
-                     <button onClick={()=>{handleTable(element)}}
-                     className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                      <Link to="/Details">Details</Link>
-                    </button>
-            </div>
-          ))} */}
+              </>
+            )
+            })}
+     
         </div>
 
-        <div className="flex w-full justify-center mt-5">
+        <div className="flex w-full justify-center mt-5 bg-white">
         {
-          <Pagination
+          <Pagination 
+            color="primary"
             count={totalPagesUsers}
             page={currentPageUsers}
             onChange={handlePageChangeUsers}
+       
           />
         }
       </div>

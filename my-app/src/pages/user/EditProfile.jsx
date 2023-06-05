@@ -19,12 +19,27 @@ const EditProfile = () => {
   const [user, setUser] = useState({})
   const [id, setId] = useState({})
 
+
+  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
+  const [PhoneNumber, setPhoneNumber] = useState("")
+  const [Password, setPassword] = useState("")
+
   useEffect(() => {
       axios.get('http://localhost:5000/recordpId')
       .then((response) => {
   
         setUser(response.data[0])
         setId(response.data[0].userid)
+
+        setUsername(response.data[0].username)
+        setEmail(response.data[0].email)
+        setPhoneNumber(response.data[0].phone_number)
+        setPassword(response.data[0].password)
+
+
+
+
       })
       .catch((error) => console.log(error.message))
 
@@ -54,25 +69,12 @@ const EditProfile = () => {
   )
 
 
-//   {
-//     "userid": 63,
-//     "username": "school system",
-//     "type_id": 0,
-//     "password": "aaa",
-//     "email": "razan55@gmail.com",
-//     "contact_us": null,
-//     "review": null,
-//     "phone_number": "0799855850",
-//     "flags": 1
-// }
+
 
 
   console.log(id)
   console.log(user)
-  const [username, setUsername] = useState(user.username)
-  const [email, setEmail] = useState("")
-  const [PhoneNumber, setPhoneNumber] = useState("")
-  const [Password, setPassword] = useState("")
+
 
 
 

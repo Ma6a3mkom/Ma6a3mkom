@@ -98,66 +98,34 @@ axios.post('http://localhost:5000/orders', {
   
 
 
-      {/* {
-    "restaurant_id": 6,
-    "user_id": 64,
-    "restaurant_name": "bashar999@gmail.com",
-    "address": null,
-    "contact_number": "",
-    "type_food": "arabian",
-    "des": null,
-    "img": null,
-    "food_image": null
-} */}
-
-
-
-
-      <div className="container relative flex px-6 py-16 mx-auto">
-        <div className="relative z-20 flex flex-col sm:w-2/3 lg:w-2/5">
-          <span className="w-20 h-2 mb-12 bg-gray-800 dark:bg-white"></span>
-          <div className="text-3xl font-black text-gray-800 uppercase dark:text-white">
-           {restaurantInfo.restaurant_name}
+      <section class="px-3 py-5 bg-neutral-100 lg:py-10">
+    <div class="grid lg:grid-cols-2 items-center justify-items-center gap-5">
+    <div class="ms-10">
+            <h1 class="text-4xl lg:text-6xl text-white font-bold">{restaurantInfo.restaurant_name}</h1>
+            <div class="w-20 h-2 bg-amber-500 my-4"></div>
+            <p class="text-2xl text-gray-200">{restaurantInfo.address}</p>
+            <p class="text-xl text-gray-200 mb-10">{restaurantInfo.des}</p>
           </div>
-          <div className="text-3xl font-black text-gray-800 uppercase dark:text-white">
-            {restaurantInfo.address}  
-          </div>
-          <h1 className="flex flex-col text-6xl font-black leading-none text-gray-800 uppercase font-bebas-neue sm:text-8xl dark:text-white">
-            <span className="text-5xl sm:text-7xl"> {restaurantInfo.des}
-            </span>
-          </h1>
-          <br />
-          <br />
-          <p className="text-sm text-gray-700 sm:text-base dark:text-white">
-           {currentTable.currentTable.description}
-          </p>
-          <div className="flex mt-8">
-            <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-              <Link to="Login">Send Message </Link>
-            </button>
-          </div>
+        <div class="order-1 lg:order-2">
+            <img class="h-80 w-80 object-cover lg:w-[500px] lg:h-[500px] rounded-lg" src={restaurantInfo.img} alt=""/>
         </div>
-        <div className="relative hidden sm:block sm:w-1/3 lg:w-3/4 ">
-          <img
-            src="https://one-sourceconstruction.com/site/wp-content/uploads/c9.jpg"
-            className="max-w-xl m-auto md:max-width: 36rem; /* 576px */ "
-          />
-        </div>
-      </div>
+    </div>
+</section>
 
 
 
 
-      <center><h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-        Restaurant's menu to book </h5></center>
+
+{restauranttable?.length !== 0 ?  <>
+  <center><h5 className="uppercase mb-2 text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Available TAbles </h5></center>
 
      
       <div className='flex flex-wrap gap-10 justify-center my-16'>
         
       {restauranttable?.map((e)=>{
 
-console.log(e);
-return(
+            return(
 
       
               <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -166,36 +134,24 @@ return(
                 </a>
                 <center>
                   <div className="p-5">
-                    <a href="#">
-                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                        {e?.restaurant_name}<br /> location: {e?.table_number}
+                      <h5 className="mb-2 text-2xl font-bold tracking-tight text-black dark:text-white">
+                       TABLE #{e?.table_number}
                       </h5>
-                    </a>
-                    <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-                      {e?.des}
-                    </p>
-                    <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                      <Link to="Login">Details</Link>
+                    <button className="bg-amber-600 border-none text-sm text-white rounded-lg px-2 py-2 text-black mr-4">
+                      <Link to="Login">BOOK</Link>
                     </button>
                   </div>
                 </center>
               </div>
+              
+
+              
            
       )})}
       </div>
+  </> : <h1 className='uppercase mb-2 text-center text-5xl font-bold tracking-tight text-white dark:text-white'>NO available tables</h1>}
 
-
-
-
-
-
-
-
-
-
-
-
-      <>
+     <>
         <>
           <div className="flex justify-center items-center w-screen h-screen bg-white">
             <div className="container mx-auto my-4 px-4 lg:px-20">

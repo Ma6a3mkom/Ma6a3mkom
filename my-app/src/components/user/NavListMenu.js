@@ -1,7 +1,7 @@
-import React,{useState,useEffect,useContext} from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from '../../UserContext';
-import Swal from 'sweetalert2'
+import { UserContext } from "../../UserContext";
+import Swal from "sweetalert2";
 
 import {
   Avatar,
@@ -16,10 +16,8 @@ import {
   MenuHandler,
   MenuList,
   MenuItem,
-  Chip,
 } from "@material-tailwind/react";
 import {
-  InboxArrowDownIcon,
   LifebuoyIcon,
   PowerIcon,
   ChevronDownIcon,
@@ -29,16 +27,14 @@ import {
   XMarkIcon,
   FlagIcon,
   ChatBubbleOvalLeftIcon,
-  UsersIcon,
-  FolderIcon,
-  Square3Stack3DIcon,
   RocketLaunchIcon,
   FaceSmileIcon,
   PuzzlePieceIcon,
-  GiftIcon,
+  HomeIcon,
 } from "@heroicons/react/24/outline";
-import logo from '../../images/logo.png'
- 
+import logo from "../../images/logo.png";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
+
 const colors = {
   blue: "bg-blue-50 text-blue-500",
   orange: "bg-orange-50 text-orange-500",
@@ -49,21 +45,21 @@ const colors = {
   cyan: "bg-cyan-50 text-cyan-500",
   pink: "bg-pink-50 text-pink-500",
 };
- 
+
 const navListMenuItems = [
   {
     color: "blue",
     icon: FlagIcon,
     title: "About us",
     description: "Learn about our story and our mission statement.",
-    path:"./About"
+    path: "./About",
   },
   {
     color: "orange",
     icon: ChatBubbleOvalLeftIcon,
     title: "Contact Us",
     description: "News and writings, press releases, and resources",
-    path:"./ContactUs"
+    path: "./ContactUs",
   },
 
   {
@@ -71,31 +67,30 @@ const navListMenuItems = [
     icon: RocketLaunchIcon,
     title: "User Profile",
     description: "Checkout your profile",
-    path:"./UserProfile"
+    path: "./UserProfile",
   },
   {
     color: "teal",
     icon: FaceSmileIcon,
     title: "Admin",
     description: "Add you recipes",
-    path:"./Admin"
+    path: "./Admin",
   },
   {
     color: "cyan",
     icon: PuzzlePieceIcon,
     title: "recipes",
     description: "What I can cook",
-    path:"./Recipes"
+    path: "./Recipes",
   },
-
 ];
- 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
- 
+
   const renderItems = navListMenuItems.map(
-    ({ icon, title, description, color,path }, key) => (
+    ({ icon, title, description, color, path }, key) => (
       <Link to={path} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg">
           <div className={`rounded-lg p-5 ${colors[color]}`}>
@@ -120,7 +115,7 @@ function NavListMenu() {
       </Link>
     )
   );
- 
+
   return (
     <React.Fragment>
       <div className="block lg:hidden">
@@ -129,7 +124,7 @@ function NavListMenu() {
     </React.Fragment>
   );
 }
- 
+
 function NavList() {
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1">
@@ -140,14 +135,12 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        
         <Link to="/">
-        <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
-          <CubeTransparentIcon className="h-[18px] w-[18px]" />
-          Home
-        </ListItem>
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
+            <HomeIcon className="h-[18px] w-[18px] text-amber-600" />
+            Home
+          </ListItem>
         </Link>
-
       </Typography>
       <Typography
         as="a"
@@ -156,14 +149,26 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        
-        <Link to="/About">
-        <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
-          <CubeTransparentIcon className="h-[18px] w-[18px]" />
-          About Us
-        </ListItem>
+        <Link to="/ServicePageAll">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
+            <RestaurantIcon style={{ height: "18px", color: "#eab308" }} />
+            Restaurants
+          </ListItem>
         </Link>
-
+      </Typography>
+      <Typography
+        as="a"
+        href="#"
+        variant="small"
+        color="blue-gray"
+        className="font-normal"
+      >
+        <Link to="/About">
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
+            <CubeTransparentIcon className="h-[18px] w-[18px] text-amber-600" />
+            About Us
+          </ListItem>
+        </Link>
       </Typography>
       <NavListMenu />
       <Typography
@@ -174,68 +179,53 @@ function NavList() {
         className="font-normal"
       >
         <Link to="/ContactUs">
-        <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
-          <UserCircleIcon className="h-[18px] w-[18px]" />
-          Contact Us
-        </ListItem>
+          <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
+            <UserCircleIcon className="h-[18px] w-[18px] text-amber-600" />
+            Contact Us
+          </ListItem>
         </Link>
       </Typography>
     </List>
   );
 }
- 
+
 export default function Example() {
   const [openNav, setOpenNav] = React.useState(false);
-  const { SignStatus,updateSignStatus } = useContext(UserContext)
+  const { SignStatus, updateSignStatus } = useContext(UserContext);
 
   useEffect(() => {
-    if(localStorage.SignStatus != null){
-      updateSignStatus(localStorage.SignStatus)
-     }
+    if (localStorage.SignStatus != null) {
+      updateSignStatus(localStorage.SignStatus);
+    }
   }, []);
 
+  function handleSign() {
+    if (SignStatus == "signUp") {
+      window.location.href = "http://localhost:3000/SignUp";
+    } else {
+      Swal.fire({
+        title: ` logout?  `,
+        showConfirmButton: true,
+        showCancelButton: true,
+        confirmButtonText: "OK",
+        confirmButtonColor: "#ea4d24",
+        cancelButtonText: "Cancel",
+        cancelButtonColor: "#ea4d24",
+        icon: "warning",
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire(`  done `, "", "success");
 
+          updateSignStatus("signUp");
+          localStorage.setItem("SignStatus", "signUp");
 
-  
-  function handleSign(){
-
-  if(SignStatus=="signUp"){
-    window.location.href = 'http://localhost:3000/SignUp';
-  }else{
-
-    Swal.fire({
-      title: ` logout?  `,
-      showConfirmButton: true,
-      showCancelButton: true,
-      confirmButtonText: "OK",
-      confirmButtonColor: "#ea4d24",
-      cancelButtonText: "Cancel",
-      cancelButtonColor: "#ea4d24",
-      icon: 'warning'
-  }
-  ).then((result) => {
-      /* Read more about isConfirmed, isDenied below */
-      if (result.isConfirmed) {
-  
-          Swal.fire(`  done `, '', 'success');
-       
-          updateSignStatus("signUp")
-          localStorage.setItem("SignStatus","signUp")
-      
           localStorage.removeItem("auth");
           localStorage.removeItem("roles");
-          window.location.href = 'http://localhost:3000/';
-      
-  
-      } else
-          Swal.fire(' Cancelled', '', 'error')
-  
-  })
-
-
-  }
-
-
+          window.location.href = "http://localhost:3000/";
+        } else Swal.fire(" Cancelled", "", "error");
+      });
+    }
   }
 
   React.useEffect(() => {
@@ -245,22 +235,7 @@ export default function Example() {
     );
   }, []);
 
-
-
-
   const profileMenuItems = [
-    // {
-    //   label: "My Profile",
-    //   icon: UserCircleIcon,
-    // },
-    // {
-    //   label: "Edit Profile",
-    //   icon: Cog6ToothIcon,
-    // },
-    // {
-    //   label: "Inbox",
-    //   icon: InboxArrowDownIcon,
-    // },
     {
       label: "Profile",
       icon: LifebuoyIcon,
@@ -271,31 +246,27 @@ export default function Example() {
     },
   ];
 
-
-
   function ProfileMenu() {
-    const { SignStatus,updateSignStatus } = useContext(UserContext)
+    const { SignStatus, updateSignStatus } = useContext(UserContext);
 
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-    
-      const  closeMenu = (label) =>{ 
-        setIsMenuOpen(false)
-    
-    if(label == "Sign Out"){
-         updateSignStatus("signUp")
-        localStorage.setItem("SignStatus","signUp")
+
+    const closeMenu = (label) => {
+      setIsMenuOpen(false);
+
+      if (label == "Sign Out") {
+        updateSignStatus("signUp");
+        localStorage.setItem("SignStatus", "signUp");
         localStorage.removeItem("auth");
         localStorage.removeItem("roles");
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = "http://localhost:3000/";
 
-      console.log(label)
-    }else if(label == "Profile"){
-      window.location.href = 'http://localhost:3000/ProfilePage';
-  
-    }
-    
+        console.log(label);
+      } else if (label == "Profile") {
+        window.location.href = "http://localhost:3000/ProfilePage";
+      }
     };
-   
+
     return (
       <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
         <MenuHandler>
@@ -304,16 +275,22 @@ export default function Example() {
             color="blue-gray"
             className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
           >
-            <Avatar
-              variant="circular"
-              size="sm"
-              alt="candice wu"
-              className="border border-blue-500 p-0.5"
-              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
-            />
+            <svg
+              xmlns="https://source.unsplash.com/MP0IUfwrn0A"
+              className="h-7 w-7 text-amber-600"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              {" "}
+              <path
+                fillRule="evenodd"
+                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                clipRule="evenodd"
+              />
+            </svg>
             <ChevronDownIcon
               strokeWidth={2.5}
-              className={`h-3 w-3 transition-transform ${
+              className={`h-3 w-3 transition-transform text-white ${
                 isMenuOpen ? "rotate-180" : ""
               }`}
             />
@@ -323,10 +300,11 @@ export default function Example() {
           {profileMenuItems.map(({ label, icon }, key) => {
             const isLastItem = key === profileMenuItems.length - 1;
             return (
-            
               <MenuItem
                 key={label}
-                onClick={()=>{closeMenu(label)}}
+                onClick={() => {
+                  closeMenu(label);
+                }}
                 className={`flex items-center gap-2 rounded ${
                   isLastItem
                     ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
@@ -353,42 +331,36 @@ export default function Example() {
     );
   }
 
-
-
-
-
-
- 
   return (
-    <Navbar className="w-screen sticky top-0 z-20" style={{backgroundColor: "black" , border: "none", borderRadius:"0"}}>
+    <Navbar
+      className="w-screen sticky top-0 z-20"
+      style={{ backgroundColor: "black", border: "none", borderRadius: "0" }}
+    >
       <div className="flex items-center justify-between text-white">
-       
         <Typography
           as="a"
           variant="h6"
           className="mr-4 cursor-pointer py-1.5 lg:ml-2"
         >
-           <Link to="/">
-          <img src={logo} alt="logo" width={200}/>
+          <Link to="/">
+            <img src={logo} alt="logo" width={200} />
           </Link>
         </Typography>
         <div className="hidden lg:block">
           <NavList />
         </div>
         <div className="hidden gap-2 lg:flex">
-       
-
-          { SignStatus == "signUp" ?
-          <Button onClick={()=>handleSign()} size="sm" className="bg-amber-600 hover:shadow-lg-amber-600">
-            SignUp
-          </Button> : 
-           <ProfileMenu />
-          
-
-
-         
-          }
-          
+          {SignStatus == "signUp" ? (
+            <Button
+              onClick={() => handleSign()}
+              size="sm"
+              className="bg-amber-600 hover:shadow-lg-amber-600"
+            >
+              Sign Up
+            </Button>
+          ) : (
+            <ProfileMenu />
+          )}
         </div>
         <IconButton
           variant="text"

@@ -24,7 +24,7 @@ const Tables = () => {
         })
         .catch((error) => console.log(error.message))
 
-    }, []);
+    }, [pendingTables]);
 
 
      console.log(pendingTables)

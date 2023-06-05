@@ -287,7 +287,7 @@ return(
 <tr role="row">
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
             <p className="text-sm font-bold text-navy-700 dark:text-white">
-              {e.restaurant_name}
+              {e.restaurant_name} 
             </p>
           </td>
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">

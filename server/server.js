@@ -104,8 +104,6 @@ app.post('/recordp', async function(req, res){
                 generatedUserId=e.userid
                 res.json([token,e.type_id,e]);
                 role000=e.type_id;
-              }else {
-                res.json( "not passed ==> password");
               }
             }
            })
@@ -221,19 +219,15 @@ app.post("/restaurants", async function (req, res) {
     // res.json(all_records.rows);
 
 
-    const restaurant_name = req.body.email;
+    const restaurant_name = email;
     const contact_number = '';
     const user_id =generatedId
     const all_records0 = await pool.query("INSERT INTO restaurant (restaurant_name ,contact_number, user_id) VALUES($1, $2, $3) RETURNING *",
     [restaurant_name,contact_number, user_id]);
 
-
              const  all ={user:all_records.rows,
               restaurant:all_records0.rows}
               res.json(all);
-
-
-
 
   } catch (err) {
     console.log(err.message);
@@ -660,6 +654,27 @@ app.put('/pendingTables/:table_id', async function(req, res){
   }
   catch(err){console.log(err.message);}
 });
+
+
+
+
+// select all the restaurants for the servise all page
+app.get('/restaurantsAll', (req, res) => {
+  pool.query('SELECT * FROM restaurant', (error, results) => {
+    if (error) {
+      console.log(error.message);
+      res.status(500).json({ error: 'Internal server error' });
+
+    } else {
+      console.log(results);
+      res.json(results.rows);
+
+    }
+  });
+});
+
+
+
 
 
 // Start the server

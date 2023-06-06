@@ -65,66 +65,64 @@ function handleLogOut(){
     return (
       <Card className=" min-h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 Sidebar ">
         <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">
-          dashboard
+        <Typography className="text-amber-500" variant="h5" color="blue-gray">
+        <a style={{color:'white'}}> dashboard </a>
           </Typography>
         </div>
         <List>
-
           <Link to='/'>
-          <ListItem>
+          <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Statistics
+            <a style={{color:'white'}}> Statistics </a>
           </ListItem>
           </Link>
 
            <Link to='/ListUser'>
-          <ListItem>
+           <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
             <Icon path={mdiAccountMultipleOutline} size={1} />
             </ListItemPrefix>
-            Users list
+            <a style={{color:'white'}}> Users list </a>
           </ListItem>
           </Link>
 
           <Link to='/ListRestaurant'>
-          <ListItem>
+          <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
             <Icon path={mdiSilverwareForkKnife} size={1} />
-
             </ListItemPrefix>
-             Restaurants List
+            <a style={{color:'white'}}></a> Restaurants List <a/>
           </ListItem>
           </Link>
 
           <Link to='/EditAboutContact'>
-          <ListItem>
+          <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
             <Icon path={mdiInformationOutline} size={1} />
             </ListItemPrefix>
-             Edit About
+            <a style={{color:'white'}}></a> Edit About <a/>
           </ListItem>
           </Link>
 
           <Link to='/AcceptTables'>
-          <ListItem>
+          <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
-            Pending Tables
+            <a style={{color:'white'}}>  Pending Tables </a>
           </ListItem>
           </Link>
 
          <Link to='/Chat'>
-          <ListItem>
+         <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Inbox
+            <a style={{color:'white'}}> Inbox </a>
             <ListItemSuffix>
-              <Chip value="14" size="sm" variant="ghost" color="blue-gray" className="rounded-full" />
+              <Chip value="14" size="sm" variant="white" color="blue-gray" className="rounded-full" />
             </ListItemSuffix>
           </ListItem>
           </Link>
@@ -148,11 +146,11 @@ function handleLogOut(){
           </ListItem>
             </Link> */}
            <button onClick={handleLogOut}>
-          <ListItem>
+           <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Log Out
+            <a style={{color:'white'}}> Log Out </a>
           </ListItem>
           </button>
         </List>

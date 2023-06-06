@@ -99,7 +99,7 @@ function SignIn() {
                       Email
                     </label>
                     <input
-                      type="text"
+                      type="email"
                       id="email"
                       className={`border-300 tex-900 dark:text--400 placeholder-700 dark:placeholder-500 focus:ring-500 focus:border-500 dark:border-500 bg-white border-2 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 focus:outline-none`}
                       placeholder="Enter your email"

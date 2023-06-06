@@ -75,20 +75,8 @@ function SignUp() {
        setPassword("") 
        setPasswordConfirm("") 
     }   
-  
-    
-
-
-
-
-
-
 }
-
-
-
-
-
+const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   return (
     <>
       <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -183,6 +171,13 @@ function SignUp() {
                         value={password}
                         onChange={(e) => {setPassword(e.target.value);}}
                       />
+                       {!password.match(passwordRegex) && (
+                        <p className="text-red-500 text-xs mt-1">
+                          {password.length < 8
+                            ? "Password must be at least 8 characters long"
+                            : "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."}
+                        </p>
+                      )}
                     </div>
                     <div>
                       <label

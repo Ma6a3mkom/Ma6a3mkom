@@ -278,8 +278,8 @@ export default function ComplexNavbar() {
   }, []);
  
   return (
-    <Navbar className=" sticky top-0 z-10 mx-auto max-w-screen p-2 rounded-full lg:pl-6 h-14">
-      <div className="relative mx-auto flex items-center text-blue-gray-900">
+    <Navbar className=" sticky top-0 z-10 mx-auto max-w-screen p-2 bg-white rounded-full lg:pl-6 h-14">
+      <div className="relative mx-auto flex items-center text-blue-gray-900"> 
         <Link to='/'>
         
        

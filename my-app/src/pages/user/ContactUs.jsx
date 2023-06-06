@@ -13,6 +13,7 @@ function ContactUs()
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // To passed as the data to be sent.
     const contactMessage = {
       name,
       email,

@@ -23,8 +23,8 @@ const ProfilePage = () => {
             setId(response.data[0].userid)
             console.log(response.data[0].userid)
 
-
-            axios.get(`http://localhost:5000/user/${response.data[0].userid}`)
+                 let x = response.data[0].userid
+            axios.get(`http://localhost:5000/user/${x}`)
             .then(function (response) {
                 console.log(response.data);
                 setUser(response.data);

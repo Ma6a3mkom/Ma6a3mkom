@@ -11,13 +11,7 @@ const RestaurantProfile = () => {
 
   const [restaurant0, setRestaurant0] = useState([]);
 
-  useEffect(() => {
-      axios.get('http://localhost:5000/generatedRes')
-      .then((response) => {
-        setRestaurant0(response.data);
-      })
-      .catch((error) => console.log(error.message))
-  }, []);
+
 
   // //////////////////////////////////////////
   let [base64code, setbase64code] = useState("");
@@ -69,7 +63,7 @@ const RestaurantProfile = () => {
   const restaurant_id  = restaurant0[0]?.restaurant_id;
   const [search, setSearch] = useState("");
 
-  const email = "amani.shzyoud@gmail.com";
+  const [email, setEmail] = useState("");
   const subject = "Reservation confirmed!";
   const body = "Your reservation has been confirmed. Please, Enjoy Your Meal. Thank you for your Reservation."
 
@@ -77,7 +71,17 @@ const RestaurantProfile = () => {
   const { error, isPending, data: restaurant } = useFetch(`http://localhost:5000/restaurant/${restaurant_id}`);
   const { error: order_error, isPending: order_pending, data: restaurant_orders } = useFetch(`http://localhost:5000/orders/${restaurant_id}`);
 
-    console.log(restaurant_orders)
+  useEffect(() => {
+    axios.get('http://localhost:5000/generatedRes')
+    .then((response) => {
+      setRestaurant0(response.data);
+    })
+    .catch((error) => console.log(error.message))
+}, [restaurant_orders, restaurant]);
+
+
+
+
   let formattedTime;
   let formattedDate;
 
@@ -132,6 +136,24 @@ const RestaurantProfile = () => {
               console.log(error);
             });
   }
+
+
+
+  const addEmail = async (id) => {
+    // console.log(id);
+    await axios.get(`http://localhost:5000/orderedEmail/${id}`, { timeout: 5000 }).then((response) => {
+      console.log(response.data[0].email);
+      setEmail(response.data[0].email);
+      window.location.href = `mailto:${response.data[0].email}?subject=${subject}&body=${body}`;
+    }).catch(error => {console.log(error.message)});
+
+
+    window.location.reload(false);
+
+
+
+  }
+
 
 
   return (
@@ -652,20 +674,27 @@ const RestaurantProfile = () => {
                                     Guest Number:
                                     <span className="text-black"> {order.guest_number}</span>
                                   </p>
-                                  <a href={`mailto:${email}?subject=${subject}&body=${body}`}>
-                                  <button className="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
-                                  onClick={() => {
-                                    axios.put(`http://localhost:5000/orders/${order.orders_id}`, {
-                                      status: "confirmed"
-                                    })
-                                    .then(() => {
-                                      window.location.reload();
-                                    })
-                                    
-                                  }}>
-                                    Confirm
-                                  </button>
-                                  </a>
+                                 
+                                   
+                                    <button className="bg-amber-500 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded"
+                                    onClick={() => {
+                                      axios.put(`http://localhost:5000/orders/${order.orders_id}`, {
+                                        status: "confirmed",
+                                      })
+                                      .then(() => {
+                                           axios.put(`http://localhost:5000/tableStatus/${order.table_number}`, {
+                                            status: "busy"
+                                           }).then(() => {
+                                            console.log("Table status updated");
+                                           })
+                                           .catch(() => { console.log(error.message)})                                  
+                                      })
+
+                                      addEmail(order.user_id);
+                                        
+                                    }}>
+                                      Confirm
+                                    </button>
                                 </div>
                               </div>
                             </li>
@@ -758,6 +787,13 @@ const RestaurantProfile = () => {
                                       status: "completed"
                                     })
                                     .then(() => {
+
+                                      axios.put(`http://localhost:5000/tableStatus/${order.table_number}`, {
+                                        status: "available"
+                                       }).then(() => {
+                                        console.log("Table status updated");
+                                       })
+                                       .catch(() => { console.log(error.message)})   
                                       window.location.reload();
                                     })
                                    

@@ -127,7 +127,7 @@ function addrestaurants(){
 
 
 
-<div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl'>
+<div className='bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)] '>
 
 
 <form>
@@ -327,10 +327,7 @@ return(
     </table>
   </div>
 
-
-</div>
-
-<div className='flex w-full justify-center mt-5'>   
+  <div className='flex w-full justify-center mt-5'>   
     {(
         <Pagination
           count={totalPagesRestaurants}
@@ -339,6 +336,9 @@ return(
         />
       )}
     </div> 
+</div>
+
+
 
 
   </>

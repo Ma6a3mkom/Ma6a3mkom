@@ -168,19 +168,15 @@ app.get("/recordrId/:id", async function (req, res) {
   } catch (err) {}
 });
 
+///////////// *******************************************
 app.get("/recordtable/:id", async function (req, res) {
   try {
     const id = req.params.id;
     const currentRecord = await pool.query(
-      "SELECT * FROM res_table WHERE restaurant_id = '" +
-        id +
-        "' AND flags = '" +
-        1 +
-        "' "
+      "SELECT * FROM res_table WHERE restaurant_id = '" + id + "' AND flags = '" + 1 + "' AND table_status = 'available' "
     );
     let res0 = currentRecord.rows;
     res.json(res0);
-    console.log(res0);
   } catch (err) {
     console.log(err.message);
   }
@@ -290,7 +286,6 @@ app.put("/contactus00/:about_id", async function (req, res) {
       [about_title, about_us, about_id]
     );
     res.json(user.rows);
-    console.log(about_id);
   } catch (err) {
     console.log(err.message);
   }
@@ -305,7 +300,7 @@ app.post("/orders", async function (req, res) {
     const order_date = req.body.date;
     const userid = req.body.userid;
     const restaurant_id = req.body.restaurant_id;
-    console.log(userid);
+    // console.log(userid);
     const all_records = await pool.query(
       "INSERT INTO orders (table_number,order_time, order_date ,user_id ,restaurant_id ,status ,guest_number ) VALUES($1, $2, $3 , $4,$5,$6,$7 ) RETURNING *",
       [
@@ -533,14 +528,14 @@ app.post("/table", async function (req, res) {
   }
 });
 
-// Get the orders of a specified restaurant by its id
+// Get the orders of a specified restaurant by its id *******
 app.get("/orders/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const order = await pool.query(
-      "SELECT * FROM orders JOIN restaurant ON restaurant.restaurant_id = $1",
-      [id]
+      "SELECT * FROM orders WHERE restaurant_id = $1",
+      [id] 
     );
     res.json(order.rows);
   } catch (err) {
@@ -548,7 +543,27 @@ app.get("/orders/:id", async (req, res) => {
   }
 });
 
-// gggggggggggggggggggggggggggggggggggggggggggggggggg
+/////////////////
+
+app.put("/tableStatus/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const status = req.body.status;
+
+    const table_status = await pool.query(
+      "UPDATE res_table SET table_status = $1 WHERE table_number = $2",
+      [status, id]
+    );
+    res.json(table_status.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+})
+
+
+///////////////
+
+//
 app.get("/orderedEmail/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -557,7 +572,7 @@ app.get("/orderedEmail/:id", async (req, res) => {
       "SELECT email FROM users WHERE userid = $1",
       [id]
     );
-    res.json(order.rows);
+    res.json(orderedEmail.rows);
   } catch (err) {
     console.log(err.message);
   }
@@ -631,28 +646,31 @@ app.put("/user/:id", async function (req, res) {
   }
 });
 
-// get user orders
+
+
+// get user orders ******
 app.get("/userOrders/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const order = await pool.query(
-      "SELECT * FROM orders JOIN users ON users.userid = $1",
+      "SELECT * FROM orders WHERE user_id = $1",
       [id]
     );
+    console.log(order.rows[0].email);
     res.json(order.rows);
   } catch (err) {
     console.log(err.message);
   }
 });
 
-// get prev. orders
+// get prev. orders ********
 app.get("/oldOrders/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
     const order = await pool.query(
-      "SELECT * FROM orders JOIN users ON users.userid = $1 and status = 'completed' ",
+      "SELECT * FROM orders WHERE user_id = $1 and status = 'completed' ",
 
       [id]
     );

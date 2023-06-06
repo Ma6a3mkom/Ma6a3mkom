@@ -1,57 +1,59 @@
-// import React from 'react'
-// import Carousel from "react-bootstrap/Carousel";
 import { Button } from "@material-tailwind/react";
-import { Link,useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import video from '../../images/video.mp4'
 import { HashLink } from "react-router-hash-link";
 
 
-const Home = () => {
-  
+function Home() {
 
-
- 
+  //This useState will hold the currently selected food type.
   const [selectedFoodType, setSelectedFoodType] = useState('');
   const navigate = useNavigate();
 
-
-  const handleFoodTypeSelection = (foodType) => {
+  // This function is used to handle the selection of a food type. It takes a foodType parameter and updates the selectedFoodType state with the selected value.
+  function handleFoodTypeSelection(foodType) {
     setSelectedFoodType(foodType);
+
+    //Here it uses the navigate function to navigate to this route.
     navigate(`/restaurants/${foodType}`);
-  };
+  }
+
+
+
+
 
 
 
   return (
     <>
-     <section className="relative h-screen flex flex-col items-center justify-center text-center text-white ">
-  <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
-    <video
-      className="min-w-full min-h-full absolute object-cover"
-      src={video}
-      type="video/mp4"
-      autoPlay={true}
-      muted={true}
-      loop={true}
-    />
-  </div>
-  <div className="video-content space-y-2 z-10 pb-5" style={{height: "55vh"}}>
-    <h1 className="font-bold text-5xl uppercase text-amber-600">Foodie's Paradise Awaits</h1>
-    <h3 className="font-bold text-2xl capitalize">Reserve your table with ease and indulge in culinary delights <br/> at your favorite restaurants</h3>
-    <div class="rounded-md shadow mt-10">
-        <HashLink smooth={true} to="#food">
-        <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded">
-            Pick Your Favorite Food
-        </button>
-        </HashLink>
-    </div>
+      <section className="relative  flex flex-col items-center justify-center text-center text-white " style={{ height: "550px" }}>
+        <div className="video-docker absolute top-0 left-0 w-full h-full overflow-hidden">
+          <video
+            className="min-w-full min-h-full absolute object-cover"
+            src={video}
+            type="video/mp4"
+            autoPlay={true}
+            muted={true}
+            loop={true}
+          />
+        </div>
+        <div className="video-content space-y-2 z-10 pb-5" style={{ height: "55vh" }}>
+          <h1 className="font-bold text-5xl uppercase text-amber-600">Foodie's Paradise Awaits</h1>
+          <h3 className="font-bold text-2xl capitalize">Reserve your table with ease and indulge in culinary delights <br /> at your favorite restaurants</h3>
+          <div class="rounded-md shadow mt-10">
+            <HashLink smooth={true} to="#food">
+              <button class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 rounded mt-5">
+                Pick Your Favorite Food
+              </button>
+            </HashLink>
+          </div>
 
-  </div>
-</section>
+        </div>
+      </section>
 
 
-      <section className="bg-white dark:bg-gray-900">
+      <section className="bg-white dark:bg-gray-900 shadow">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
             <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
@@ -80,9 +82,9 @@ const Home = () => {
 
 
       <div>
-        <section style={{ marginTop: "120px" }} id="food">
+        <section style={{ marginTop: "85px" }} id="food">
           <br />
-          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white  text-center capitalize">
+          <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-black  text-center capitalize">
             Which food do you prefer?
           </h2>
           <div className="flex flex-wrap my-10 mx-20">
@@ -99,7 +101,7 @@ const Home = () => {
                     <h2 className="text-2xl font-semibold text-white uppercase lg:text-4xl">
                       Asian Food
                     </h2>
-                      <button
+                    <button
                       className="text-sm button-shop font-medium mt-4 text-white px-5 py-2.5 rounded-lg"
                       onClick={() => handleFoodTypeSelection("asian")}
                     >
@@ -231,23 +233,23 @@ const Home = () => {
             </div>
           </div>
         </section>
-<div className="flex justify-center">
+        <div className="flex justify-center">
 
-<HashLink smooth={true} to="ServicePageAll#">
-<Button className="border border-solid border-amber-600 border-2 text-amber-600 hover:bg-amber-600 hover:text-[#ffffff]" variant="text">
-  Show All Restaurants
-  </Button>
-  </HashLink>
+          <HashLink smooth={true} to="ServicePageAll#">
+            <Button className="border border-solid border-amber-600 border-2 text-amber-600 hover:bg-amber-600 hover:text-[#ffffff]" variant="text">
+              Show All Restaurants
+            </Button>
+          </HashLink>
 
-</div>
+        </div>
       </div>
 
-      
+
       <br />
 
-      <section className="mb-10">
+      <section className="mb-10 shadow p-5" style={{ marginTop: "115px" }}>
         <br />
-        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-white dark:text-white text-center">
+        <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-black dark:text-white text-center">
           What People Says
         </h2>
         <br />
@@ -513,4 +515,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

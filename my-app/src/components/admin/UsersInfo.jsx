@@ -14,6 +14,7 @@ import { mdiAccountOutline } from '@mdi/js';
 const UsersInfo = () => {
 
   const [persons, setPersons] = useState([]);
+  const [persons0, setPersons0] = useState([]);
 
   useEffect(() => {
       axios.get('http://localhost:5000/records')
@@ -149,7 +150,7 @@ if (role == "user"){
 
   return (
     <>
-      <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl ">
+      <div className="bg-[#ffffff] mr-5 ml-5 p-10 rounded-2xl min-h-[calc(100vh)]   ">
         <div className="relative flex items-center justify-between pt-4">
           <div className="text-xl font-bold text-navy-700 dark:text-white">
             Users Table
@@ -173,7 +174,7 @@ if (role == "user"){
           </div>
         </form>
 
-        <div className="mt-8 overflow-x-scroll xl:overflow-hidden">
+        <div className="mt-8 overflow-x-scroll xl:overflow-hidden " >
           <table role="table" className="w-full">
             <thead>
               <tr role="row">
@@ -310,8 +311,8 @@ if (role == "user"){
             })}
           </table>
         </div>
-      </div>
-      <div className="flex w-full justify-center mt-5">
+
+        <div className="flex w-full justify-center mt-5">
         {
           <Pagination
             count={totalPagesUsers}
@@ -320,6 +321,9 @@ if (role == "user"){
           />
         }
       </div>
+
+      </div>
+  
     </>
   );
 };

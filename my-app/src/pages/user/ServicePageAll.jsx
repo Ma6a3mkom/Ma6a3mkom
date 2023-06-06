@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./ServicePage.css";
-import { UserContext } from "../../UserContext";
 import axios from "axios";
 import Pagination from "@mui/material/Pagination";
 import { FaUtensils, FaMapMarkerAlt } from "react-icons/fa";
@@ -12,6 +11,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
   const [loading, setLoading] = useState(true);
   const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
+  // get all the restaurants from database 
   useEffect(() => {
     axios
       .get("http://localhost:5000/restaurantsAll")
@@ -36,13 +36,15 @@ const ServicePageAll = ({ setCurrentTable }) => {
     navigate(`/Details/${restaurant_id}`);
   }
 
-  const [yourSelectedStateValueType, setOptionType] = useState("Arabian");
-  const [yourSelectedStateValueAddres, setOptionAddres] = useState("Arabian");
+  const [yourSelectedStateValueType, setOptionType] = useState("");
+  const [yourSelectedStateValueAddress, setOptionAddress] = useState("");
   //-----------------------search------------------------//
   const [searchTermUsers, setSearchTermUsers] = useState("");
 
   const [currentPageUsers, setCurrentPageUsers] = useState(1);
 
+
+  //This function is work as filter the restaurants based on their name and update the searchTermUsers state whenever the user types in the search input field.
   const filterDataByNameUsers = (searchTermUsers) => {
     const filteredDataUsers = restaurants?.filter((item) =>
       item.restaurant_name.toLowerCase().includes(searchTermUsers.toLowerCase())
@@ -55,12 +57,16 @@ const ServicePageAll = ({ setCurrentTable }) => {
   function handleFind() {
     console.log(restaurants[0].type_food.toLowerCase());
     const filteredDataUsers = restaurants?.filter((item) =>
-      item.type_food
-        ?.toLowerCase()
-        .includes(yourSelectedStateValueType.toLowerCase())
-    );
+    item.type_food
+      ?.toLowerCase()
+      .includes(yourSelectedStateValueType.toLowerCase()) &&
+    item.address
+      ?.toLowerCase()
+      .includes(yourSelectedStateValueAddress.toLowerCase())
+  );
     setFilterDataUsers(filteredDataUsers);
   }
+
 
   let totalItemsUsers;
 
@@ -91,6 +97,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
           src="https://one-sourceconstruction.com/site/wp-content/uploads/c9.jpg"
           className="absolute inset-0 object-cover w-full h-full"
           alt=""
+
         />
         <div className="relative bg-gray-900 bg-opacity-75">
           <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -105,7 +112,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
                   advantages and services they offer.
                 </p>
                 <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  <Link to="/Details"> Details </Link>
+                  <Link to="/Details">  </Link>
                 </button>
               </div>
             </div>
@@ -114,7 +121,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
       </div>
 
       <div className="flex justify-center mt-5 mb-5">
-        <div className="w-full md:w-2/3 shadow p-5 rounded-lg bg-white border-solid border-2 border-[#0e0d0d]">
+        <div className="w-full md:w-10/12 shadow p-5 rounded-lg bg-white border-solid border-1 border-[#0e0d0d] transform transition duration-300 hover:scale-105">
           <div className="relative">
             <div className="absolute flex items-center ml-2 h-full">
               <svg
@@ -141,9 +148,9 @@ const ServicePageAll = ({ setCurrentTable }) => {
             <p className="font-medium">Filters</p>
           </div>
           <div className="flex justify-between">
-            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 mt-4 ">
               <select
-                className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
+                className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-yellow-500 border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance-none mr-5"
                 value={yourSelectedStateValueType}
                 onChange={(e) => setOptionType(e.target.value)}
               >
@@ -157,23 +164,23 @@ const ServicePageAll = ({ setCurrentTable }) => {
               </select>
 
               <select
-                className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
-                value={yourSelectedStateValueAddres}
-                onChange={(e) => setOptionAddres(e.target.value)}
+                className="px-4 py-3 w-48 md:w-60 rounded-md bg-gray-100 border-yellow-500 border-2 focus:border-yellow-600 focus:bg-white focus:ring-0 text-sm appearance-none"
+                value={yourSelectedStateValueAddress}
+                onChange={(e) => setOptionAddress(e.target.value)}
               >
                 <option value="">All Addresses</option>
-                <option value="Amman">Amman</option>
-                <option value="Zarqa">Zarqa</option>
-                <option value="Balqa">Balqa</option>
-                <option value="Madaba">Madaba</option>
-                <option value="Karak">Karak</option>
-                <option value="Tafilah">Tafilah</option>
-                <option value="Ma'an">Ma'an</option>
-                <option value="Aqaba">Aqaba</option>
-                <option value="Mafraq">Mafraq</option>
-                <option value="Jerash">Jerash</option>
-                <option value="Ajloun">Ajloun</option>
-                <option value="Irbid">Irbid</option>
+                <option value="amman">amman</option>
+                <option value="zarqa">zarqa</option>
+                <option value="balqa">balqa</option>
+                <option value="madaba">madaba</option>
+                <option value="karak">karak</option>
+                <option value="tafilah">tafilah</option>
+                <option value="ma'an">ma'an</option>
+                <option value="aqaba">aqaba</option>
+                <option value="mafraq">mafraq</option>
+                <option value="jerash">jerash</option>
+                <option value="ajloun">ajloun</option>
+                <option value="irbid">irbid</option>
               </select>
             </div>
             <button
@@ -197,7 +204,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
             return (
               <>
                 <div
-                  key={index}
+                  key={restaurant.restaurant_id}
                   className="flex flex-col shadow-lg rounded-lg overflow-hidden h-[fit-content] w-[fit-content] bg-white p-4 transform transition duration-300 hover:scale-105"
                   style={{ boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}
                 >
@@ -244,7 +251,7 @@ const ServicePageAll = ({ setCurrentTable }) => {
           })}
         </div>
 
-        <div className="flex w-full justify-center mt-5 bg-white">
+        <div className="flex w-full justify-center mt-5 bg-white mb-5">
           {
             <Pagination
               color="warning"

@@ -8,10 +8,9 @@ import tasneem from "../../images/tasneem.jpg";
 import farah from "../../images/farah.jpg";
 import issa from "../../images/issa.jpg";
 import axios from "axios";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
-function About() 
-{
+function About() {
 
 
   const [aboutUsData, setAboutUsData] = useState({});
@@ -21,9 +20,8 @@ function About()
       try {
         const response = await axios.get('http://localhost:5000/aboutus');
         setAboutUsData(response.data);
-      } 
-      catch (error) 
-      {
+      }
+      catch (error) {
         console.error('Error fetching data:', error);
       }
     };
@@ -99,11 +97,11 @@ function About()
 
       {/* features section */}
 
-      <div className="py-16 bg-black overflow-hidden m-2 ">
+      <div className="py-16 bg-white overflow-hidden m-2 shadow">
         <div className="container m-auto px-6 space-y-8 text-gray-500 md:px-12">
           <div>
             <span className="text-gray-700 text-lg font-semibold"></span>
-            <h2 className="mt-4 text-2xl text-white text-center font-bold md:text-4xl">
+            <h2 className="mt-4 text-2xl text-black text-center font-bold md:text-4xl">
               Main features
             </h2>
           </div>
@@ -197,13 +195,12 @@ function About()
 
       {/* ====== About Section Start */}
       <section
-        className="bg-white overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
-        // style={{ marginRight: "55px", marginLeft: "70px" }}
+        className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
       >
         <div className="container mx-auto">
           <div className="-mx-4 flex flex-wrap items-center justify-between">
             <div className="w-full px-4 lg:w-6/12">
-              <div className="-mx-3 flex items-center sm:-mx-4"style={{ marginRight: "55px", marginLeft: "70px" }}>
+              <div className="-mx-3 flex items-center sm:-mx-4" style={{ marginRight: "55px", marginLeft: "70px" }}>
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">
                   <div className="py-3 sm:py-4">
                     <img
@@ -806,13 +803,13 @@ function About()
                 <span className=" mb-2 block text-lg font-semibold">
                   Why Choose Us
                 </span>
-                <h2 className="text-white mb-8 text-3xl font-bold sm:text-4xl">
-                {aboutUsData.about_title}
+                <h2 className="text-black mb-8 text-3xl font-bold sm:text-4xl">
+                  {aboutUsData.about_title}
                 </h2>
                 <p className="text-body-color mb-8 text-base">
-                {aboutUsData.about_us}
+                  {aboutUsData.about_us}
                 </p>
-               
+
               </div>
             </div>
           </div>
@@ -821,13 +818,13 @@ function About()
       {/* ====== About Section End */}
 
       {/* Start Team members section */}
-      <div className="bg-black py-20">
+      <div className="bg-white py-20 shadow">
         <div className="xl:container mx-auto px-6 md:px-12">
           <div className="mb-28">
-            <h2 className="mb-4 text-center text-2xl font-bold text-white md:text-4xl">
+            <h2 className="mb-4 text-center text-2xl font-bold text-black md:text-4xl">
               Our Team
             </h2>
-            <p className="text-center text-white lg:mx-auto lg:w-8/12">
+            <p className="text-center text-black lg:mx-auto lg:w-8/12">
               Our amazing team is comprised of passionate individuals who are
               dedicated to revolutionizing the way people make restaurant
               reservations.
@@ -846,7 +843,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-amber-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-black">
                   Bashar Alamoush{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">
@@ -899,7 +896,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-amber-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-black">
                   {" "}
                   Issa Zeidan
                 </h4>
@@ -953,7 +950,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-amber-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-black">
                   Farah Almasri
                 </h4>
                 <span className="block text-sm text-gray-500">
@@ -1012,7 +1009,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-amber-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-black">
                   Majdi Shomali{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1063,7 +1060,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl text-amber-700 dark:text-white">
+                <h4 className="text-2xl text-amber-700 dark:text-black">
                   Razan Aboushi
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1114,7 +1111,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-amber-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-black">
                   Amani AlZyoud{" "}
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>
@@ -1169,7 +1166,7 @@ function About()
                 />
               </div>
               <div className="pt-4">
-                <h4 className="text-2xl  text-amber-700 dark:text-white">
+                <h4 className="text-2xl  text-amber-700 dark:text-black">
                   Tasneem AL-Jamat
                 </h4>
                 <span className="block text-sm text-gray-500">Team member</span>

@@ -62,6 +62,7 @@ function SignUp() {
         window.location.href = 'http://localhost:3000/SignIn';
           }else{
             console.log(response.data)
+            alert("this email is already taken")
             setError("this email is already taken")
           }
          

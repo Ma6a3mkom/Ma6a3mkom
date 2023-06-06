@@ -103,9 +103,9 @@ const LiveChat = () => {
               />
             </svg>
           </div>
-          <div className="ml-2 font-bold text-2xl">QuickChat</div>
+          <div className="ml-2 font-bold text-2xl">Mail box</div>
         </div>
-        <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
+        {/* <div className="flex flex-col items-center bg-indigo-100 border border-gray-200 mt-4 w-full py-6 px-4 rounded-lg">
           <div className="h-20 w-20 rounded-full border overflow-hidden">
             <img
               src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
@@ -121,7 +121,7 @@ const LiveChat = () => {
             </div>
             <div className="leading-none ml-1 text-xs">Active</div>
           </div>
-        </div>
+        </div> */}
         <div className="flex flex-col mt-8">
           <div className="flex flex-row items-center justify-between text-xs">
             <span className="font-bold">Active Conversations</span>

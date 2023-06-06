@@ -63,10 +63,10 @@ function handleLogOut(){
 
 
     return (
-      <Card className=" min-h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 Sidebar ">
+      <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-white">
         <div className="mb-2 p-4">
         <Typography className="text-amber-500" variant="h5" color="blue-gray">
-        <a style={{color:'white'}}> dashboard </a>
+        <a> MA6A3MKOM </a>
           </Typography>
         </div>
         <List>
@@ -75,7 +75,7 @@ function handleLogOut(){
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a style={{color:'white'}}> Statistics </a>
+            <a > Statistics </a>
           </ListItem>
           </Link>
 
@@ -84,7 +84,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiAccountMultipleOutline} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}> Users list </a>
+            <a > Users list </a>
           </ListItem>
           </Link>
 
@@ -93,7 +93,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiSilverwareForkKnife} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}></a> Restaurants List <a/>
+            <a ></a> Restaurants List <a/>
           </ListItem>
           </Link>
 
@@ -102,7 +102,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiInformationOutline} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}></a> Edit About <a/>
+            <a ></a> Edit About <a/>
           </ListItem>
           </Link>
 
@@ -111,7 +111,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
-            <a style={{color:'white'}}>  Pending Tables </a>
+            <a>  Pending Tables </a>
           </ListItem>
           </Link>
 
@@ -120,10 +120,10 @@ function handleLogOut(){
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a style={{color:'white'}}> Inbox </a>
-            <ListItemSuffix>
+            <a > Inbox </a>
+            {/* <ListItemSuffix>
               <Chip value="14" size="sm" variant="white" color="blue-gray" className="rounded-full" />
-            </ListItemSuffix>
+            </ListItemSuffix> */}
           </ListItem>
           </Link>
 
@@ -150,7 +150,7 @@ function handleLogOut(){
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a style={{color:'white'}}> Log Out </a>
+            <a > Log Out </a>
           </ListItem>
           </button>
         </List>

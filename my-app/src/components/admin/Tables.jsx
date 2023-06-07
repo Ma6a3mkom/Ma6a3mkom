@@ -4,7 +4,7 @@ import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { mdiHamburgerPlus } from '@mdi/js';
 import Swal from 'sweetalert2'
 
 import { mdiShieldCrownOutline } from '@mdi/js'
@@ -24,6 +24,7 @@ const Tables = () => {
             setFilterDataUsers(response.data.tables)
             setNames(response.data.names)
             setEmails(response.data.emails)
+            console.log(response.data)
         })
         .catch((error) => console.log(error.message))
 
@@ -227,7 +228,7 @@ const handleUpdate = (table_id,e,i) => {
                 >
                   <p className="text-xs tracking-wide text-gray-600">email</p>
                 </th>
-                <th
+                {/* <th
                   colSpan={1}
                   role="columnheader"
                   title="Toggle SortBy"
@@ -235,7 +236,7 @@ const handleUpdate = (table_id,e,i) => {
                   style={{ cursor: "pointer" }}
                 >
                   <p className="text-xs tracking-wide text-gray-600">phone</p>
-                </th>
+                </th> */}
                 <th
                   colSpan={1}
                   role="columnheader"
@@ -243,7 +244,7 @@ const handleUpdate = (table_id,e,i) => {
                   className="border-b border-gray-200 pr-28 pb-[10px] text-start dark:!border-navy-700"
                   style={{ cursor: "pointer" }}
                 >
-                  <p className="text-xs tracking-wide text-gray-600">role</p>
+                  <p className="text-xs tracking-wide text-gray-600">status</p>
                 </th>
 
                 <th
@@ -295,19 +296,19 @@ const handleUpdate = (table_id,e,i) => {
                       <div className="flex items-center gap-2">
                         <div className="rounded-full text-xl">
                           <p className="text-sm font-bold text-navy-700 dark:text-white">
-                            {e.restaurant_id}
+                            {emails[i].email}
                           </p>
                         </div>
                       </div>
                     </td>
-                    <td
+                    {/* <td
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
                         {e.table_id}
                       </p>
-                    </td>
+                    </td> */}
                     <td
                       className="pt-[14px] pb-[18px] sm:text-[14px]"
                       role="cell"
@@ -327,7 +328,7 @@ const handleUpdate = (table_id,e,i) => {
                         handleUpdate(e.table_id,e,i)
                       }}>
 
-                        {e.type_id == 0 ? <Icon color="blue" path={mdiAccountOutline} size={1} /> : <Icon color="blue" path={mdiShieldCrownOutline} size={1} />}
+                        {e.type_id == 0 ? <Icon color="blue" path={mdiHamburgerPlus} size={1} /> : <Icon color="blue"  path={mdiHamburgerPlus} size={1} />}
                         
                       </button>
                       

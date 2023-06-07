@@ -718,7 +718,7 @@ app.get("/getId", async function (req, res) {
 
 app.get("/pendingTables", async function (req, res) {
   try {
-    const id = req.params.id;
+    // const id = req.params.id;
     const currentRecord = await pool.query(
       "SELECT * FROM res_table  WHERE flags = 0"
     );

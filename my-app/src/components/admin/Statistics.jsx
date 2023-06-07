@@ -24,8 +24,8 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">Earnings</p>
-        <h4 className="text-xl font-bold text-amber-500 dark:text-white">
+          <p className="font-dm text-sm font-medium text-white">Earnings</p>
+          <h4 className="text-xl font-bold text-amber-500 dark:text-white">
             $340.5
           </h4>
         </div>
@@ -52,7 +52,7 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">
+          <p className="font-dm text-sm font-medium text-white">
             Spend this month
           </p>
           <h4 className="text-xl font-bold text-amber-500 dark:text-white">
@@ -81,8 +81,8 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">Sales</p>
-        <h4 className="text-xl font-bold text-amber-500 dark:text-white">
+          <p className="font-dm text-sm font-medium text-white">Sales</p>
+          <h4 className="text-xl font-bold text-amber-500 dark:text-white">
             $574.34
           </h4>
         </div>
@@ -108,9 +108,7 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">
-            Your Balance
-          </p>
+          <p className="font-dm text-sm font-medium text-white">Your Balance</p>
           <h4 className="text-xl font-bold text-amber-500 dark:text-white">
             $1,000
           </h4>
@@ -137,8 +135,8 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">New Tasks</p>
-        <h4 className="text-xl font-bold text-amber-500 dark:text-white">
+          <p className="font-dm text-sm font-medium text-white">New Tasks</p>
+          <h4 className="text-xl font-bold text-amber-500 dark:text-white">
             145
           </h4>
         </div>
@@ -163,7 +161,7 @@ const Statistics = () => {
           </div>
         </div>
         <div className="h-50 ml-4 flex w-auto flex-col justify-center">
-        <p className="font-dm text-sm font-medium text-white">
+          <p className="font-dm text-sm font-medium text-white">
             Total Projects
           </p>
           <h4 className="text-xl font-bold text-amber-500 dark:text-white">

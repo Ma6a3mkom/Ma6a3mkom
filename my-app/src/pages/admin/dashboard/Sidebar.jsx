@@ -32,6 +32,8 @@ import Swal from 'sweetalert2'
 
 function handleLogOut(){
 
+    
+
 
   Swal.fire({
     title: ` logout?  `,
@@ -63,7 +65,7 @@ function handleLogOut(){
 
 
     return (
-      <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-white">
+      <Card className=" min-h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-white-900/5 Sidebar bg-black">
         <div className="mb-2 p-4">
         <Typography className="text-amber-500" variant="h5" color="blue-gray">
         <a> MA6A3MKOM </a>
@@ -75,16 +77,19 @@ function handleLogOut(){
             <ListItemPrefix>
               <PresentationChartBarIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a > Statistics </a>
+            <a style={{color:'white'}}> Statistics </a>
           </ListItem>
           </Link>
+
+
+
 
            <Link to='/ListUser'>
            <ListItem className="hover:bg-amber-500">
             <ListItemPrefix>
             <Icon path={mdiAccountMultipleOutline} size={1} />
             </ListItemPrefix>
-            <a > Users list </a>
+            <a style={{color:'white'}}> Users list </a>
           </ListItem>
           </Link>
 
@@ -93,7 +98,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiSilverwareForkKnife} size={1} />
             </ListItemPrefix>
-            <a ></a> Restaurants List <a/>
+            <a style={{color:'white'}}> Restaurants List </a>
           </ListItem>
           </Link>
 
@@ -102,7 +107,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiInformationOutline} size={1} />
             </ListItemPrefix>
-            <a ></a> Edit About <a/>
+            <a style={{color:'white'}}> Edit About </a>
           </ListItem>
           </Link>
 
@@ -111,7 +116,7 @@ function handleLogOut(){
             <ListItemPrefix>
             <Icon path={mdiTableFurniture} size={1} />
             </ListItemPrefix>
-            <a>  Pending Tables </a>
+            <a style={{color:'white'}}> Pending Tables </a>
           </ListItem>
           </Link>
 
@@ -120,22 +125,22 @@ function handleLogOut(){
             <ListItemPrefix>
               <InboxIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a > Inbox </a>
+            <a style={{color:'white'}}> Inbox </a>
             {/* <ListItemSuffix>
               <Chip value="14" size="sm" variant="white" color="blue-gray" className="rounded-full" />
             </ListItemSuffix> */}
           </ListItem>
           </Link>
 
-{/* 
+
          <Link to="UserProfile">
           <ListItem>
             <ListItemPrefix>
               <UserCircleIcon className="h-5 w-5" />
             </ListItemPrefix>
-            Profile
+            <a style={{color:'white'}}> Profile </a>
           </ListItem>
-          </Link> */}
+          </Link>
 
           {/* <Link to="/">
           <ListItem>
@@ -150,7 +155,7 @@ function handleLogOut(){
             <ListItemPrefix>
               <PowerIcon className="h-5 w-5" />
             </ListItemPrefix>
-            <a > Log Out </a>
+            <a style={{color:'white'}}> Log Out </a>
           </ListItem>
           </button>
         </List>

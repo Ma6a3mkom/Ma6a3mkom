@@ -77,25 +77,6 @@ function ContactUs()
                     />
                   </svg>
                 </li>
-                <li className="flex items-center">
-                  <Link to="/" className="text-amber-500">
-                    Categories
-                  </Link>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4 mx-2"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </li>
                 <li>Contact Us</li>
               </ol>
             </nav>

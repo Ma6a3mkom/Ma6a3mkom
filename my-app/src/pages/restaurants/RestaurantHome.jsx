@@ -298,6 +298,7 @@ const RestaurantHome = () => {
               </HashLink>
             </div>
           </div>
+          
           <div className="relative mx-auto mt-10 max-w-lg">
             <img
               className="w-full rounded-2xl border border-amber-800 shadow"
@@ -407,8 +408,12 @@ const RestaurantHome = () => {
       </div>
  
  
- </>}  </>
+ </>
+ } 
+ 
+ </>
   );
+  
 };
 
 export default RestaurantHome;

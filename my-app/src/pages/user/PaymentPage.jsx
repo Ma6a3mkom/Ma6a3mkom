@@ -47,6 +47,11 @@ function PaymentPage() {
     
     const cardNumber = document.getElementById("card-no").value;
     const cardRegex = /^(4\d{15}|5\d{15})$/;
+    const today = new Date();
+    const currentMonth = today.getMonth() + 1;
+    const currentYear = today.getFullYear();
+    const [expirationMonth, expirationYear] = datecard.split("/");
+
 
     if (!username || !cardnumber || !datecard || !cvc) {
       showAlert("Please enter all card details");
@@ -54,6 +59,14 @@ function PaymentPage() {
     }
     if (!cardRegex.test(cardNumber)) {
       showAlert("Invalid card number");
+      return;
+    }
+
+    if (
+      Number(expirationYear) < currentYear ||
+      (Number(expirationYear) === currentYear && Number(expirationMonth) < currentMonth)
+    ) {
+      showAlert("Card has expired");
       return;
     }
 
@@ -121,8 +134,8 @@ function PaymentPage() {
           <div>
             <div className="mt-12 flex flex-col items-center">
               <h1
-                className="text-2xl xl:text-3xl font-extrabold"
-                style={{ color: "#ea4d24" }}
+                className="text-2xl xl:text-3xl font-extrabold text-amber-700"
+                
               >
                 Payment Page
               </h1>
@@ -274,8 +287,8 @@ function PaymentPage() {
                       Return to reservation
                     </Link>
                     <button
-                      className="inline-block text-sm px-4 py-2 leading-none border rounded-lg mt-4 lg:mt-0"
-                      style={{ backgroundColor: "#ea4d24", color: "white" }}
+                      className="inline-block text-sm px-4 py-2 leading-none border rounded-lg mt-4 lg:mt-0 bg-amber-700"
+                      style={{color: "white" }}
                       onClick={handlePayment}
                       type="submit"
                     >

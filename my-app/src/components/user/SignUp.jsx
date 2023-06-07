@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import { Link, useLocation, useNavigate } from "react-router-dom";
 // import SignGoogle from './SignInWithGoogle';
@@ -7,9 +7,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import Signup from "../../images/Signup.jpg";
 
 function SignUp() {
-
   const [persons, setPersons] = useState([]);
-  
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -18,66 +17,63 @@ function SignUp() {
   const [error, setError] = useState("");
   const [id, setId] = useState("");
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let done = true;
 
-    if (name === "")
-    {done = false;
-        setError("Please enter a  name!")
+    if (name === "") {
+      done = false;
+      setError("Please enter a  name!");
     }
-    if (phone === "")
-    {done = false;
-        setError("Please enter a phone!")
+    if (phone === "") {
+      done = false;
+      setError("Please enter a phone!");
     }
-    if (email === "")
-    {done = false;
-    setError("Please enter an email!")}
-    
-    if (password === "")
-    {done = false;
-    setError("Please enter a password!")}
-        
-    if (password !== passwordConfirm)
-    {done = false;
-     setError("Please enter the same password!")}
-    
-     if (done)
-     {
-      
-      
-      const data = {name,phone ,email, password };
-      console.log(name,phone , email, password)
-    
-     axios.post('http://localhost:5000/records', {
-             name: name,
-             phone: phone,
-             email: email,
-             password: password,
+    if (email === "") {
+      done = false;
+      setError("Please enter an email!");
+    }
 
-     })
-       .then(function (response) {
-          if(response.data != "taken"){
-        window.location.href = 'http://localhost:3000/SignIn';
-          }else{
-            console.log(response.data)
-            alert("this email is already taken")
-            setError("this email is already taken")
+    if (password === "") {
+      done = false;
+      setError("Please enter a password!");
+    }
+
+    if (password !== passwordConfirm) {
+      done = false;
+      setError("Please enter the same password!");
+    }
+
+    if (done) {
+      axios
+        .post("http://localhost:5000/records", {
+          name: name,
+          phone: phone,
+          email: email,
+          password: password,
+        })
+        .then(function (response) {
+          if (response.data != "taken") {
+            window.location.href = "http://localhost:3000/SignIn";
+          } else {
+            console.log(response.data);
+            alert("this email is already taken");
+            setError("this email is already taken");
           }
-         
-       })
-       .catch(function (error) {
-       });
+        })
+        .catch(function (error) {});
 
-       setName("")
-       setEmail("")
-       setPhone("") 
-       setPassword("") 
-       setPasswordConfirm("") 
-    }   
-}
-const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+      setName("");
+      setEmail("");
+      setPhone("");
+      setPassword("");
+      setPasswordConfirm("");
+    }
+  };
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  const [showRegex, setShowRegex] = useState(false);
+  const [passwordValid, setPasswordValid] = useState(false);
+
   return (
     <>
       <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -89,10 +85,7 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
           <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
             <div></div>
             <div class="mt-12 flex flex-col items-center ">
-              <h1
-                class="text-2xl xl:text-3xl font-extrabold  "
-                style={{ color: "#ea4d24" }}
-              >
+              <h1 class="text-2xl xl:text-3xl font-extrabold text-amber-700 ">
                 Sign Up to Join Us!
               </h1>
               <div class="w-full flex-1 mt-8">
@@ -107,7 +100,7 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                     Or sign Up with e-mail
                   </div>
                 </div>
-                <form  onSubmit={handleSubmit} >
+                <form onSubmit={handleSubmit}>
                   <div class="mx-auto max-w-xs">
                     <div class="mb-3">
                       <label
@@ -122,7 +115,9 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         className={`border-300 text-900 dark:text-400 placeholder-700 dark:placeholder-500 focus:ring-500 focus:border-500 dark:border--500 bg-white border-2 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 focus:outline-none`}
                         placeholder="Enter your name"
                         value={name}
-                        onChange={(e) => {setName(e.target.value);}}
+                        onChange={(e) => {
+                          setName(e.target.value);
+                        }}
                       />
                     </div>
                     <div class="mb-3">
@@ -138,7 +133,9 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         className={`border-300 text-900 dark:text-400 placeholder-700 dark:placeholder-500 focus:ring-500 focus:border-500 dark:border-500 bg-white border-2 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 focus:outline-none`}
                         placeholder="Enter your phone"
                         value={phone}
-                        onChange={(e) => {setPhone(e.target.value);}}
+                        onChange={(e) => {
+                          setPhone(e.target.value);
+                        }}
                       />
                     </div>
                     <div class="mb-3">
@@ -154,7 +151,9 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         className={`border-300 text-900 dark:text-400 placeholder-700 dark:placeholder-500 focus:ring-500 focus:border-500 dark:border-500 bg-white border-2 text-sm rounded-lg block w-full p-2.5 dark:bg-gray-700 focus:outline-none`}
                         placeholder="Enter your email"
                         value={email}
-                        onChange={(e) => {setEmail(e.target.value);}}
+                        onChange={(e) => {
+                          setEmail(e.target.value);
+                        }}
                       />
                     </div>
                     <div class="mb-3">
@@ -170,13 +169,16 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         className={`border-300 text-900 placeholder-700 focus:ring-500 focus:border-500 dark:text-500 dark:placeholder-500 dark:border-500 bg-white border-2 text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:outline-none`}
                         placeholder="Enter your password"
                         value={password}
-                        onChange={(e) => {setPassword(e.target.value);}}
+                        onChange={(e) => {
+                          setPassword(e.target.value);
+                          setShowRegex(e.target === document.activeElement);
+                          setPasswordValid(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(e.target.value));
+                        }}
                       />
-                       {!password.match(passwordRegex) && (
-                        <p className="text-red-500 text-xs mt-1">
-                          {password.length < 8
-                            ? "Password must be at least 8 characters long"
-                            : "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character."}
+                      {showRegex && !passwordValid && (
+                        <p className="text-xs text-red-500 mb-1 ">
+                          Password must contain at least 8 characters including
+                          a digit and a special character.
                         </p>
                       )}
                     </div>
@@ -193,7 +195,9 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         className={`border--300 text--900 placeholder--700 focus:ring-500 focus:border-500 dark:text-500 dark:placeholder-500 dark:border-500 bg-white border-2 text-sm rounded-lg dark:bg-gray-700 block w-full p-2.5 focus:outline-none`}
                         placeholder="Confirm password"
                         value={passwordConfirm}
-                        onChange={(e) => {setPasswordConfirm(e.target.value);}}
+                        onChange={(e) => {
+                          setPasswordConfirm(e.target.value);
+                        }}
                       />
                     </div>
                     <button
@@ -212,7 +216,7 @@ const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
                         <circle cx="8.5" cy="7" r="4" />
                         <path d="M20 8v6M23 11h-6" />
                       </svg>
-                      <span class="ml-3 ">Sign Up</span>
+                      <span class="ml-3 " disabled={!passwordValid}>Sign Up</span>
                     </button>
                     <p className={`mt-2 text-sm text-600 dark:text-500`}>
                       You already have an account!{" "}

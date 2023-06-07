@@ -72,8 +72,8 @@ function SignIn() {
           <div></div>
           <div class="mt-12 flex flex-col items-center">
             <h1
-              class="text-2xl xl:text-3xl font-extrabold "
-              style={{ color: "#ea4d24" }}
+              class="text-2xl xl:text-3xl font-extrabold text-amber-700"
+              
             >
               Sign in your account
             </h1>
@@ -153,7 +153,7 @@ function SignIn() {
                   <Link to="/SignUp">
                     {" "}
                     <p className={`mt-2 text-sm text-600 dark:text-500`}>
-                      Don't have an account!{" "}
+                      Don't have an account! Sign up now{" "}
                     </p>{" "}
                   </Link>
                 </div>

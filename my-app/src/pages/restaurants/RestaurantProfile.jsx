@@ -464,12 +464,16 @@ const RestaurantProfile = () => {
                             <label className="text-black  dark:text-gray-400">
                               Food Type
                             </label>
-                            <input
-                              className="w-full py-3 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-amber-500 hover:shadow "
-                              type="text"
-                              value={foodType}
-                              onChange={(e) => setFoodType(e.target.value) }
-                            />
+                            <select class="w-full h-10 border border-slate-200 rounded-lg px-3 focus:outline-none focus:border-amber-500 rounded px-2 md:px-3 py-0 md:py-1 tracking-wider" id="food_type" onChange={(e) =>{ setFoodType(e.target.value)
+                            console.log(foodType)}}>
+                            <option value="none">select</option>
+                            <option value="arabian">Arabian</option>
+                            <option value="italian">Italian</option>
+                            <option value="asian">Asian</option>
+                            <option value="mexican">Mexican</option>
+                            <option value="indian">Indian</option>
+                            <option value="american">American</option>
+                           </select>
                           </div>
                           <div>
                             <label className="text-black  dark:text-gray-400">

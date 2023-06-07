@@ -5,7 +5,7 @@ import { mdiFileEdit } from "@mdi/js";
 import Pagination from "@mui/material/Pagination";
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import { mdiHumanEdit } from '@mdi/js';
 import Swal from 'sweetalert2'
 
 import { mdiShieldCrownOutline } from '@mdi/js'
@@ -16,20 +16,27 @@ const UsersInfo = () => {
   const [persons, setPersons] = useState([]);
   const [persons0, setPersons0] = useState([]);
 
+  const [searchTermUsers, setSearchTermUsers] = useState("");
+  const [FilterDataUsers, setFilterDataUsers] = useState([]);
+  const [HandleP, setHandleP] = useState();
+
   useEffect(() => {
       axios.get('http://localhost:5000/records')
       .then((response) => {
-          setPersons(response.data);
           setFilterDataUsers(response.data)
       })
       .catch((error) => console.log(error.message))
-  }, [persons]);
+  }, [HandleP]);
 
- 
+  useEffect(() => {
+    axios.get('http://localhost:5000/records')
+    .then((response) => {
+      setPersons(response.data);
+    })
+    .catch((error) => console.log(error.message))
+});
 
   //-----------------------search------------------------//
-  const [searchTermUsers, setSearchTermUsers] = useState("");
-  const [FilterDataUsers, setFilterDataUsers] = useState([]);
 
   const filterDataByNameUsers = (searchTermUsers) => {
 
@@ -132,6 +139,7 @@ if (role == "user"){
         id: typeid,           
     })
     .then(function (response) {  
+      setHandleP(HandleP+1)
     })
     .catch(function (error) {
     });
@@ -282,7 +290,12 @@ if (role == "user"){
                       role="cell"
                     >
                       <p className="text-sm font-bold text-navy-700 dark:text-white">
-                        {e.type_id == 0 ? "user" : "admin"}
+                        {e.type_id == 0 ?  <div className=" w-10 flex flex-col justify-center items-center" > <Icon path={mdiAccountOutline} size={1} />  <span>user</span> </div> : <div className=" w-10 flex flex-col justify-center items-center"> <Icon path={mdiShieldCrownOutline} size={1} />  <span>Admin</span> </div> }
+
+{/* <Icon path={mdiShieldCrownOutline} size={1} />
+<Icon path={mdiAccountOutline} size={1} /> */}
+
+
                       </p>
                     </td>
 
@@ -293,7 +306,7 @@ if (role == "user"){
                       <button onClick={() => handleUpdate(e.userid,e.type_id,e.username)}>
                         
                         
-                        {e.type_id == 0 ? <Icon color="blue" path={mdiAccountOutline} size={1} /> : <Icon color="blue" path={mdiShieldCrownOutline} size={1} />}
+                        {e.type_id == 0 ? <Icon color="blue" path={mdiHumanEdit} size={1} /> : <Icon color="blue" path={mdiHumanEdit} size={1} />}
                       </button>
                     </td>
 

@@ -1,11 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import payment from "../../images/payment.jpg";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 function PaymentPage() {
-
   // app.post('/recordpId', async function(req, res){
 
   //   try{
@@ -20,19 +19,17 @@ function PaymentPage() {
   //   }
   // });
 
-
   const [person, setPerson] = useState([]);
 
   useEffect(() => {
-      axios.get('http://localhost:5000/recordpId')
+    axios
+      .get("http://localhost:5000/recordpId")
       .then((response) => {
-          setPerson(response.data);
-          console.log(response.data)
+        setPerson(response.data);
+        console.log(response.data);
       })
-      .catch((error) => console.log(error.message))
+      .catch((error) => console.log(error.message));
   }, []);
-  
-
 
   const [username, setUserName] = useState("");
   const [cardnumber, setCardNumber] = useState("");
@@ -40,48 +37,42 @@ function PaymentPage() {
   const [cvc, setCvc] = useState("");
 
   const handlePayment = () => {
+    if (localStorage.auth != null && localStorage.auth != "") {
+      const cardNumber = document.getElementById("card-no").value;
+      const cardRegex = /^(4\d{15}|5\d{15})$/;
+      const today = new Date();
+      const currentMonth = today.getMonth() + 1;
+      const currentYear = today.getFullYear();
+      const [expirationMonth, expirationYear] = datecard.split("/");
 
-    if(localStorage.auth != null && localStorage.auth != "" ){
+      if (!username || !cardnumber || !datecard || !cvc) {
+        showAlert("Please enter all card details");
+        return;
+      }
+      if (!cardRegex.test(cardNumber)) {
+        showAlert("Invalid card number");
+        return;
+      }
 
-    
-    
-    const cardNumber = document.getElementById("card-no").value;
-    const cardRegex = /^(4\d{15}|5\d{15})$/;
-    const today = new Date();
-    const currentMonth = today.getMonth() + 1;
-    const currentYear = today.getFullYear();
-    const [expirationMonth, expirationYear] = datecard.split("/");
+      if (
+        Number(expirationYear) < currentYear ||
+        (Number(expirationYear) === currentYear &&
+          Number(expirationMonth) < currentMonth)
+      ) {
+        showAlert("Card has expired");
+        return;
+      }
 
+      const cvcRegex = /^\d{3}$/;
 
-    if (!username || !cardnumber || !datecard || !cvc) {
-      showAlert("Please enter all card details");
-      return;
+      if (!cvcRegex.test(cvc)) {
+        showAlert("Invalid CVC");
+        return;
+      }
+      submitPayment();
+    } else {
+      window.location.href = "http://localhost:3000/SignUp";
     }
-    if (!cardRegex.test(cardNumber)) {
-      showAlert("Invalid card number");
-      return;
-    }
-
-    if (
-      Number(expirationYear) < currentYear ||
-      (Number(expirationYear) === currentYear && Number(expirationMonth) < currentMonth)
-    ) {
-      showAlert("Card has expired");
-      return;
-    }
-
-    const cvcRegex = /^\d{3}$/;
-
-    if (!cvcRegex.test(cvc)) {
-      showAlert("Invalid CVC");
-      return;
-    }
-    submitPayment();
-
-
-  }else {
-    window.location.href = 'http://localhost:3000/SignUp';
-  }
   };
 
   const submitPayment = () => {
@@ -90,10 +81,9 @@ function PaymentPage() {
       cardnumber,
       datecard,
       cvc,
-      userid: person[0].userid
-
+      userid: person[0].userid,
     };
-    console.log(person[0].userid)
+    console.log(person[0].userid);
 
     axios
       .post("http://localhost:5000/payment", paymentData)
@@ -133,10 +123,7 @@ function PaymentPage() {
         <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
           <div>
             <div className="mt-12 flex flex-col items-center">
-              <h1
-                className="text-2xl xl:text-3xl font-extrabold text-amber-700"
-                
-              >
+              <h1 className="text-2xl xl:text-3xl font-extrabold text-amber-700">
                 Payment Page
               </h1>
               <div className="w-full flex-1 mt-8">
@@ -288,7 +275,7 @@ function PaymentPage() {
                     </Link>
                     <button
                       className="inline-block text-sm px-4 py-2 leading-none border rounded-lg mt-4 lg:mt-0 bg-amber-700"
-                      style={{color: "white" }}
+                      style={{ color: "white" }}
                       onClick={handlePayment}
                       type="submit"
                     >

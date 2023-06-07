@@ -147,7 +147,7 @@ function addrestaurants(){
     <button
        onClick={()=>addrestaurants()}
       type="submit"
-      className="text-white absolute right-2.5 bottom-2.5 amber-600 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      className="text-white bg-amber-700 absolute right-2.5 bottom-2.5 amber-600 rounded-lg focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >
       add Email
     </button>

@@ -1,13 +1,62 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 // import SignGoogle from './SignInWithGoogle';
 // import Facebook from './SigInWithFacebook';
 import Signup from "../../images/Signup.jpg";
+import { useGoogleLogin } from "@react-oauth/google";
 
 function SignUp() {
-  const [persons, setPersons] = useState([]);
+  // sign up with Google
+  const navigate = useNavigate("/");
+  const [user, setUser] = useState([]);
+  const [user0, setUser0] = useState([]);
+  const [profile, setProfile] = useState([]);
+  const [errorG, setErrorG] = useState("");
+
+  const login = useGoogleLogin({
+    onSuccess: (codeResponse) => setUser0(codeResponse),
+    onError: (error) => console.log("Login Failed:", error),
+  });
+
+  useEffect(() => {
+    if (user0.length !== 0) {
+      axios
+        .get(
+          `https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user0.access_token}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user.access_token}`,
+              Accept: "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          setProfile(res.data);
+          setErrorG("");
+          console.log(res.data);
+          axios
+            .post("http://localhost:5000/records", {
+              name: res.data.name,
+              phone: "",
+              email: res.data.email,
+              password: "123456",
+            })
+            .then(function (response) {
+              if (response.data != "taken") {
+                console.log(response.data);
+                navigate("/SignIn");
+              } else {
+                console.log("Email is already Used");
+                setErrorG("Email is already used, please Login");
+              }
+            })
+            .catch((err) => console.log(err.message));
+        })
+        .catch((err) => console.log(err.message));
+    }
+  }, [user0]);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -23,28 +72,25 @@ function SignUp() {
 
     if (name === "") {
       done = false;
-      setError("Please enter a  name!");
-    }
-    if (phone === "") {
+      setError("Please Enter a Name !");
+    } else if (phone === "") {
       done = false;
-      setError("Please enter a phone!");
-    }
-    if (email === "") {
+      setError("Please Enter a Phone !");
+    } else if (email === "") {
       done = false;
-      setError("Please enter an email!");
-    }
-
-    if (password === "") {
+      setError("Please Enter an Email !");
+    } else if (password === "") {
       done = false;
-      setError("Please enter a password!");
-    }
-
-    if (password !== passwordConfirm) {
+      setError("Please Enter a Password !");
+    } else if (password !== passwordConfirm) {
       done = false;
-      setError("Please enter the same password!");
+      setError("Please Enter the same Password !");
     }
 
     if (done) {
+      const data = { name, phone, email, password };
+      console.log(name, phone, email, password);
+
       axios
         .post("http://localhost:5000/records", {
           name: name,
@@ -54,11 +100,11 @@ function SignUp() {
         })
         .then(function (response) {
           if (response.data != "taken") {
-            window.location.href = "http://localhost:3000/SignIn";
+            window.location.href = "http://localhost:3000/signIn";
           } else {
             console.log(response.data);
-            alert("this email is already taken");
-            setError("this email is already taken");
+            alert("This Email is already taken");
+            setError("This Email is already taken");
           }
         })
         .catch(function (error) {});
@@ -70,10 +116,9 @@ function SignUp() {
       setPasswordConfirm("");
     }
   };
-  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+  // const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
   const [showRegex, setShowRegex] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
-
   return (
     <>
       <div class="min-h-screen bg-gray-100 text-gray-900 flex justify-center">
@@ -85,14 +130,51 @@ function SignUp() {
           <div class="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 sm:w-10/12">
             <div></div>
             <div class="mt-12 flex flex-col items-center ">
-              <h1 class="text-2xl xl:text-3xl font-extrabold text-amber-700 ">
+              <h1 class="text-2xl xl:text-3xl font-extrabold text-amber-500 ">
                 Sign Up to Join Us!
               </h1>
               <div class="w-full flex-1 mt-8">
                 <div class="flex flex-col items-center">
-                  {/* <SignGoogle massage={"Sign in with Google"} />
-
-          <Facebook massage={"Sign in with Facebook"} /> */}
+                  <button
+                    className="bg-black p-2 rounded-lg text-white hover:text-black hover:bg-amber-500"
+                    onClick={() => login()}
+                  >
+                    Sign Up with Google
+                    <svg
+                      className="inline ms-2"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      data-name="Layer 1"
+                      viewBox="0 0 35 35"
+                      id="gmail"
+                    >
+                      <path
+                        fill="#ea4435"
+                        d="M16.58,19.1068l-12.69-8.0757A3,3,0,0,1,7.1109,5.97l9.31,5.9243L24.78,6.0428A3,3,0,0,1,28.22,10.9579Z"
+                      ></path>
+                      <path
+                        fill="#00ac47"
+                        d="M25.5,5.5h4a0,0,0,0,1,0,0v18a3,3,0,0,1-3,3h0a3,3,0,0,1-3-3V7.5a2,2,0,0,1,2-2Z"
+                        transform="rotate(180 26.5 16)"
+                      ></path>
+                      <path
+                        fill="#ffba00"
+                        d="M29.4562,8.0656c-.0088-.06-.0081-.1213-.0206-.1812-.0192-.0918-.0549-.1766-.0823-.2652a2.9312,2.9312,0,0,0-.0958-.2993c-.02-.0475-.0508-.0892-.0735-.1354A2.9838,2.9838,0,0,0,28.9686,6.8c-.04-.0581-.09-.1076-.1342-.1626a3.0282,3.0282,0,0,0-.2455-.2849c-.0665-.0647-.1423-.1188-.2146-.1771a3.02,3.02,0,0,0-.24-.1857c-.0793-.0518-.1661-.0917-.25-.1359-.0884-.0461-.175-.0963-.267-.1331-.0889-.0358-.1837-.0586-.2766-.0859s-.1853-.06-.2807-.0777a3.0543,3.0543,0,0,0-.357-.036c-.0759-.0053-.1511-.0186-.2273-.018a2.9778,2.9778,0,0,0-.4219.0425c-.0563.0084-.113.0077-.1689.0193a33.211,33.211,0,0,0-.5645.178c-.0515.022-.0966.0547-.1465.0795A2.901,2.901,0,0,0,23.5,8.5v5.762l4.72-3.3043a2.8878,2.8878,0,0,0,1.2359-2.8923Z"
+                      ></path>
+                      <path
+                        fill="#4285f4"
+                        d="M5.5,5.5h0a3,3,0,0,1,3,3v18a0,0,0,0,1,0,0h-4a2,2,0,0,1-2-2V8.5a3,3,0,0,1,3-3Z"
+                      ></path>
+                      <path
+                        fill="#c52528"
+                        d="M2.5439,8.0656c.0088-.06.0081-.1213.0206-.1812.0192-.0918.0549-.1766.0823-.2652A2.9312,2.9312,0,0,1,2.7426,7.32c.02-.0475.0508-.0892.0736-.1354A2.9719,2.9719,0,0,1,3.0316,6.8c.04-.0581.09-.1076.1342-.1626a3.0272,3.0272,0,0,1,.2454-.2849c.0665-.0647.1423-.1188.2147-.1771a3.0005,3.0005,0,0,1,.24-.1857c.0793-.0518.1661-.0917.25-.1359A2.9747,2.9747,0,0,1,4.3829,5.72c.089-.0358.1838-.0586.2766-.0859s.1853-.06.2807-.0777a3.0565,3.0565,0,0,1,.357-.036c.076-.0053.1511-.0186.2273-.018a2.9763,2.9763,0,0,1,.4219.0425c.0563.0084.113.0077.169.0193a2.9056,2.9056,0,0,1,.286.0888,2.9157,2.9157,0,0,1,.2785.0892c.0514.022.0965.0547.1465.0795a2.9745,2.9745,0,0,1,.3742.21A2.9943,2.9943,0,0,1,8.5,8.5v5.762L3.78,10.9579A2.8891,2.8891,0,0,1,2.5439,8.0656Z"
+                      ></path>
+                    </svg>{" "}
+                  </button>
+                  <h4 className="text-red-800 text-sm font-light m-1">
+                    {errorG}
+                  </h4>
                 </div>
 
                 <div class="my-12 border-b text-center">
@@ -117,6 +199,7 @@ function SignUp() {
                         value={name}
                         onChange={(e) => {
                           setName(e.target.value);
+                          setError("");
                         }}
                       />
                     </div>
@@ -135,6 +218,7 @@ function SignUp() {
                         value={phone}
                         onChange={(e) => {
                           setPhone(e.target.value);
+                          setError("");
                         }}
                       />
                     </div>
@@ -153,6 +237,7 @@ function SignUp() {
                         value={email}
                         onChange={(e) => {
                           setEmail(e.target.value);
+                          setError("");
                         }}
                       />
                     </div>
@@ -172,7 +257,11 @@ function SignUp() {
                         onChange={(e) => {
                           setPassword(e.target.value);
                           setShowRegex(e.target === document.activeElement);
-                          setPasswordValid(/^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/.test(e.target.value));
+                          setPasswordValid(
+                            /^(?=.\d)(?=.[!@#$%^&])(?=.[a-z])(?=.*[A-Z]).{8,}$/.test(
+                              e.target.value
+                            )
+                          );
                         }}
                       />
                       {showRegex && !passwordValid && (
@@ -197,12 +286,14 @@ function SignUp() {
                         value={passwordConfirm}
                         onChange={(e) => {
                           setPasswordConfirm(e.target.value);
+                          setError("");
                         }}
                       />
                     </div>
+                    <span className="text-red-500 text-sm mt-6">{error}</span>
                     <button
                       type="submit"
-                      class="mt-5 tracking-wide font-semibold bg-orange-600 text-lime-950 w-full py-4 rounded-lg hover:text-lime-950 hover:bg-yellow-600 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                      class="mt-5 tracking-wide font-semibold bg-amber-500 text-black w-full py-4 rounded-lg hover:text-white hover:bg-amber-600 transition-bg duration-500 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
                     >
                       <svg
                         class="w-6 h-6 -ml-2"
@@ -216,13 +307,13 @@ function SignUp() {
                         <circle cx="8.5" cy="7" r="4" />
                         <path d="M20 8v6M23 11h-6" />
                       </svg>
-                      <span class="ml-3 " disabled={!passwordValid}>Sign Up</span>
+                      <span class="ml-3 ">Sign Up</span>
                     </button>
-                    <p className={`mt-2 text-sm text-600 dark:text-500`}>
+                    <p className={`mt-2 text-sm text-red-700 dark:text-500`}>
                       You already have an account!{" "}
                       <Link
                         to="/signIn"
-                        className={`font-bold text-300 transition hover:text-500/75`}
+                        className={`font-bold text-black transition hover:text-500/75`}
                       >
                         Sign In
                       </Link>

@@ -179,7 +179,7 @@ function About() {
         className="bg-white text-black overflow-hidden pt-20 pb-12 lg:pt-[120px] lg:pb-[90px]"
       >
         <div className="container mx-auto">
-          <div className="-mx-4 flex flex-wrap items-center justify-between">
+        <div className="-mx-7 flex flex-wrap items-center">
             <div className="w-full px-4 lg:w-6/12">
               <div className="-mx-3 flex items-center sm:-mx-4" style={{ marginRight: "55px", marginLeft: "70px" }}>
                 <div className="w-full px-3 sm:px-4 xl:w-1/2">

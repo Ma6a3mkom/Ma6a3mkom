@@ -1,46 +1,73 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 const EditAboutContact = () => {
   const [about, setabout] = useState([]);
+  const [about_title, setAbout_title] = useState([]);
+  const [about_us, setAbout_us] = useState([]);
+
 // const requestData = {
 //   about_title: about[0].about_title , 
 //   about_us: about[0].about,
-
 // };
   useEffect(() => {
       axios.get('http://localhost:5000/aboutus')
       .then((response) => {
         setabout(response.data);
          console.log(response.data)
+         setAbout_title(response.data.about_title)
+          setAbout_us(response.data.about_us)
       })
       .catch((error) => console.log(error.message))
   }, []);
 
  
 
-  const [about_title, setAbout_title] = useState([]);
-  const [about_us, setAbout_us] = useState([]);
 
 
 
   function hndelAboutUs(e){
     e.preventDefault()
 
+    Swal.fire({
+      title: "Are you sure",
+      showConfirmButton: true,
+      showCancelButton: true,
+      confirmButtonText: "OK",
+      confirmButtonColor: "orange",
+      cancelButtonText: "Cancel",
+      cancelButtonColor: "orange",
+      icon: 'warning'
+  }
+  ).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
    
+  
+        axios.put('http://localhost:5000/contactus00/0', {
+          about_title: about_title,
+          about_us: about_us,
+        })
+          .then(function (response) {
+            console.log(response);
+            // window.location.reload(false);
+    
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
-    axios.put('http://localhost:5000/contactus00/0', {
-      about_title: about_title,
-      about_us: about_us,
-    })
-      .then(function (response) {
-        console.log(response);
-        // window.location.reload(false);
 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+          Swal.fire("The about us has been updated successfully", '', 'success');
+       
+          // window.location.reload();
+      } else
+          Swal.fire(' Cancelled', '', 'error')
+  
+  })
+
+
 
   }
 

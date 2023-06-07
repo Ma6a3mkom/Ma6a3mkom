@@ -347,9 +347,9 @@ const handleUpdate = (table_id,e,i) => {
               );
             })}
           </table>
-        </div>
-      </div>
-      <div className="flex w-full justify-center mt-5 bg-white">
+
+
+          <div className="flex w-full justify-center mt-5 bg-white">
         {
           <Pagination
             count={totalPagesUsers}
@@ -358,6 +358,9 @@ const handleUpdate = (table_id,e,i) => {
           />
         }
       </div>
+        </div>
+      </div>
+ 
     </>
     
    

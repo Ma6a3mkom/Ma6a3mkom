@@ -183,7 +183,7 @@ const RestaurantProfile = () => {
 
       <aside
         id="default-sidebar"
-        className="fixed top-20 left-0 z-40 w-64 bg-gray-950 h-screen transition-transform -translate-x-full sm:translate-x-0"
+        className="fixed top-18 left-0 z-40 w-64 bg-gray-950 h-screen transition-transform -translate-x-full sm:translate-x-0"
         aria-label="Sidebar"
       >
         <div

@@ -615,6 +615,49 @@ app.post("/payment", async function (req, res) {
   }
 });
 
+
+app.get("/paymentData", async (req, res) => {
+  try {
+    const paymentData = await pool.query(
+      "SELECT * FROM payment "
+    );
+
+    res.json(paymentData.rowCount);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+
+app.get("/ordersData", async (req, res) => {
+  try {
+    const ordersData = await pool.query(
+      "SELECT * FROM orders "
+    );
+
+    res.json(ordersData.rows);
+  } catch (err) {
+    console.log(err.message);
+  }
+});
+
+app.get("/restaurantTables", async (req, res) => {
+  try {
+    const restaurantTablesData = await pool.query(
+      "SELECT * FROM res_table "
+    );
+    const pendingTablesData = await pool.query(
+      "SELECT * FROM res_table WHERE flags = 0 "
+    );
+ const restaurantTables =restaurantTablesData.rows
+ const pendingTables =pendingTablesData.rows
+    res.json({restaurantTables,
+      pendingTables
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+});
 // ------------------farah ------------------------//
 
 // get user data

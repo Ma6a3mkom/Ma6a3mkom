@@ -85,7 +85,7 @@ const navListMenuItems = [
   },
 ];
 
-function NavListMenu() {
+function NavListMenu1() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
 
@@ -135,12 +135,12 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/">
+        {/* <Link to="/">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
             <HomeIcon className="h-[18px] w-[18px] text-amber-600" />
             Home
           </ListItem>
-        </Link>
+        </Link> */}
       </Typography>
       <Typography
         as="a"
@@ -149,12 +149,12 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/ServicePageAll">
+        {/* <Link to="/ServicePageAll">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
             <RestaurantIcon style={{ height: "18px", color: "#eab308" }} />
             Restaurants
           </ListItem>
-        </Link>
+        </Link> */}
       </Typography>
       <Typography
         as="a"
@@ -163,14 +163,14 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/About">
+        {/* <Link to="/About">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
             <CubeTransparentIcon className="h-[18px] w-[18px] text-amber-600" />
             About Us
           </ListItem>
-        </Link>
+        </Link> */}
       </Typography>
-      <NavListMenu />
+      <NavListMenu1 />
       <Typography
         as="a"
         href="#"
@@ -178,12 +178,12 @@ function NavList() {
         color="blue-gray"
         className="font-normal"
       >
-        <Link to="/ContactUs">
+        {/* <Link to="/ContactUs">
           <ListItem className="flex items-center gap-2 py-2 pr-4 text-white hover:bg-black hover:text-white focus:bg-amber-600">
             <UserCircleIcon className="h-[18px] w-[18px] text-amber-600" />
             Contact Us
           </ListItem>
-        </Link>
+        </Link> */}
       </Typography>
     </List>
   );
@@ -236,10 +236,10 @@ export default function Example() {
   }, []);
 
   const profileMenuItems = [
-    {
-      label: "Profile",
-      icon: LifebuoyIcon,
-    },
+    // {
+    //   label: "Profile",
+    //   icon: LifebuoyIcon,
+    // },
     {
       label: "Sign Out",
       icon: PowerIcon,

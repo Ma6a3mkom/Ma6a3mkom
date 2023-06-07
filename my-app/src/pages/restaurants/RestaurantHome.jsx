@@ -268,11 +268,11 @@ const RestaurantHome = () => {
         </div>
         <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-black sm:text-6xl">
               Increase Your Customers:
               <span className="text-amber-600"> Add Tables</span>
             </h1>
-            <h2 className="mt-6 text-lg leading-8 text-white">
+            <h2 className="mt-6 text-lg leading-8 text-black">
               Add your services and make people come to you.
             </h2>
             <div className="mt-10 flex items-center justify-center gap-x-6">

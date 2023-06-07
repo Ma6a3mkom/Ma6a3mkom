@@ -19,7 +19,7 @@ import EditProfile from './pages/user/EditProfile';
 //------------------------ Restaurants----------------------------//
 import RestaurantProfile from './pages/restaurants/RestaurantProfile';
 import RestaurantHome from './pages/restaurants/RestaurantHome';
-
+import NavListMenu1 from "./components/user/NavListMenu1"
 
 
 
@@ -116,7 +116,7 @@ useEffect(() => {
       <Router>
         <Sidebar />
        <div style={{width:"100%"}}>
-       {/* <NavListMenuD/> */}
+       <NavListMenuD/>
         <Routes>        
         <Route index element={<MainDashboard />} />
         <Route path="ListUser" element={<ListUser />} />
@@ -136,7 +136,7 @@ useEffect(() => {
     return (
       
       <Router>
-       <NavListMenu />
+       <NavListMenu1 />
         <Routes>
              <Route index element={<RestaurantHome />} />
              <Route path="profile/:id" element={<RestaurantProfile />} />

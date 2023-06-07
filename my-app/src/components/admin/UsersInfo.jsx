@@ -76,7 +76,7 @@ const UsersInfo = () => {
 
 
     Swal.fire({
-      title: ` do you want to remove ${name}?  `,
+      title: `Do you want to remove ${name}?  `,
       showConfirmButton: true,
       showCancelButton: true,
       confirmButtonText: "OK",
@@ -115,12 +115,12 @@ const handleUpdate = (userid,typeid,name) => {
  let text2 =""
 if (role == "user"){
 
-  text1 = `do you want to switch ${name} to admin `
+  text1 = `Do you want to switch ${name} to admin `
   text2 = ` ${name} is now an admin `
 
 }else{
 
-  text1 = `do you want to switch ${name} to user `
+  text1 = `Do you want to switch ${name} to user `
   text2 = ` ${name} is now a user `
 
 }
@@ -323,9 +323,9 @@ if (role == "user"){
               );
             })}
           </table>
-        </div>
 
-        <div className="flex w-full justify-center mt-5">
+
+          <div className="flex w-full justify-center mt-5">
         {
           <Pagination
             count={totalPagesUsers}
@@ -334,6 +334,11 @@ if (role == "user"){
           />
         }
       </div>
+
+
+
+        </div>
+
 
       </div>
   

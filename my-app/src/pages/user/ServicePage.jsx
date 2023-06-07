@@ -70,29 +70,42 @@ function ServicePage({ setCurrentTable }) {
   return (
     <>
 
-      <div className="relative">
-        <img
-          src="https://one-sourceconstruction.com/site/wp-content/uploads/c9.jpg"
-          className="absolute inset-0 object-cover w-full h-full"
-          alt=""
-        />
-        <div className="relative bg-gray-900 bg-opacity-70">
-          <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
-            <div className="flex flex-col items-center justify-between xl:flex-row">
-              <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
-                <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-4xl sm:leading-none ">
-                  Restaurant table reservation services{" "}
-                  <br className="hidden md:block" />
-                </h2>
-                <p className="max-w-xl mb-4 text-base text-gray-400 md:text-lg">
-                  Diversity between different restaurants and differ in the
-                  advantages and services they offer.
-                </p>
-                <button className="buttonNav border-none bg-transparent px-8 py-3 text-black mr-4">
-                  <Link to="/Details"></Link>
-                </button>
-              </div>
-            </div>
+<div
+        className="bg-cover bg-center h-screen shadow"
+        style={{
+          backgroundImage:
+            'url("https://zipinventory.com/assets/images/collections/10-restaurant-service-models-1607720498-5934-800-e549f94cb.webp")',
+          height: "400px", marginBottom: "50px"
+        }}
+      >
+        <div className="flex items-center justify-center h-full bg-black bg-opacity-50">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-white mb-4">Restaurants</h1>
+
+            <nav className="text-white mb-8">
+              <ol className="list-none p-0 inline-flex">
+                <li className="flex items-center">
+                  <Link to="/" className="text-amber-500">
+                    Home
+                  </Link>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mx-2"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </li>
+                <li>Restaurants</li>
+              </ol>
+            </nav>
           </div>
         </div>
       </div>
@@ -100,7 +113,7 @@ function ServicePage({ setCurrentTable }) {
 
 
       <div className="flex justify-center mt-5 mb-5">
-        <div className="w-full md:w-2/3 shadow-lg p-5 rounded-lg bg-white border-solid border-2 border-[#0e0d0d] transform transition duration-300 hover:scale-105">
+        <div className="w-full md:w-10/12 shadow shadow-black p-5 rounded-lg bg-white border-solid border-2  transform transition duration-300 ">
           <div className="flex justify-between items-center">
             <label className="text-lg font-medium mr-2">Find Restaurant by Address</label>
             <select
@@ -142,7 +155,7 @@ function ServicePage({ setCurrentTable }) {
               className="flex flex-col shadow-lg rounded-lg overflow-hidden h-[fit-content] w-[fit-content] bg-white p-4 transform transition duration-300 hover:scale-105"
               style={{ boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}
             >
-              <img
+              <img 
                 src={restaurant.img}
                 alt={restaurant.restaurant_name}
                 className="w-full h-56 object-cover"
@@ -151,7 +164,7 @@ function ServicePage({ setCurrentTable }) {
                 <strong>  <h2 className="text-lg font-large font-bold text-gray-800">
                   {restaurant.restaurant_name}
                 </h2></strong>
-                <p className="text-gray-500 mt-4 mb-3 flex items-center">
+                <p className="text-gray-500 mt-4 mb-3 flex items-center w-96">
                   <FaBook className="mr-2" />
                   {restaurant.des}
                 </p>
@@ -176,7 +189,7 @@ function ServicePage({ setCurrentTable }) {
       </div>
 
 
-      <div className="flex justify-center mb-5 bg-white">
+      { restaurants.length >=6  && <div className="flex justify-center mb-5 bg-[#f8f8f8]">
         <Pagination
           count={Math.ceil(restaurants.length / itemsPerPage)}
           page={currentPageUsers}
@@ -184,7 +197,7 @@ function ServicePage({ setCurrentTable }) {
           color="primary"
           size="large"
         />
-      </div>
+      </div>}
     </>
   );
 };

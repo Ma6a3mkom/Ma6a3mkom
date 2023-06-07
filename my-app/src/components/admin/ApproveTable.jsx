@@ -71,7 +71,7 @@ const ApproveTable = () => {
 
 
         Swal.fire({
-          title: ` do you want to remove ${name}?  `,
+          title: ` Do you want to remove ${name}?  `,
           showConfirmButton: true,
           showCancelButton: true,
           confirmButtonText: "OK",
@@ -221,7 +221,7 @@ function addrestaurants(){
             <p className="text-xs tracking-wide text-gray-600">LOCATION</p>
           </th>
 
-          <th
+          {/* <th
             colSpan={1}
             role="columnheader"
             title="Toggle SortBy"
@@ -229,7 +229,7 @@ function addrestaurants(){
             style={{ cursor: "pointer" }}
           >
             <p className="text-xs tracking-wide text-gray-600">EDIT</p>
-          </th>
+          </th> */}
 
           <th
             colSpan={1}
@@ -293,11 +293,11 @@ return(
             </p>
           </td>
 
-          <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
+          {/* <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
                      <button>
                      <Icon color="blue" path={mdiFileEdit} size={1} />
                     </button>
-          </td>
+          </td> */}
 
 
           <td className="pt-[14px] pb-[18px] sm:text-[14px]" role="cell">
@@ -325,9 +325,8 @@ return(
 
         
     </table>
-  </div>
 
-  <div className='flex w-full justify-center mt-5'>   
+    <div className='flex w-full justify-center mt-5'>   
     {(
         <Pagination
           count={totalPagesRestaurants}
@@ -336,6 +335,9 @@ return(
         />
       )}
     </div> 
+  </div>
+
+
 </div>
 
 

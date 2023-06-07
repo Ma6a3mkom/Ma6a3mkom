@@ -132,7 +132,7 @@ function handleLogOut(){
           </ListItem>
           </Link>
 
-
+{/* 
          <Link to="UserProfile">
           <ListItem>
             <ListItemPrefix>
@@ -140,7 +140,7 @@ function handleLogOut(){
             </ListItemPrefix>
             <a style={{color:'white'}}> Profile </a>
           </ListItem>
-          </Link>
+          </Link> */}
 
           {/* <Link to="/">
           <ListItem>

@@ -223,7 +223,7 @@ app.post("/restaurants", async function (req, res) {
 
     // res.json(all_records.rows);
 
-    const restaurant_name = email;
+    const restaurant_name = "";
     const contact_number = "";
     const user_id = generatedId;
     const all_records0 = await pool.query(

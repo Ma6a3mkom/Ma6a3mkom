@@ -59,7 +59,7 @@ function Home() {
       <section className="bg-white dark:bg-gray-900 shadow-lg">
         <div className="gap-16 items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
           <div className="font-light text-gray-500 sm:text-lg dark:text-gray-400">
-            <h2 className="mb-2 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
+            <h2 className="mb-2  text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
               Effortless reservations at favorite restaurants
             </h2>
             <br />
@@ -83,7 +83,7 @@ function Home() {
       </section>
 
 
-      <div className="bg-white mt-10 shadow-lg">
+      <div className="bg-white mt-3 shadow-lg">
         <section id="food">
           <br />
           <h2 className=" text-4xl mb-8 tracking-tight font-extrabold text-black  text-center capitalize">
